@@ -1,9 +1,10 @@
 import numpy as np
 import random
+import logging
 
 class ReplayMemory:
-  def __init__(size = 1000000, history_length = 4, screen_dims = (84,84)):
-    self.actions = np.empty(size)
+  def __init__(self, size = 1000000, history_length = 4, screen_dims = (84,84)):
+    self.actions = np.empty(size, dtype = np.integer)
     self.rewards = np.empty(size)
     self.screens = np.empty((size,) + screen_dims)
     self.terminals = np.empty(size)
@@ -21,28 +22,33 @@ class ReplayMemory:
     self.terminals[self.current] = terminal
     self.current = (self.current + 1) % self.size
     self.count = max(self.count, self.current)
+    logging.debug("Memory count %d" % self.count)
+
   
   def getState(self, index):
     # normalize index to expected range, allows negative indexes
     index = index % self.count
     # if is not in the beginning of matrix
-    if self.index >= history - 1:
+    if index >= self.history - 1:
       # use faster slicing
-      return self.screens[index - (self.history - 1):index, ...]
-    else
+      return self.screens[index - (self.history - 1):(index + 1), ...]
+    else:
       # otherwise normalize indexes and use slower list based access
-      indexes = [(index - i) % self.count for i in reversed(range(history))]
+      indexes = [(index - i) % self.count for i in reversed(range(self.history))]
       return self.screens[indexes, ...]
 
   def getCurrentState(self):
-    return getState(self.current - 1)
+    return self.getState(self.current - 1)
 
   def getMinibatch(self, batch_size):
     # sample random indexes
     indexes = random.sample(xrange(self.count), batch_size)
-    prestates = np.ndarray([ self.getState(i - 1) for i in indexes ])
+    prestates = np.empty((self.history,) + self.dims + (batch_size,))
+    poststates = np.empty((self.history,) + self.dims + (batch_size,))
+    for i,j in enumerate(indexes):
+      prestates[..., i] = self.getState(j - 1)
+      poststates[..., i] = self.getState(j)
     actions = self.actions[indexes]
     rewards = self.rewards[indexes]
-    poststates = np.ndarray([ self.getState(i) for i in indexes ])
     terminals = self.terminals[indexes]
     return prestates, actions, rewards, poststates, terminals

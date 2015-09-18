@@ -21,9 +21,9 @@ class Environment:
 
     self.ale.loadROM(rom_file)
     if minimal_action_set:
-      self.actions = ale.getMinimalActionSet()
+      self.actions = self.ale.getMinimalActionSet()
     else:
-      self.actions = ale.getLegalActionSet()
+      self.actions = self.ale.getLegalActionSet()
 
     self.dims = dims
 
