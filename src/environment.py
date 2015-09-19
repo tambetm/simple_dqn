@@ -1,6 +1,8 @@
 import sys
 from ale_python_interface import ALEInterface
 import cv2
+import logging
+logger = logging.getLogger(__name__)
 
 class Environment:
   def __init__(self, rom_file, dims=(84,84), minimal_action_set=False, display_screen=False, frame_skip=4, random_seed=None):
@@ -22,6 +24,7 @@ class Environment:
     self.ale.loadROM(rom_file)
     if minimal_action_set:
       self.actions = self.ale.getMinimalActionSet()
+      logger.info("Using minimal action set")
     else:
       self.actions = self.ale.getLegalActionSet()
 

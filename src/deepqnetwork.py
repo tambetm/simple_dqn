@@ -36,6 +36,8 @@ class DeepQNetwork:
     self.num_actions = num_actions
     self.batch_size = batch_size
     self.discount_rate = discount_rate
+    self.history_length = history_length
+    self.screen_dim = screen_dim
 
     # prepare tensors once and reuse them
     self.input_shape = (history_length,) + screen_dim + (batch_size,)
@@ -52,34 +54,47 @@ class DeepQNetwork:
     assert len(rewards.shape) == 1
     assert len(terminals.shape) == 1
     assert prestates.shape == poststates.shape
-    assert prestates.shape[3] == actions.shape[0] == rewards.shape[0] == poststates.shape[3] == terminals.shape[0]
+    assert prestates.shape[0] == actions.shape[0] == rewards.shape[0] == poststates.shape[0] == terminals.shape[0]
+
     # feed-forward pass for poststates to get Q-values
-    self.tensor.set(poststates)
+    # change order of axes to match what Neon expects
+    # copy() shouldn't be necessary here, but Neon doesn't work on views
+    self.tensor.set(np.transpose(poststates, axes = (1, 2, 3, 0)).copy())
     postq = self.model.fprop(self.tensor, inference = True)
     assert postq.shape == (self.num_actions, self.batch_size)
+
     # calculate max Q-value for each poststate
     maxpostq = self.be.max(postq, axis=0).asnumpyarray()
     assert maxpostq.shape == (1, self.batch_size)
+
     # feed-forward pass for prestates
-    self.tensor.set(prestates)
+    # change order of axes to match what Neon expects
+    # copy() shouldn't be necessary here, but Neon doesn't work on views
+    self.tensor.set(np.transpose(prestates, axes = (1, 2, 3, 0)).copy())
     preq = self.model.fprop(self.tensor, inference = False)
     assert preq.shape == (self.num_actions, self.batch_size)
+
     # make copy of Q-values as targets
     self.targets.copy(preq)
+
     # update Q-value targets for actions taken
     for i, action in enumerate(actions):
       if terminals[i]:
         self.targets[action, i] = rewards[i]
       else:
         self.targets[action, i] = rewards[i] + self.discount_rate * maxpostq[0,i]
+
     # calculate errors
     deltas = self.cost.get_errors(preq, self.targets)
+
     # perform back-propagation of gradients
     self.model.bprop(deltas)
+
     # perform optimization
     self.optimizer.optimize(self.layers_to_optimize, epoch)
 
   def predict(self, state):
+    assert state.shape == ((self.history_length,) + self.screen_dim)
     self.tensor.set(np.resize(state, self.input_shape))
     qvalues = self.model.fprop(self.tensor, inference = True)
     return qvalues.asnumpyarray()[:,0]

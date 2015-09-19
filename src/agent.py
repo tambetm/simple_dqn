@@ -7,6 +7,7 @@ import argparse
 import logging
 import time
 import sys
+logger = logging.getLogger(__name__)
 
 class Agent:
   def __init__(self, environment, replay_memory, deep_q_network, 
@@ -22,30 +23,37 @@ class Agent:
     self.learn_start_steps = learn_start_steps
     self.total_train_steps = 0
 
+  def exploration_rate(self):
+    # calculate decaying exploration rate
+    if self.total_train_steps < self.exploration_steps:
+      return self.exploration_start - self.total_train_steps * (self.exploration_start - self.exploration_end) / self.exploration_steps
+    else:
+      return self.exploration_end
+
   def step(self, exploration_rate):
-    logging.debug("Exploration rate %f" % exploration_rate)
+    logger.debug("Exploration rate %f" % exploration_rate)
     # exploration rate determines the probability of random moves
     if random.random() < exploration_rate:
       action = random.randint(0, self.num_actions - 1)
-      logging.debug("Random action = %d" % action)
+      logger.debug("Random action = %d" % action)
     else:
       # otherwise choose action with highest Q-value
       state = self.mem.getCurrentState()
       qvalues = self.net.predict(state)
       action = np.argmax(qvalues)
-      logging.debug("Predicted action = %d" % action)
+      logger.debug("Predicted action = %d" % action)
     # perform the action
     reward, screen, terminal = self.env.act(action)
     # print reward
     if reward <> 0:
-      logging.debug("Reward: %d" % reward)
+      logger.debug("Reward: %d" % reward)
       self.game_reward += reward
     # add transition to the memory (otherwise we wouldn't have current state)
     self.mem.add(action, reward, screen, terminal)
     # restart the game if over
     if terminal:
       self.env.restart()
-      logging.debug("Game over, restarting")
+      logger.debug("Game over, restarting")
       # collect statistics
       self.games += 1
       self.rewards.append(self.game_reward)
@@ -58,7 +66,7 @@ class Agent:
       # if memory contains enough transitions
       if self.mem.count > self.learn_start_steps:
         # sample minibatch
-        minibatch = self.mem.getMinibatch(self.net.batch_size)
+        minibatch = self.mem.getMinibatch()
         # train the network
         self.net.train(minibatch, epoch)
         # increase number of training steps
@@ -69,13 +77,6 @@ class Agent:
       # perform game step
       self.step(exploration_rate)
 
-  def exploration_rate(self):
-    # calculate decaying exploration rate
-    if self.total_train_steps < self.exploration_steps:
-      return self.exploration_start - self.total_train_steps * (self.exploration_start - self.exploration_end) / self.exploration_steps
-    else:
-      return self.exploration_end
-
   def reset_stats(self):
     self.game_reward = 0
     self.games = 0
@@ -83,12 +84,12 @@ class Agent:
     self.time = time.time()
 
   def print_stats(self, phase):
-    logging.info("%s - games: %d, average_reward: %f, total_train_steps: %d, exploration_rate: %f, time_elapsed: %d" % 
-        (phase, self.games, np.mean(self.rewards), self.total_train_steps, self.exploration_rate(), time.time() - self.time))
+    logger.info("%s - games: %d, average_reward: %f, replay_memory_size: %d, total_train_steps: %d, exploration_rate: %f, time_elapsed: %d" % 
+        (phase, self.games, np.mean(self.rewards), self.mem.count, self.total_train_steps, self.exploration_rate(), time.time() - self.time))
     
   def main(self):
     for epoch in xrange(args.epochs):
-      logging.info("Epoch %d" % (epoch + 1))
+      logger.info("Epoch %d" % (epoch + 1))
       
       self.reset_stats()
       agent.train(args.train_steps, epoch)
@@ -117,7 +118,7 @@ if __name__ == "__main__":
   netarg.add_argument("--discount", type=float, default=0.99, help="Discount rate for future rewards.")
   netarg.add_argument("--batch_size", type=int, default=32, help="Batch size for neural network.")
   #netarg.add_argument("--rescale_r", action="store_true", help="Rescale rewards.")
-  #bufferSize=512,valid_size=500,target_q=10000,clip_delta=1,min_reward=-1,max_reward=1
+  #missing: bufferSize=512,valid_size=500,target_q=10000,clip_delta=1,min_reward=-1,max_reward=1
   netarg.add_argument('--backend', choices=['cpu', 'gpu'], default='gpu', help='backend type')
   netarg.add_argument('--device_id', type=int, default=0, help='gpu device id (only used with GPU backend)')
   netarg.add_argument('--datatype', choices=['float16', 'float32', 'float64'], default='float32', help='default floating point precision for backend [f64 for cpu only]')
@@ -140,19 +141,39 @@ if __name__ == "__main__":
 
   comarg = parser.add_argument_group('Common')
   comarg.add_argument("--random_seed", type=int, help="Random seed for repeatable experiments.")
-  comarg.add_argument("--log_level", type=int, choices=[logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR, logging.CRITICAL], default=logging.INFO, help="Log level.")
+  comarg.add_argument("--log_level", choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"], default="INFO", help="Log level.")
   args = parser.parse_args()
 
   if args.random_seed:
     random.seed(args.random_seed)
 
-  logger = logging.getLogger()
   logger.setLevel(args.log_level)
 
-  env = Environment(args.rom_file, dims = (args.resize_height, args.resize_width), frame_skip = args.frame_skip, random_seed = args.random_seed)
-  mem = ReplayMemory(args.replay_memory, history_length = args.history_length, screen_dims=(args.resize_height, args.resize_width))
-  net = DeepQNetwork(env.numActions(), learning_rate = args.lr, discount_rate = args.discount, batch_size = args.batch_size,
-      backend = args.backend, random_seed = args.random_seed, device_id = args.device_id, datatype = args.datatype, stochastic_round = args.rounding)
-  agent = Agent(env, mem, net, learn_start_steps = args.learn_start, 
-      exploration_start = args.exploration_start, exploration_end = args.exploration_end, exploration_steps = args.exploration_steps)
+  env = Environment(args.rom_file, 
+      dims = (args.resize_height, args.resize_width), 
+      frame_skip = args.frame_skip, 
+      random_seed = args.random_seed)
+
+  mem = ReplayMemory(args.replay_memory, 
+      history_length = args.history_length, 
+      screen_dims = (args.resize_height, args.resize_width),
+      batch_size = args.batch_size)
+
+  net = DeepQNetwork(env.numActions(), 
+      learning_rate = args.lr, 
+      discount_rate = args.discount, 
+      batch_size = args.batch_size,
+      # Neon options
+      backend = args.backend, 
+      random_seed = args.random_seed, 
+      device_id = args.device_id, 
+      datatype = args.datatype, 
+      stochastic_round = args.rounding)
+
+  agent = Agent(env, mem, net, 
+      learn_start_steps = args.learn_start, 
+      exploration_start = args.exploration_start, 
+      exploration_end = args.exploration_end, 
+      exploration_steps = args.exploration_steps)
+
   agent.main()
