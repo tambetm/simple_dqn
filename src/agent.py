@@ -30,13 +30,12 @@ class Agent:
   def step(self, exploration_rate):
     # exploration rate determines the probability of random moves
     if random.random() < exploration_rate:
-      action = random.randint(0, self.num_actions - 1)
+      action = random.randrange(self.num_actions)
       logger.debug("Random action = %d" % action)
     else:
       # otherwise choose action with highest Q-value
       state = self.mem.getCurrentState()
-      qvalues = self.net.predict(state)
-      action = np.argmax(qvalues)
+      action = self.net.predict(state)
       logger.debug("Predicted action = %d" % action)
 
     # perform the action

@@ -65,6 +65,7 @@ class DeepQNetwork:
     # change order of axes to match what Neon expects
     # copy() shouldn't be necessary here, but Neon doesn't work on views
     self.tensor.set(np.transpose(poststates, axes = (1, 2, 3, 0)).copy())
+    self.be.divide(self.tensor, 255, self.tensor)
     postq = self.model.fprop(self.tensor, inference = True)
     assert postq.shape == (self.num_actions, self.batch_size)
 
@@ -76,6 +77,7 @@ class DeepQNetwork:
     # change order of axes to match what Neon expects
     # copy() shouldn't be necessary here, but Neon doesn't work on views
     self.tensor.set(np.transpose(prestates, axes = (1, 2, 3, 0)).copy())
+    self.be.divide(self.tensor, 255, self.tensor)
     preq = self.model.fprop(self.tensor, inference = False)
     assert preq.shape == (self.num_actions, self.batch_size)
 
@@ -91,6 +93,12 @@ class DeepQNetwork:
 
     # calculate errors
     deltas = self.cost.get_errors(preq, self.targets)
+    assert deltas.shape == (self.num_actions, self.batch_size)
+    #assert np.count_nonzero(deltas.asnumpyarray()) == 32
+
+    #cost_before = self.cost.get_cost(preq, self.targets).asnumpyarray()[0,0]
+    #qvalues_before = preq.asnumpyarray()[:,0]
+    #targets = self.targets.asnumpyarray()[:,0]
 
     # perform back-propagation of gradients
     self.model.bprop(deltas)
@@ -98,15 +106,28 @@ class DeepQNetwork:
     # perform optimization
     self.optimizer.optimize(self.layers_to_optimize, epoch)
 
+    #preq = self.model.fprop(self.tensor, inference = False)
+    #cost_after = self.cost.get_cost(preq, self.targets).asnumpyarray()[0,0]
+    #qvalues_after = preq.asnumpyarray()[:,0]
+    #if rewards[0] > 0:
+    #  print "cost_before: %g, cost_after: %g" % (cost_before, cost_after) 
+    #  print "qvalues_before: ", qvalues_before, ", action: ", actions[0], ", reward: ", rewards[0]
+    #  print "targets: ", targets
+    #  print "qvalues_after: ", qvalues_after
+    #  raw_input("Press ENTER")
+
   def predict(self, state):
-    assert state.shape == ((self.history_length,) + self.screen_dim)
-    # resize (duplicate) the input to match batch size
-    self.tensor.set(np.resize(state, self.input_shape))
+    assert state.shape == ((self.batch_size, self.history_length,) + self.screen_dim)
+    # assign to tensor
+    self.tensor.set(np.transpose(state, axes = (1, 2, 3, 0)).copy())
+    self.be.divide(self.tensor, 255, self.tensor)
     # calculate Q-values for the state
     qvalues = self.model.fprop(self.tensor, inference = True)
     assert qvalues.shape == (self.num_actions, self.batch_size)
+    # find the action with highest q-value
+    actions = self.be.argmax(qvalues, axis = 0)
     # take only first result
-    return qvalues.asnumpyarray()[:,0]
+    return actions.asnumpyarray()[0,0]
 
   def prepare_layers(self, layers):
     self.layers = []

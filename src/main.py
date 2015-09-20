@@ -65,6 +65,8 @@ comarg.add_argument("--random_seed", type=int, help="Random seed for repeatable 
 comarg.add_argument("--log_level", choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"], default="INFO", help="Log level.")
 args = parser.parse_args()
 
+assert args.random_steps >= args.history_length, "random_steps must be bigger or equal than history_length"
+
 logger = logging.getLogger()
 logger.setLevel(args.log_level)
 
@@ -103,7 +105,7 @@ for epoch in xrange(args.epochs):
     logger.info("Saving weights to %s" % filename)
     net.save_weights(filename)
 
-  logger.info(" Testing for %d steps" % args.train_steps)
+  logger.info(" Testing for %d steps" % args.test_steps)
   stats.reset()
   agent.test(args.test_steps, args.exploration_test, epoch)
   stats.log()

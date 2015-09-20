@@ -5,9 +5,9 @@ logger = logging.getLogger(__name__)
 
 class ReplayMemory:
   def __init__(self, args):
-    self.actions = np.empty(args.replay_size, dtype = np.int8)
+    self.actions = np.empty(args.replay_size, dtype = np.uint8)
     self.rewards = np.empty(args.replay_size, dtype = np.integer)
-    self.screens = np.empty((args.replay_size, args.screen_height, args.screen_width), dtype = np.int8)
+    self.screens = np.empty((args.replay_size, args.screen_height, args.screen_width), dtype = np.uint8)
     self.terminals = np.empty(args.replay_size, dtype = np.bool)
     self.size = args.replay_size
     self.history = args.history_length
@@ -16,8 +16,8 @@ class ReplayMemory:
     self.count = 0
     self.current = 0
 
-    self.prestates = np.empty((self.batch_size, self.history) + self.dims)
-    self.poststates = np.empty((self.batch_size, self.history) + self.dims)
+    self.prestates = np.empty((self.batch_size, self.history) + self.dims, dtype = np.uint8)
+    self.poststates = np.empty((self.batch_size, self.history) + self.dims, dtype = np.uint8)
 
     logger.info("Replay memory size: %d" % self.size)
 
@@ -38,22 +38,34 @@ class ReplayMemory:
     # if is not in the beginning of matrix
     if index >= self.history - 1:
       # use faster slicing
-      return self.screens[index - (self.history - 1):(index + 1), ...]
+      return self.screens[(index - (self.history - 1)):(index + 1), ...]
     else:
       # otherwise normalize indexes and use slower list based access
       indexes = [(index - i) % self.count for i in reversed(range(self.history))]
       return self.screens[indexes, ...]
 
   def getCurrentState(self):
-    return self.getState(self.current - 1)
+    # reuse first row of prestates in minibatch to minimize memory consumption
+    self.prestates[0, ...] = self.getState(self.current - 1)
+    return self.prestates
 
   def getMinibatch(self):
     # sample random indexes
-    indexes = random.sample(xrange(self.count), self.batch_size)
-    for i,j in enumerate(indexes):
+    indexes = []
+    while len(indexes) < self.batch_size:
+      # find random index 
+      while True:
+        index = random.randrange(self.count)
+        # if not in the beginning and does not wrap over game end
+        if index >= self.history and not self.terminals[(index - self.history):index].any():
+          break
+      
       # NB! having index first is fastest in C-order matrices
-      self.prestates[i, ...] = self.getState(j - 1)
-      self.poststates[i, ...] = self.getState(j)
+      self.prestates[len(indexes), ...] = self.getState(index - 1)
+      self.poststates[len(indexes), ...] = self.getState(index)
+      indexes.append(index)
+
+    # copy actions, rewards and terminals with direct slicing
     actions = self.actions[indexes]
     rewards = self.rewards[indexes]
     terminals = self.terminals[indexes]
