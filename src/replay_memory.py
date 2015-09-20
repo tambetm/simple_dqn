@@ -4,20 +4,22 @@ import logging
 logger = logging.getLogger(__name__)
 
 class ReplayMemory:
-  def __init__(self, size = 1000000, history_length = 4, screen_dims = (84,84), batch_size = 32):
-    self.actions = np.empty(size, dtype = np.integer)
-    self.rewards = np.empty(size)
-    self.screens = np.empty((size,) + screen_dims)
-    self.terminals = np.empty(size)
-    self.size = size
-    self.history = history_length
-    self.dims = screen_dims
-    self.batch_size = batch_size
+  def __init__(self, args):
+    self.actions = np.empty(args.replay_size, dtype = np.int8)
+    self.rewards = np.empty(args.replay_size, dtype = np.integer)
+    self.screens = np.empty((args.replay_size, args.screen_height, args.screen_width), dtype = np.int8)
+    self.terminals = np.empty(args.replay_size, dtype = np.bool)
+    self.size = args.replay_size
+    self.history = args.history_length
+    self.dims = (args.screen_height, args.screen_width)
+    self.batch_size = args.batch_size
     self.count = 0
     self.current = 0
 
     self.prestates = np.empty((self.batch_size, self.history) + self.dims)
     self.poststates = np.empty((self.batch_size, self.history) + self.dims)
+
+    logger.info("Replay memory size: %d" % self.size)
 
   def add(self, action, reward, screen, terminal):
     assert screen.shape == self.dims
@@ -49,6 +51,7 @@ class ReplayMemory:
     # sample random indexes
     indexes = random.sample(xrange(self.count), self.batch_size)
     for i,j in enumerate(indexes):
+      # NB! having index first is fastest in C-order matrices
       self.prestates[i, ...] = self.getState(j - 1)
       self.poststates[i, ...] = self.getState(j)
     actions = self.actions[indexes]

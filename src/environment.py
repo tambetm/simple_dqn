@@ -5,9 +5,9 @@ import logging
 logger = logging.getLogger(__name__)
 
 class Environment:
-  def __init__(self, rom_file, dims=(84,84), minimal_action_set=False, display_screen=False, frame_skip=4, random_seed=None):
+  def __init__(self, args):
     self.ale = ALEInterface()
-    if display_screen:
+    if args.display_screen:
       if sys.platform == 'darwin':
         import pygame
         pygame.init()
@@ -16,19 +16,21 @@ class Environment:
         self.ale.setBool('sound', True)
       self.ale.setBool('display_screen', True)
 
-    self.ale.setInt('frame_skip', frame_skip)
+    self.ale.setInt('frame_skip', args.frame_skip)
+    self.ale.setBool('color_averaging', args.color_averaging)
 
-    if random_seed:
-      self.ale.setInt('random_seed', random_seed)
+    if args.random_seed:
+      self.ale.setInt('random_seed', args.random_seed)
 
-    self.ale.loadROM(rom_file)
-    if minimal_action_set:
+    self.ale.loadROM(args.rom_file)
+    if args.minimal_action_set:
       self.actions = self.ale.getMinimalActionSet()
-      logger.info("Using minimal action set")
+      logger.info("Using minimal action set with size %d" % len(self.actions))
     else:
       self.actions = self.ale.getLegalActionSet()
+      logger.info("Using full action set with size %d" % len(self.actions))
 
-    self.dims = dims
+    self.dims = (args.screen_height, args.screen_width)
 
   def numActions(self):
     return len(self.actions)

@@ -9,41 +9,45 @@ from neon.transforms import SumSquared
 import numpy as np
 
 class DeepQNetwork:
-  def __init__(self, num_actions, learning_rate = 0.002, discount_rate = 0.9, history_length = 4, screen_dim = (84,84), batch_size = 32,
-      backend = 'gpu', random_seed = None, device_id = 0, datatype = 'float32', stochastic_round = False):
+  def __init__(self, num_actions, args):
     # create Neon backend
-    self.be = gen_backend(backend = backend,
-                 batch_size = batch_size,
-                 rng_seed = random_seed,
-                 device_id = device_id,
-                 default_dtype = np.dtype(datatype).type,
-                 stochastic_round = stochastic_round)
+    self.be = gen_backend(backend = args.backend,
+                 batch_size = args.batch_size,
+                 rng_seed = args.random_seed,
+                 device_id = args.device_id,
+                 default_dtype = np.dtype(args.datatype).type,
+                 stochastic_round = args.stochastic_round)
 
     # create network
     init_norm = Gaussian(loc=0.0, scale=0.01)
     self.layers = []
+    # The first hidden layer convolves 32 filters of 8x8 with stride 4 with the input image and applies a rectifier nonlinearity.
     self.layers.append(Conv((8, 8, 32), strides=4, init=init_norm, activation=Rectlin()))
+    # The second hidden layer convolves 64 filters of 4x4 with stride 2, again followed by a rectifier nonlinearity.
     self.layers.append(Conv((4, 4, 64), strides=2, init=init_norm, activation=Rectlin()))
+    # This is followed by a third convolutional layer that convolves 64 filters of 3x3 with stride 1 followed by a rectifier.
     self.layers.append(Conv((3, 3, 64), strides=1, init=init_norm, activation=Rectlin()))
+    # The final hidden layer is fully-connected and consists of 512 rectifier units.
     self.layers.append(Affine(nout=512, init=init_norm, activation=Rectlin()))
+    # The output layer is a fully-connected linear layer with a single output for each valid action.
     self.layers.append(Affine(nout = num_actions, init = init_norm))
     self.cost = GeneralizedCost(costfunc = SumSquared())
     self.model = Model(layers = self.layers)
-    self.optimizer = RMSProp(learning_rate = learning_rate, stochastic_round = stochastic_round)
+    self.optimizer = RMSProp(learning_rate = args.learning_rate, stochastic_round = args.stochastic_round)
     self.prepare_layers(self.layers)
 
     # remember parameters
     self.num_actions = num_actions
-    self.batch_size = batch_size
-    self.discount_rate = discount_rate
-    self.history_length = history_length
-    self.screen_dim = screen_dim
+    self.batch_size = args.batch_size
+    self.discount_rate = args.discount_rate
+    self.history_length = args.history_length
+    self.screen_dim = (args.screen_height, args.screen_width)
 
     # prepare tensors once and reuse them
-    self.input_shape = (history_length,) + screen_dim + (batch_size,)
+    self.input_shape = (self.history_length,) + self.screen_dim + (self.batch_size,)
     self.tensor = self.be.empty(self.input_shape)
-    self.tensor.lshape = self.input_shape
-    self.targets = self.be.empty((num_actions, batch_size))
+    self.tensor.lshape = self.input_shape # needed for convolutional networks
+    self.targets = self.be.empty((self.num_actions, self.batch_size))
 
   def train(self, minibatch, epoch):
     # expand components of minibatch
@@ -80,9 +84,9 @@ class DeepQNetwork:
     # update Q-value targets for actions taken
     for i, action in enumerate(actions):
       if terminals[i]:
-        self.targets[action, i] = rewards[i]
+        self.targets[action, i] = float(rewards[i])
       else:
-        self.targets[action, i] = rewards[i] + self.discount_rate * maxpostq[0,i]
+        self.targets[action, i] = float(rewards[i]) + self.discount_rate * maxpostq[0,i]
 
     # calculate errors
     deltas = self.cost.get_errors(preq, self.targets)
@@ -95,8 +99,12 @@ class DeepQNetwork:
 
   def predict(self, state):
     assert state.shape == ((self.history_length,) + self.screen_dim)
+    # resize (duplicate) the input to match batch size
     self.tensor.set(np.resize(state, self.input_shape))
+    # calculate Q-values for the state
     qvalues = self.model.fprop(self.tensor, inference = True)
+    assert qvalues.shape == (self.num_actions, self.batch_size)
+    # take only first result
     return qvalues.asnumpyarray()[:,0]
 
   def prepare_layers(self, layers):
