@@ -5,6 +5,7 @@ logger = logging.getLogger(__name__)
 
 class ReplayMemory:
   def __init__(self, args):
+    # preallocate memory
     self.actions = np.empty(args.replay_size, dtype = np.uint8)
     self.rewards = np.empty(args.replay_size, dtype = np.integer)
     self.screens = np.empty((args.replay_size, args.screen_height, args.screen_width), dtype = np.uint8)
@@ -16,6 +17,7 @@ class ReplayMemory:
     self.count = 0
     self.current = 0
 
+    # pre-allocate prestates and poststates for minibatch
     self.prestates = np.empty((self.batch_size, self.history) + self.dims, dtype = np.uint8)
     self.poststates = np.empty((self.batch_size, self.history) + self.dims, dtype = np.uint8)
 
@@ -23,6 +25,7 @@ class ReplayMemory:
 
   def add(self, action, reward, screen, terminal):
     assert screen.shape == self.dims
+    # NB! screen is post-state, after action and reward
     self.actions[self.current] = action
     self.rewards[self.current] = reward
     self.screens[self.current, ...] = screen
@@ -56,7 +59,7 @@ class ReplayMemory:
       # find random index 
       while True:
         index = random.randrange(self.count)
-        # if not in the beginning and does not wrap over game end
+        # if not in the beginning and does not wrap over episode end
         if index >= self.history and not self.terminals[(index - self.history):index].any():
           break
       

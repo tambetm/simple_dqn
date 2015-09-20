@@ -8,6 +8,7 @@ from neon.models import Model
 from neon.transforms import SumSquared
 from neon.util.persist import save_obj
 import numpy as np
+import os
 
 class DeepQNetwork:
   def __init__(self, num_actions, args):
@@ -19,23 +20,19 @@ class DeepQNetwork:
                  default_dtype = np.dtype(args.datatype).type,
                  stochastic_round = args.stochastic_round)
 
-    # create network
-    init_norm = Gaussian(loc=0.0, scale=0.01)
-    self.layers = []
-    # The first hidden layer convolves 32 filters of 8x8 with stride 4 with the input image and applies a rectifier nonlinearity.
-    self.layers.append(Conv((8, 8, 32), strides=4, init=init_norm, activation=Rectlin()))
-    # The second hidden layer convolves 64 filters of 4x4 with stride 2, again followed by a rectifier nonlinearity.
-    self.layers.append(Conv((4, 4, 64), strides=2, init=init_norm, activation=Rectlin()))
-    # This is followed by a third convolutional layer that convolves 64 filters of 3x3 with stride 1 followed by a rectifier.
-    self.layers.append(Conv((3, 3, 64), strides=1, init=init_norm, activation=Rectlin()))
-    # The final hidden layer is fully-connected and consists of 512 rectifier units.
-    self.layers.append(Affine(nout=512, init=init_norm, activation=Rectlin()))
-    # The output layer is a fully-connected linear layer with a single output for each valid action.
-    self.layers.append(Affine(nout = num_actions, init = init_norm))
+    layers = self.createLayers(num_actions)
     self.cost = GeneralizedCost(costfunc = SumSquared())
-    self.model = Model(layers = self.layers)
-    self.optimizer = RMSProp(learning_rate = args.learning_rate, stochastic_round = args.stochastic_round)
-    self.prepare_layers(self.layers)
+    self.model = Model(layers = layers)
+    self.optimizer = RMSProp(learning_rate = args.learning_rate, 
+        decay_rate = args.rmsprop_decay_rate, 
+        stochastic_round = args.stochastic_round)
+    self.prepare_layers(layers)
+
+    # create target model
+    self.target_model = Model(layers = self.createLayers(num_actions))
+    self.train_iterations = 0
+    self.target_steps = args.target_steps
+    self.save_weights_path = args.save_weights_path
 
     # remember parameters
     self.num_actions = num_actions
@@ -43,12 +40,29 @@ class DeepQNetwork:
     self.discount_rate = args.discount_rate
     self.history_length = args.history_length
     self.screen_dim = (args.screen_height, args.screen_width)
+    self.clip_error = args.clip_error
 
     # prepare tensors once and reuse them
     self.input_shape = (self.history_length,) + self.screen_dim + (self.batch_size,)
     self.tensor = self.be.empty(self.input_shape)
     self.tensor.lshape = self.input_shape # needed for convolutional networks
     self.targets = self.be.empty((self.num_actions, self.batch_size))
+
+  def createLayers(self, num_actions):
+    # create network
+    init_norm = Gaussian(loc=0.0, scale=0.01)
+    layers = []
+    # The first hidden layer convolves 32 filters of 8x8 with stride 4 with the input image and applies a rectifier nonlinearity.
+    layers.append(Conv((8, 8, 32), strides=4, init=init_norm, activation=Rectlin()))
+    # The second hidden layer convolves 64 filters of 4x4 with stride 2, again followed by a rectifier nonlinearity.
+    layers.append(Conv((4, 4, 64), strides=2, init=init_norm, activation=Rectlin()))
+    # This is followed by a third convolutional layer that convolves 64 filters of 3x3 with stride 1 followed by a rectifier.
+    layers.append(Conv((3, 3, 64), strides=1, init=init_norm, activation=Rectlin()))
+    # The final hidden layer is fully-connected and consists of 512 rectifier units.
+    layers.append(Affine(nout=512, init=init_norm, activation=Rectlin()))
+    # The output layer is a fully-connected linear layer with a single output for each valid action.
+    layers.append(Affine(nout = num_actions, init = init_norm))
+    return layers
 
   def train(self, minibatch, epoch):
     # expand components of minibatch
@@ -61,12 +75,19 @@ class DeepQNetwork:
     assert prestates.shape == poststates.shape
     assert prestates.shape[0] == actions.shape[0] == rewards.shape[0] == poststates.shape[0] == terminals.shape[0]
 
+    if self.train_iterations % self.target_steps == 0:
+      # push something through network, so that weights exist
+      self.model.fprop(self.tensor)
+      filename = os.path.join(self.save_weights_path, "target_network.pkl")
+      save_obj(self.model.serialize(keep_states = False), filename)
+      self.target_model.load_weights(filename)
+
     # feed-forward pass for poststates to get Q-values
     # change order of axes to match what Neon expects
     # copy() shouldn't be necessary here, but Neon doesn't work on views
     self.tensor.set(np.transpose(poststates, axes = (1, 2, 3, 0)).copy())
     self.be.divide(self.tensor, 255, self.tensor)
-    postq = self.model.fprop(self.tensor, inference = True)
+    postq = self.target_model.fprop(self.tensor, inference = True)
     assert postq.shape == (self.num_actions, self.batch_size)
 
     # calculate max Q-value for each poststate
@@ -100,6 +121,11 @@ class DeepQNetwork:
     #qvalues_before = preq.asnumpyarray()[:,0]
     #targets = self.targets.asnumpyarray()[:,0]
 
+    # clip errors
+    if self.clip_error:
+      self.be.minimum(deltas, self.clip_error, out = deltas)
+      self.be.maximum(deltas, -self.clip_error, out = deltas)
+
     # perform back-propagation of gradients
     self.model.bprop(deltas)
 
@@ -115,6 +141,8 @@ class DeepQNetwork:
     #  print "targets: ", targets
     #  print "qvalues_after: ", qvalues_after
     #  raw_input("Press ENTER")
+
+    self.train_iterations += 1
 
   def predict(self, state):
     assert state.shape == ((self.batch_size, self.history_length,) + self.screen_dim)
@@ -149,4 +177,4 @@ class DeepQNetwork:
     self.model.load_weights(load_path)
 
   def save_weights(self, save_path):
-    save_obj(self.model.serialize(keep_states=True), save_path)
+    save_obj(self.model.serialize(keep_states = True), save_path)

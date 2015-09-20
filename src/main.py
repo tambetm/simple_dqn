@@ -31,8 +31,9 @@ netarg = parser.add_argument_group('Deep Q-learning network')
 netarg.add_argument("--learning_rate", type=float, default=0.00025, help="Learning rate.")
 netarg.add_argument("--discount_rate", type=float, default=0.99, help="Discount rate for future rewards.")
 netarg.add_argument("--batch_size", type=int, default=32, help="Batch size for neural network.")
-#netarg.add_argument("--rmsprop_decay_rate", type=float, default=0.95, help="Decay rate for RMSProp algorithm.")
-#netarg.add_argument("--clip_error", action="store_true", default=True, help="Clip error term in update between -1 and 1.")
+netarg.add_argument("--rmsprop_decay_rate", type=float, default=0.95, help="Decay rate for RMSProp algorithm.")
+netarg.add_argument("--clip_error", type=float, default=1, help="Clip error term in update between this number and its negative.")
+netarg.add_argument("--target_steps", type=int, default=10000, help="Copy main network to target network after this many steps.")
 
 #netarg.add_argument("--rescale_r", action="store_true", help="Rescale rewards.")
 #missing: bufferSize=512,valid_size=500,target_q=10000,clip_delta=1,min_reward=-1,max_reward=1
@@ -48,8 +49,8 @@ antarg.add_argument("--exploration_start", type=float, default=1, help="Explorat
 antarg.add_argument("--exploration_end", type=float, default=0.1, help="Exploration rate at the end of decay.")
 antarg.add_argument("--exploration_steps", type=float, default=1000000, help="How many steps to decay the exploration rate.")
 antarg.add_argument("--exploration_test", type=float, default=0.05, help="Exploration rate used during testing.")
-#antarg.add_argument("--n_replay", type=int, default=1, help="Number of times to sample minibatch during training.")
-#antarg.add_argument("--update_freq", type=int, default=4, help="Perform training after this many game steps.")
+antarg.add_argument("--train_freq", type=int, default=4, help="Perform training after this many game steps.")
+antarg.add_argument("--train_repeat", type=int, default=1, help="Number of times to sample minibatch during training.")
 
 antarg.add_argument("--random_steps", type=int, default=50000, help="Populate replay memory with random steps before starting learning.")
 antarg.add_argument("--train_steps", type=int, default=50000, help="How many training steps per epoch.")
@@ -57,8 +58,6 @@ antarg.add_argument("--test_steps", type=int, default=10000, help="How many test
 antarg.add_argument("--epochs", type=int, default=1000, help="How many epochs to run.")
 antarg.add_argument("--load_weights", help="Load network from file.")
 antarg.add_argument("--save_weights_path", default="snapshots", help="Save network to path. File name will be rom name + epoch.")
-#antarg.add_argument("--prog_freq", type=int, default=10000, help="How often to print out training statistics.")
-#antarg.add_argument("--save_freq", type=int, default=250000, help="How often to save snapshot of the network.")
 
 comarg = parser.add_argument_group('Common')
 comarg.add_argument("--random_seed", type=int, help="Random seed for repeatable experiments.")

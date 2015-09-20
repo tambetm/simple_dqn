@@ -18,6 +18,9 @@ class Agent:
     self.exploration_steps = args.exploration_steps
     self.total_train_steps = 0
 
+    self.train_freq = args.train_freq
+    self.train_repeat = args.train_repeat
+
     self.callback = None
 
   def exploration_rate(self):
@@ -65,10 +68,14 @@ class Agent:
     for i in xrange(train_steps):
       # perform game step
       self.step(self.exploration_rate())
-      # sample minibatch
-      minibatch = self.mem.getMinibatch()
-      # train the network
-      self.net.train(minibatch, epoch)
+      # train after every train_freq steps
+      if i % self.train_freq == 0:
+        # train for train_repeat times
+        for j in xrange(self.train_repeat):
+          # sample minibatch
+          minibatch = self.mem.getMinibatch()
+          # train the network
+          self.net.train(minibatch, epoch)
       # increase number of training steps for epsilon decay
       self.total_train_steps += 1
 
