@@ -1,12 +1,15 @@
+import logging
+logging.basicConfig(format='%(message)s')
+
 from environment import Environment
 from replay_memory import ReplayMemory
 from deepqnetwork import DeepQNetwork
 from agent import Agent
+from statistics import Statistics
 import random
 import argparse
-import logging
-import time
 import sys
+import os
 
 parser = argparse.ArgumentParser()
 
@@ -52,9 +55,10 @@ antarg.add_argument("--random_steps", type=int, default=50000, help="Populate re
 antarg.add_argument("--train_steps", type=int, default=50000, help="How many training steps per epoch.")
 antarg.add_argument("--test_steps", type=int, default=10000, help="How many testing steps after each epoch.")
 antarg.add_argument("--epochs", type=int, default=1000, help="How many epochs to run.")
+antarg.add_argument("--load_weights", help="Load network from file.")
+antarg.add_argument("--save_weights_path", default="snapshots", help="Save network to path. File name will be rom name + epoch.")
 #antarg.add_argument("--prog_freq", type=int, default=10000, help="How often to print out training statistics.")
 #antarg.add_argument("--save_freq", type=int, default=250000, help="How often to save snapshot of the network.")
-#antarg.add_argument("--network", help="Load network from file.")
 
 comarg = parser.add_argument_group('Common')
 comarg.add_argument("--random_seed", type=int, help="Random seed for repeatable experiments.")
@@ -72,23 +76,34 @@ env = Environment(args)
 mem = ReplayMemory(args)
 net = DeepQNetwork(env.numActions(), args)
 agent = Agent(env, mem, net, args)
+stats = Statistics(env, mem, net, agent)
+
+if args.load_weights:
+  logger.info("Loading weights from %s" % args.load_weights)
+  net.load_weights(args.load_weights)
 
 # populate replay memory with random steps
 logger.info("Populating replay memory with %d random moves" % args.random_steps)
-agent.reset_stats()
+stats.reset()
 agent.play_random(args.random_steps)
-agent.print_stats()
+stats.log()
 
 # loop over epochs
 for epoch in xrange(args.epochs):
-  logger.info("Epoch %d" % (epoch + 1))
+  logger.info("Epoch #%d" % (epoch + 1))
   
-  logger.info("Training for %d steps" % args.train_steps)
-  agent.reset_stats()
+  logger.info(" Training for %d steps" % args.train_steps)
+  stats.reset()
   agent.train(args.train_steps, epoch)
-  agent.print_stats()
+  stats.log()
 
-  logger.info("Testing for %d steps" % args.train_steps)
-  agent.reset_stats()
+  if args.save_weights_path:
+    rom_name, ext = os.path.splitext(os.path.basename(args.rom_file))
+    filename = os.path.join(args.save_weights_path, "%s_%d.pkl" % (rom_name, epoch + 1))
+    logger.info("Saving weights to %s" % filename)
+    net.save_weights(filename)
+
+  logger.info(" Testing for %d steps" % args.train_steps)
+  stats.reset()
   agent.test(args.test_steps, args.exploration_test, epoch)
-  agent.print_stats()
+  stats.log()

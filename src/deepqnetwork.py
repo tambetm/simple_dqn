@@ -6,6 +6,7 @@ from neon.layers import Affine, Conv, Merge, GeneralizedCost
 from neon.transforms import Rectlin
 from neon.models import Model
 from neon.transforms import SumSquared
+from neon.util.persist import save_obj
 import numpy as np
 
 class DeepQNetwork:
@@ -122,3 +123,9 @@ class DeepQNetwork:
             self.layers_to_optimize.append(layer)
         elif isinstance(layer, Merge):
             self.layers_to_optimize += layer.layers_to_optimize
+
+  def load_weights(self, load_path):
+    self.model.load_weights(load_path)
+
+  def save_weights(self, save_path):
+    save_obj(self.model.serialize(keep_states=True), save_path)
