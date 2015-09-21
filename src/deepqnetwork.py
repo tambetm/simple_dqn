@@ -9,6 +9,8 @@ from neon.transforms import SumSquared
 from neon.util.persist import save_obj
 import numpy as np
 import os
+import logging
+logger = logging.getLogger(__name__)
 
 class DeepQNetwork:
   def __init__(self, num_actions, args):
@@ -29,10 +31,13 @@ class DeepQNetwork:
     self.prepare_layers(layers)
 
     # create target model
-    self.target_model = Model(layers = self.createLayers(num_actions))
-    self.train_iterations = 0
     self.target_steps = args.target_steps
-    self.save_weights_path = args.save_weights_path
+    if self.target_steps:
+      self.target_model = Model(layers = self.createLayers(num_actions))
+      self.save_weights_path = args.save_weights_path
+    else:
+      self.target_model = self.model
+    self.train_iterations = 0
 
     # remember parameters
     self.num_actions = num_actions
@@ -75,7 +80,7 @@ class DeepQNetwork:
     assert prestates.shape == poststates.shape
     assert prestates.shape[0] == actions.shape[0] == rewards.shape[0] == poststates.shape[0] == terminals.shape[0]
 
-    if self.train_iterations % self.target_steps == 0:
+    if self.target_steps and self.train_iterations % self.target_steps == 0:
       # push something through network, so that weights exist
       self.model.fprop(self.tensor)
       filename = os.path.join(self.save_weights_path, "target_network.pkl")
@@ -152,6 +157,7 @@ class DeepQNetwork:
     # calculate Q-values for the state
     qvalues = self.model.fprop(self.tensor, inference = True)
     assert qvalues.shape == (self.num_actions, self.batch_size)
+    logger.debug("Q-values: " + str(qvalues.asnumpyarray()[:,0]))
     # find the action with highest q-value
     actions = self.be.argmax(qvalues, axis = 0)
     # take only first result

@@ -29,6 +29,7 @@ class Environment:
     else:
       self.actions = self.ale.getLegalActionSet()
       logger.info("Using full action set with size %d" % len(self.actions))
+    logger.debug("Actions: " + str(self.actions))
 
     self.dims = (args.screen_height, args.screen_width)
 
@@ -44,5 +45,5 @@ class Environment:
     return resized
 
   def act(self, action):
-    reward = self.ale.act(action)
+    reward = self.ale.act(self.actions[action])
     return reward, self.getScreen(), self.ale.game_over()

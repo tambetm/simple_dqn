@@ -32,7 +32,7 @@ class ReplayMemory:
     self.terminals[self.current] = terminal
     self.current = (self.current + 1) % self.size
     self.count = max(self.count, self.current)
-    logger.debug("Memory count %d" % self.count)
+    #logger.debug("Memory count %d" % self.count)
 
   
   def getState(self, index):
