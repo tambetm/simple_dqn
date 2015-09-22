@@ -17,8 +17,10 @@ envarg = parser.add_argument_group('Environment')
 envarg.add_argument("rom_file")
 envarg.add_argument("--display_screen", action="store_true", default=False, help="Display game screen during training and testing.")
 #envarg.add_argument("--sound", action="store_true", default=False, help="Play (or record) sound.")
-envarg.add_argument("--minimal_action_set", action="store_true", default=False, help="Use minimal action set instead of full.")
+envarg.add_argument("--random_starts", type=int, default=30, help="Perform max this number of dummy actions after game restart, to produce more random game dynamics.")
 envarg.add_argument("--frame_skip", type=int, default=4, help="How many times to repeat each chosen action.")
+envarg.add_argument("--repeat_action_probability", type=float, default=0.25, help="Probability, that chosen action will be repeated. Otherwise random action is chosen during repeating.")
+envarg.add_argument("--minimal_action_set", action="store_true", default=False, help="Use minimal action set instead of full.")
 envarg.add_argument("--color_averaging", action="store_true", default=True, help="Perform color averaging with previous frame.")
 #envarg.add_argument("--random_starts", type=int, default=30, help="Perform random number of moves in the beginning of game.")
 envarg.add_argument("--screen_width", type=int, default=84, help="Screen width after resize.")
@@ -86,17 +88,17 @@ if args.load_weights:
   logger.info("Loading weights from %s" % args.load_weights)
   net.load_weights(args.load_weights)
 
+if args.play_games:
+  score = agent.play(args.play_games, args.exploration_rate_test)
+  logger.info("Score: %d" % score)
+  sys.exit()
+
 if args.random_steps:
   # populate replay memory with random steps
   logger.info("Populating replay memory with %d random moves" % args.random_steps)
   stats.reset()
   agent.play_random(args.random_steps)
   stats.log()
-
-if args.play_games:
-  score = agent.play(args.play_games, args.exploration_rate_test)
-  logger.info("Score: %d" % score)
-  sys.exit()
 
 # loop over epochs
 for epoch in xrange(args.epochs):

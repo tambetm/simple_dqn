@@ -18,6 +18,7 @@ class Environment:
       self.ale.setBool('display_screen', True)
 
     self.ale.setInt('frame_skip', args.frame_skip)
+    self.ale.setFloat('repeat_action_probability', args.repeat_action_probability)
     self.ale.setBool('color_averaging', args.color_averaging)
 
     if args.random_seed:
@@ -36,6 +37,7 @@ class Environment:
       self.ale.setString('record_sound_filename', args.record_sound_filename)
 
     self.ale.loadROM(args.rom_file)
+
     if args.minimal_action_set:
       self.actions = self.ale.getMinimalActionSet()
       logger.info("Using minimal action set with size %d" % len(self.actions))

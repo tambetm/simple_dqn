@@ -81,8 +81,9 @@ class DeepQNetwork:
     assert prestates.shape[0] == actions.shape[0] == rewards.shape[0] == poststates.shape[0] == terminals.shape[0]
 
     if self.target_steps and self.train_iterations % self.target_steps == 0:
-      # push something through network, so that weights exist
+      # HACK: push something through network, so that weights exist
       self.model.fprop(self.tensor)
+      # HACK: serialize network to disk and read it back to clone
       filename = os.path.join(self.save_weights_path, "target_network.pkl")
       save_obj(self.model.serialize(keep_states = False), filename)
       self.target_model.load_weights(filename)
@@ -157,7 +158,8 @@ class DeepQNetwork:
     # calculate Q-values for the state
     qvalues = self.model.fprop(self.tensor, inference = True)
     assert qvalues.shape == (self.num_actions, self.batch_size)
-    logger.debug("Q-values: " + str(qvalues.asnumpyarray()[:,0]))
+    if logger.isEnabledFor(logging.DEBUG):
+      logger.debug("Q-values: " + str(qvalues.asnumpyarray()[:,0]))
     # find the action with highest q-value
     actions = self.be.argmax(qvalues, axis = 0)
     # take only first result
