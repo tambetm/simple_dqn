@@ -1,4 +1,5 @@
 import sys
+import os
 from ale_python_interface import ALEInterface
 import cv2
 import logging
@@ -21,6 +22,18 @@ class Environment:
 
     if args.random_seed:
       self.ale.setInt('random_seed', args.random_seed)
+
+    if args.record_screen_path:
+      if not os.path.exists(args.record_screen_path):
+        logger.info("Creating folder %s" % args.record_screen_path)
+        os.makedirs(args.record_screen_path)
+      logger.info("Recording screens to %s", args.record_screen_path)
+      self.ale.setString('record_screen_dir', args.record_screen_path)
+
+    if args.record_sound_filename:
+      logger.info("Recording sound to %s", args.record_sound_filename)
+      self.ale.setBool('sound', True)
+      self.ale.setString('record_sound_filename', args.record_sound_filename)
 
     self.ale.loadROM(args.rom_file)
     if args.minimal_action_set:

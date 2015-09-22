@@ -30,12 +30,13 @@ class ReplayMemory:
     self.rewards[self.current] = reward
     self.screens[self.current, ...] = screen
     self.terminals[self.current] = terminal
+    self.count = max(self.count, self.current + 1)
     self.current = (self.current + 1) % self.size
-    self.count = max(self.count, self.current)
     #logger.debug("Memory count %d" % self.count)
 
   
   def getState(self, index):
+    assert self.count > 0, "replay memory is empy, use at least --random_steps 1"
     # normalize index to expected range, allows negative indexes
     index = index % self.count
     # if is not in the beginning of matrix
