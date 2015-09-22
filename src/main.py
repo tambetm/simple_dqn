@@ -1,5 +1,5 @@
 import logging
-logging.basicConfig(format='%(message)s')
+logging.basicConfig(format='%(asctime)s %(message)s')
 
 from environment import Environment
 from replay_memory import ReplayMemory
@@ -90,11 +90,14 @@ if args.load_weights:
 
 if args.play_games:
   logger.info("Playing for %d game(s)" % args.play_games)
-  score = agent.play(args.play_games, args.exploration_rate_test)
-  logger.info("Score: %d" % score)
+  agent.resetStats()
+  agent.play(args.play_games)
+  stats = agent.returnStats(0, "play", args.exploration_rate_test)
+  logger.info("Average score: %d" % stats[4])
   sys.exit()
 
 if args.csv_file:
+  logger.info("Results are written to %s" % args.csv_file)
   csv_file = open(args.csv_file, "wb")
   csv_writer = csv.writer(csv_file)
   csv_writer.writerow(["epoch","phase","nr_games","total_rewards","average_reward",
@@ -130,7 +133,7 @@ for epoch in xrange(args.epochs):
   if args.test_steps:
     logger.info(" Testing for %d steps" % args.test_steps)
     agent.resetStats()
-    agent.test(args.test_steps, args.exploration_rate_test, epoch)
+    agent.test(args.test_steps, epoch)
     if args.csv_file:
       csv_writer.writerow(agent.returnStats(epoch + 1, "test", args.exploration_rate_test))
 

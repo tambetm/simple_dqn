@@ -19,6 +19,7 @@ class Agent:
     self.exploration_rate_start = args.exploration_rate_start
     self.exploration_rate_end = args.exploration_rate_end
     self.exploration_decay_steps = args.exploration_decay_steps
+    self.exploration_rate_test = args.exploration_rate_test
     self.total_train_steps = 0
 
     self.train_frequency = args.train_frequency
@@ -37,7 +38,7 @@ class Agent:
     elapsed_time = time.time() - self.start_time
     if self.num_games == 0:
       self.num_games = 1
-    return epoch, phase, self.num_games, self.total_rewards, self.total_rewards / self.num_games, \
+    return epoch, phase, self.num_games, self.total_rewards, self.total_rewards / float(self.num_games), \
         self.mem.count, self.total_train_steps, exploration_rate, elapsed_time, self.num_steps / elapsed_time
 
   def restartRandom(self):
@@ -87,7 +88,6 @@ class Agent:
       self.game_rewards = 0
 
     self.num_steps += 1
-
     return terminal
 
   def play_random(self, random_steps):
@@ -95,8 +95,6 @@ class Agent:
     for i in xrange(random_steps):
       # use exploration rate 1 = completely random
       self.step(1)
-    # return statistics
-    return self.num_games, self.total_rewards
 
   def train(self, train_steps, epoch = 0):
     # do not do restart here, continue from testing
@@ -117,17 +115,18 @@ class Agent:
       # increase number of training steps for epsilon decay
       self.total_train_steps += 1
 
-  def test(self, test_steps, exploration_rate, epoch = 0):
+  def test(self, test_steps, epoch = 0):
     # just make sure there is history_length screens to form a state
     self.restartRandom()
     # play given number of steps
     for i in xrange(test_steps):
       # perform game step
-      self.step(exploration_rate)
+      self.step(self.exploration_rate_test)
 
-  def play(self, num_games, exploration_rate):
+  def play(self, num_games):
     # just make sure there is history_length screens to form a state
     self.restartRandom()
-    # play while not terminal state
-    while not self.step(exploration_rate):
-      pass
+    for i in xrange(num_games):
+      # play while not terminal state
+      while not self.step(self.exploration_rate_test):
+        pass
