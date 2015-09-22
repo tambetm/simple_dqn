@@ -129,8 +129,7 @@ class DeepQNetwork:
 
     # clip errors
     if self.clip_error:
-      self.be.minimum(deltas, self.clip_error, out = deltas)
-      self.be.maximum(deltas, -self.clip_error, out = deltas)
+      self.be.clip(deltas, -self.clip_error, self.clip_error, out = deltas)
 
     # perform back-propagation of gradients
     self.model.bprop(deltas)

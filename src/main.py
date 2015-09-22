@@ -8,6 +8,7 @@ from agent import Agent
 from statistics import Statistics
 import random
 import argparse
+import csv
 import sys
 import os
 
@@ -22,7 +23,6 @@ envarg.add_argument("--frame_skip", type=int, default=4, help="How many times to
 envarg.add_argument("--repeat_action_probability", type=float, default=0.25, help="Probability, that chosen action will be repeated. Otherwise random action is chosen during repeating.")
 envarg.add_argument("--minimal_action_set", action="store_true", default=False, help="Use minimal action set instead of full.")
 envarg.add_argument("--color_averaging", action="store_true", default=True, help="Perform color averaging with previous frame.")
-#envarg.add_argument("--random_starts", type=int, default=30, help="Perform random number of moves in the beginning of game.")
 envarg.add_argument("--screen_width", type=int, default=84, help="Screen width after resize.")
 envarg.add_argument("--screen_height", type=int, default=84, help="Screen height after resize.")
 envarg.add_argument("--record_screen_path", help="Record game screens under this path. Subfolder for each game is created.")
@@ -41,7 +41,7 @@ netarg.add_argument("--clip_error", type=float, default=1, help="Clip error term
 netarg.add_argument("--target_steps", type=int, default=10000, help="Copy main network to target network after this many steps.")
 
 #netarg.add_argument("--rescale_r", action="store_true", help="Rescale rewards.")
-#missing: bufferSize=512,valid_size=500,target_q=10000,clip_delta=1,min_reward=-1,max_reward=1
+#missing: bufferSize=512,valid_size=500,min_reward=-1,max_reward=1
 
 neonarg = parser.add_argument_group('Neon')
 neonarg.add_argument('--backend', choices=['cpu', 'gpu'], default='gpu', help='backend type')
@@ -64,11 +64,12 @@ mainarg.add_argument("--test_steps", type=int, default=10000, help="How many tes
 mainarg.add_argument("--epochs", type=int, default=1000, help="How many epochs to run.")
 mainarg.add_argument("--play_games", type=int, default=0, help="How many games to play, suppresses training and testing.")
 mainarg.add_argument("--load_weights", help="Load network from file.")
-mainarg.add_argument("--save_weights_path", default="snapshots", help="Save network to path. File name will be rom name + epoch.")
+mainarg.add_argument("--save_weights_path", help="Save network to path. File name will be rom name + epoch.")
 
 comarg = parser.add_argument_group('Common')
 comarg.add_argument("--random_seed", type=int, help="Random seed for repeatable experiments.")
 comarg.add_argument("--log_level", choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"], default="INFO", help="Log level.")
+comarg.add_argument("--csv_file", help="Write training progress to this file.")
 args = parser.parse_args()
 
 logger = logging.getLogger()
@@ -82,23 +83,30 @@ env = Environment(args)
 mem = ReplayMemory(args)
 net = DeepQNetwork(env.numActions(), args)
 agent = Agent(env, mem, net, args)
-stats = Statistics(env, mem, net, agent)
 
 if args.load_weights:
   logger.info("Loading weights from %s" % args.load_weights)
   net.load_weights(args.load_weights)
 
 if args.play_games:
+  logger.info("Playing for %d game(s)" % args.play_games)
   score = agent.play(args.play_games, args.exploration_rate_test)
   logger.info("Score: %d" % score)
   sys.exit()
 
+if args.csv_file:
+  csv_file = open(args.csv_file, "wb")
+  csv_writer = csv.writer(csv_file)
+  csv_writer.writerow(["epoch","phase","nr_games","total_rewards","average_reward",
+      "replay_memory_count","total_train_steps","time_taken","steps_per_second"])
+
 if args.random_steps:
   # populate replay memory with random steps
   logger.info("Populating replay memory with %d random moves" % args.random_steps)
-  stats.reset()
+  agent.resetStats()
   agent.play_random(args.random_steps)
-  stats.log()
+  if args.csv_file:
+    csv_writer.writerow(agent.returnStats(0, "random", 1))
 
 # loop over epochs
 for epoch in xrange(args.epochs):
@@ -106,20 +114,25 @@ for epoch in xrange(args.epochs):
 
   if args.train_steps:
     logger.info(" Training for %d steps" % args.train_steps)
-    stats.reset()
+    agent.resetStats()
     agent.train(args.train_steps, epoch)
-    stats.log()
+    if args.csv_file:
+      csv_writer.writerow(agent.returnStats(epoch + 1, "train", agent.exploration_rate()))
 
     if args.save_weights_path:
       if not os.path.exists(args.save_weights_path):
         os.makedirs(args.save_weights_path)
-      rom_name, ext = os.path.splitext(os.path.basename(args.rom_file))
-      filename = os.path.join(args.save_weights_path, "%s_%d.pkl" % (rom_name, epoch + 1))
+      game, ext = os.path.splitext(os.path.basename(args.rom_file))
+      filename = os.path.join(args.save_weights_path, "%s_%d.pkl" % (game, epoch + 1))
       logger.info("Saving weights to %s" % filename)
       net.save_weights(filename)
 
   if args.test_steps:
     logger.info(" Testing for %d steps" % args.test_steps)
-    stats.reset()
+    agent.resetStats()
     agent.test(args.test_steps, args.exploration_rate_test, epoch)
-    stats.log()
+    if args.csv_file:
+      csv_writer.writerow(agent.returnStats(epoch + 1, "test", args.exploration_rate_test))
+
+if args.csv_file:
+  csv_file.close()
