@@ -4,6 +4,7 @@ from deepqnetwork import DeepQNetwork
 import numpy as np
 import random
 import time
+import sys
 import logging
 logger = logging.getLogger(__name__)
 
@@ -31,15 +32,10 @@ class Agent:
     self.num_steps = 0
     self.num_games = 0
     self.game_rewards = 0
-    self.total_rewards = 0
-    self.start_time = time.time()
-
-  def returnStats(self, epoch, phase, exploration_rate):
-    elapsed_time = time.time() - self.start_time
-    if self.num_games == 0:
-      self.num_games = 1
-    return epoch, phase, self.num_games, self.total_rewards, self.total_rewards / float(self.num_games), \
-        self.mem.count, self.total_train_steps, exploration_rate, elapsed_time, self.num_steps / elapsed_time
+    self.average_reward = 0
+    self.min_game_reward = sys.maxint
+    self.max_game_reward = -sys.maxint - 1
+    self.last_exploration_rate = 1
 
   def restartRandom(self):
     self.env.restart()
@@ -81,13 +77,18 @@ class Agent:
     # restart the game if over
     if terminal:
       self.restartRandom()
-      logger.debug("Game over, restarting")
-      # increase number of games played
+      logger.debug("Game over, score %d" % self.game_rewards)
+      # compute statistics
       self.num_games += 1
-      self.total_rewards += self.game_rewards
+      self.average_reward += float(self.game_rewards - self.average_reward) / self.num_games
+      self.min_game_reward = min(self.min_game_reward, self.game_rewards)
+      self.max_game_reward = max(self.max_game_reward, self.game_rewards)
       self.game_rewards = 0
 
+    # record statistics
     self.num_steps += 1
+    self.last_exploration_rate = exploration_rate
+
     return terminal
 
   def play_random(self, random_steps):
@@ -127,6 +128,6 @@ class Agent:
     # just make sure there is history_length screens to form a state
     self.restartRandom()
     for i in xrange(num_games):
-      # play while not terminal state
+      # play until terminal state
       while not self.step(self.exploration_rate_test):
         pass

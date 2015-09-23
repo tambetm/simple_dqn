@@ -8,7 +8,6 @@ from agent import Agent
 from statistics import Statistics
 import random
 import argparse
-import csv
 import sys
 import os
 
@@ -92,24 +91,17 @@ if args.play_games:
   logger.info("Playing for %d game(s)" % args.play_games)
   agent.resetStats()
   agent.play(args.play_games)
-  stats = agent.returnStats(0, "play", args.exploration_rate_test)
-  logger.info("Average score: %d" % stats[4])
+  logger.info("Average score: %d" % agent.average_reward)
   sys.exit()
 
-if args.csv_file:
-  logger.info("Results are written to %s" % args.csv_file)
-  csv_file = open(args.csv_file, "wb")
-  csv_writer = csv.writer(csv_file)
-  csv_writer.writerow(["epoch","phase","nr_games","total_rewards","average_reward",
-      "replay_memory_count","total_train_steps","time_taken","steps_per_second"])
+stats = Statistics(agent, net, mem, env, args)
 
 if args.random_steps:
   # populate replay memory with random steps
   logger.info("Populating replay memory with %d random moves" % args.random_steps)
-  agent.resetStats()
+  stats.reset()
   agent.play_random(args.random_steps)
-  if args.csv_file:
-    csv_writer.writerow(agent.returnStats(0, "random", 1))
+  stats.write(0, "random")
 
 # loop over epochs
 for epoch in xrange(args.epochs):
@@ -117,10 +109,9 @@ for epoch in xrange(args.epochs):
 
   if args.train_steps:
     logger.info(" Training for %d steps" % args.train_steps)
-    agent.resetStats()
+    stats.reset()
     agent.train(args.train_steps, epoch)
-    if args.csv_file:
-      csv_writer.writerow(agent.returnStats(epoch + 1, "train", agent.exploration_rate()))
+    stats.write(epoch + 1, "train")
 
     if args.save_weights_path:
       if not os.path.exists(args.save_weights_path):
@@ -132,10 +123,9 @@ for epoch in xrange(args.epochs):
 
   if args.test_steps:
     logger.info(" Testing for %d steps" % args.test_steps)
-    agent.resetStats()
+    stats.reset()
     agent.test(args.test_steps, epoch)
-    if args.csv_file:
-      csv_writer.writerow(agent.returnStats(epoch + 1, "test", args.exploration_rate_test))
+    stats.write(epoch + 1, "test")
 
-if args.csv_file:
-  csv_file.close()
+stats.close()
+logger.info("All done")

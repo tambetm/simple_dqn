@@ -11,15 +11,15 @@ class ReplayMemory:
     self.screens = np.empty((args.replay_size, args.screen_height, args.screen_width), dtype = np.uint8)
     self.terminals = np.empty(args.replay_size, dtype = np.bool)
     self.size = args.replay_size
-    self.history = args.history_length
+    self.history_length = args.history_length
     self.dims = (args.screen_height, args.screen_width)
     self.batch_size = args.batch_size
     self.count = 0
     self.current = 0
 
     # pre-allocate prestates and poststates for minibatch
-    self.prestates = np.empty((self.batch_size, self.history) + self.dims, dtype = np.uint8)
-    self.poststates = np.empty((self.batch_size, self.history) + self.dims, dtype = np.uint8)
+    self.prestates = np.empty((self.batch_size, self.history_length) + self.dims, dtype = np.uint8)
+    self.poststates = np.empty((self.batch_size, self.history_length) + self.dims, dtype = np.uint8)
 
     logger.info("Replay memory size: %d" % self.size)
 
@@ -40,12 +40,12 @@ class ReplayMemory:
     # normalize index to expected range, allows negative indexes
     index = index % self.count
     # if is not in the beginning of matrix
-    if index >= self.history - 1:
+    if index >= self.history_length - 1:
       # use faster slicing
-      return self.screens[(index - (self.history - 1)):(index + 1), ...]
+      return self.screens[(index - (self.history_length - 1)):(index + 1), ...]
     else:
       # otherwise normalize indexes and use slower list based access
-      indexes = [(index - i) % self.count for i in reversed(range(self.history))]
+      indexes = [(index - i) % self.count for i in reversed(range(self.history_length))]
       return self.screens[indexes, ...]
 
   def getCurrentState(self):
@@ -54,14 +54,15 @@ class ReplayMemory:
     return self.prestates
 
   def getMinibatch(self):
+    assert self.count > self.history_length
     # sample random indexes
     indexes = []
     while len(indexes) < self.batch_size:
       # find random index 
       while True:
-        index = random.randrange(self.count)
-        # if not in the beginning and does not wrap over episode end
-        if index >= self.history and not self.terminals[(index - self.history):index].any():
+        index = random.randint(self.history_length, self.count - 1)
+        # if does not wrap over episode end
+        if not self.terminals[(index - self.history_length):index].any():
           break
       
       # NB! having index first is fastest in C-order matrices

@@ -22,9 +22,10 @@ class DeepQNetwork:
                  default_dtype = np.dtype(args.datatype).type,
                  stochastic_round = args.stochastic_round)
 
+    # create model
     layers = self.createLayers(num_actions)
-    self.cost = GeneralizedCost(costfunc = SumSquared())
     self.model = Model(layers = layers)
+    self.cost = GeneralizedCost(costfunc = SumSquared())
     self.optimizer = RMSProp(learning_rate = args.learning_rate, 
         decay_rate = args.rmsprop_decay_rate, 
         stochastic_round = args.stochastic_round)
@@ -37,7 +38,10 @@ class DeepQNetwork:
       self.save_weights_path = args.save_weights_path
     else:
       self.target_model = self.model
+
+    # statistics
     self.train_iterations = 0
+    self.average_cost = 0
 
     # remember parameters
     self.num_actions = num_actions
@@ -92,7 +96,7 @@ class DeepQNetwork:
     # change order of axes to match what Neon expects
     # copy() shouldn't be necessary here, but Neon doesn't work on views
     self.tensor.set(np.transpose(poststates, axes = (1, 2, 3, 0)).copy())
-    self.be.divide(self.tensor, 255, self.tensor)
+    self.be.divide(self.tensor, 255, self.tensor) # normalize network input
     postq = self.target_model.fprop(self.tensor, inference = True)
     assert postq.shape == (self.num_actions, self.batch_size)
 
@@ -104,11 +108,11 @@ class DeepQNetwork:
     # change order of axes to match what Neon expects
     # copy() shouldn't be necessary here, but Neon doesn't work on views
     self.tensor.set(np.transpose(prestates, axes = (1, 2, 3, 0)).copy())
-    self.be.divide(self.tensor, 255, self.tensor)
+    self.be.divide(self.tensor, 255, self.tensor) # normalize network input
     preq = self.model.fprop(self.tensor, inference = False)
     assert preq.shape == (self.num_actions, self.batch_size)
 
-    # make copy of Q-values as targets
+    # make copy of prestate Q-values as targets
     self.targets.copy(preq)
 
     # update Q-value targets for actions taken
@@ -123,9 +127,9 @@ class DeepQNetwork:
     assert deltas.shape == (self.num_actions, self.batch_size)
     #assert np.count_nonzero(deltas.asnumpyarray()) == 32
 
-    #cost_before = self.cost.get_cost(preq, self.targets).asnumpyarray()[0,0]
-    #qvalues_before = preq.asnumpyarray()[:,0]
-    #targets = self.targets.asnumpyarray()[:,0]
+    # calculate cost, just in case
+    cost = self.cost.get_cost(preq, self.targets)
+    assert cost.shape == (1,1)
 
     # clip errors
     if self.clip_error:
@@ -137,34 +141,54 @@ class DeepQNetwork:
     # perform optimization
     self.optimizer.optimize(self.layers_to_optimize, epoch)
 
-    #preq = self.model.fprop(self.tensor, inference = False)
-    #cost_after = self.cost.get_cost(preq, self.targets).asnumpyarray()[0,0]
-    #qvalues_after = preq.asnumpyarray()[:,0]
-    #if rewards[0] > 0:
-    #  print "cost_before: %g, cost_after: %g" % (cost_before, cost_after) 
-    #  print "qvalues_before: ", qvalues_before, ", action: ", actions[0], ", reward: ", rewards[0]
-    #  print "targets: ", targets
-    #  print "qvalues_after: ", qvalues_after
-    #  raw_input("Press ENTER")
-
+    # calculate statistics
     self.train_iterations += 1
+    self.average_cost += (cost.asnumpyarray()[0,0] - self.average_cost) / self.train_iterations
 
-  def predict(self, state):
-    assert state.shape == ((self.batch_size, self.history_length,) + self.screen_dim)
+  def predict(self, states):
+    assert states.shape == ((self.batch_size, self.history_length,) + self.screen_dim)
+
     # assign to tensor
-    self.tensor.set(np.transpose(state, axes = (1, 2, 3, 0)).copy())
+    self.tensor.set(np.transpose(states, axes = (1, 2, 3, 0)).copy())
     self.be.divide(self.tensor, 255, self.tensor)
-    # calculate Q-values for the state
+
+    # calculate Q-values for the states
     qvalues = self.model.fprop(self.tensor, inference = True)
     assert qvalues.shape == (self.num_actions, self.batch_size)
     if logger.isEnabledFor(logging.DEBUG):
       logger.debug("Q-values: " + str(qvalues.asnumpyarray()[:,0]))
+
     # find the action with highest q-value
     actions = self.be.argmax(qvalues, axis = 0)
-    # take only first result
+    assert actions.shape == (1, self.batch_size)
+
+    # take only the first result
     return actions.asnumpyarray()[0,0]
 
+  def getMeanQ(self, states):
+    assert states.shape == ((self.batch_size, self.history_length,) + self.screen_dim)
+
+    # assign to tensor
+    self.tensor.set(np.transpose(states, axes = (1, 2, 3, 0)).copy())
+    self.be.divide(self.tensor, 255, self.tensor) # normalize network input
+
+    # calculate Q-values for the states
+    qvalues = self.model.fprop(self.tensor, inference = True)
+    assert qvalues.shape == (self.num_actions, self.batch_size)
+    
+    # take maximum Q-value for each state
+    actions = self.be.max(qvalues, axis = 0)
+    assert actions.astensor().shape == (1, self.batch_size)
+    
+    # calculate mean Q-value of all states
+    meanq = self.be.mean(actions, axis = 1)
+    assert meanq.astensor().shape == (1, 1)
+
+    # return the mean
+    return meanq.asnumpyarray()[0,0]
+
   def prepare_layers(self, layers):
+    # copied from Model.fit()
     self.layers = []
     self.layers_to_optimize = []
 
