@@ -1,0 +1,1291 @@
+A.L.E: Arcade Learning Environment (version 0.5.0)
+[Powered by Stella]
+Use -help for help screen.
+Warning: couldn't load settings file: ./stellarc
+Game console created:
+  ROM file:  roms/pong.bin
+  Cart Name: Video Olympics (1978) (Atari)
+  Cart MD5:  60e0ea3cbe0913d39803477945e9e5ec
+  Display Format:  AUTO-DETECT ==> NTSC
+  ROM Size:        2048
+  Bankswitch Type: AUTO-DETECT ==> 2K
+
+Running ROM file...
+Random Seed: Time
+Using minimal action set with size 3
+Replay memory size: 1000000
+Initialized NervanaGPU
+Backend: gpu, RNG seed: None
+Populating replay memory with 50000 random moves
+  games: 49, average_reward: -20.367347, replay_memory_count: 50000, total_train_steps: 0, exploration_rate: 1.000000, time_elapsed: 47, steps_per_second: 1062
+Epoch #1
+ Training for 50000 steps
+  games: 51, average_reward: -20.392157, replay_memory_count: 100000, total_train_steps: 50000, exploration_rate: 0.955000, time_elapsed: 419, steps_per_second: 119
+Saving weights to snapshots/pong_1.pkl
+serializing object to: snapshots/pong_1.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -19.818182, replay_memory_count: 110000, total_train_steps: 50000, exploration_rate: 0.955000, time_elapsed: 40, steps_per_second: 246
+Epoch #2
+ Training for 50000 steps
+  games: 52, average_reward: -20.461538, replay_memory_count: 160000, total_train_steps: 100000, exploration_rate: 0.910000, time_elapsed: 430, steps_per_second: 116
+Saving weights to snapshots/pong_2.pkl
+serializing object to: snapshots/pong_2.pkl
+ Testing for 10000 steps
+  games: 13, average_reward: -19.846154, replay_memory_count: 170000, total_train_steps: 100000, exploration_rate: 0.910000, time_elapsed: 41, steps_per_second: 240
+Epoch #3
+ Training for 50000 steps
+  games: 51, average_reward: -20.294118, replay_memory_count: 220000, total_train_steps: 150000, exploration_rate: 0.865000, time_elapsed: 448, steps_per_second: 111
+Saving weights to snapshots/pong_3.pkl
+serializing object to: snapshots/pong_3.pkl
+ Testing for 10000 steps
+  games: 13, average_reward: -19.769231, replay_memory_count: 230000, total_train_steps: 150000, exploration_rate: 0.865000, time_elapsed: 42, steps_per_second: 237
+Epoch #4
+ Training for 50000 steps
+  games: 52, average_reward: -20.288462, replay_memory_count: 280000, total_train_steps: 200000, exploration_rate: 0.820000, time_elapsed: 458, steps_per_second: 109
+Saving weights to snapshots/pong_4.pkl
+serializing object to: snapshots/pong_4.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.833333, replay_memory_count: 290000, total_train_steps: 200000, exploration_rate: 0.820000, time_elapsed: 41, steps_per_second: 241
+Epoch #5
+ Training for 50000 steps
+  games: 47, average_reward: -20.382979, replay_memory_count: 340000, total_train_steps: 250000, exploration_rate: 0.775000, time_elapsed: 487, steps_per_second: 102
+Saving weights to snapshots/pong_5.pkl
+serializing object to: snapshots/pong_5.pkl
+ Testing for 10000 steps
+  games: 8, average_reward: -19.000000, replay_memory_count: 350000, total_train_steps: 250000, exploration_rate: 0.775000, time_elapsed: 42, steps_per_second: 235
+Epoch #6
+ Training for 50000 steps
+  games: 39, average_reward: -19.641026, replay_memory_count: 400000, total_train_steps: 300000, exploration_rate: 0.730000, time_elapsed: 559, steps_per_second: 89
+Saving weights to snapshots/pong_6.pkl
+serializing object to: snapshots/pong_6.pkl
+ Testing for 10000 steps
+  games: 9, average_reward: -19.333333, replay_memory_count: 410000, total_train_steps: 300000, exploration_rate: 0.730000, time_elapsed: 41, steps_per_second: 239
+Epoch #7
+ Training for 50000 steps
+  games: 35, average_reward: -19.342857, replay_memory_count: 460000, total_train_steps: 350000, exploration_rate: 0.685000, time_elapsed: 557, steps_per_second: 89
+Saving weights to snapshots/pong_7.pkl
+serializing object to: snapshots/pong_7.pkl
+ Testing for 10000 steps
+  games: 5, average_reward: -15.000000, replay_memory_count: 470000, total_train_steps: 350000, exploration_rate: 0.685000, time_elapsed: 45, steps_per_second: 219
+Epoch #8
+ Training for 50000 steps
+  games: 32, average_reward: -18.843750, replay_memory_count: 520000, total_train_steps: 400000, exploration_rate: 0.640000, time_elapsed: 753, steps_per_second: 66
+Saving weights to snapshots/pong_8.pkl
+serializing object to: snapshots/pong_8.pkl
+ Testing for 10000 steps
+  games: 5, average_reward: -17.400000, replay_memory_count: 530000, total_train_steps: 400000, exploration_rate: 0.640000, time_elapsed: 48, steps_per_second: 207
+Epoch #9
+ Training for 50000 steps
+  games: 31, average_reward: -18.483871, replay_memory_count: 580000, total_train_steps: 450000, exploration_rate: 0.595000, time_elapsed: 640, steps_per_second: 78
+Saving weights to snapshots/pong_9.pkl
+serializing object to: snapshots/pong_9.pkl
+ Testing for 10000 steps
+  games: 3, average_reward: -15.666667, replay_memory_count: 590000, total_train_steps: 450000, exploration_rate: 0.595000, time_elapsed: 45, steps_per_second: 218
+Epoch #10
+ Training for 50000 steps
+  games: 29, average_reward: -18.448276, replay_memory_count: 640000, total_train_steps: 500000, exploration_rate: 0.550000, time_elapsed: 627, steps_per_second: 79
+Saving weights to snapshots/pong_10.pkl
+serializing object to: snapshots/pong_10.pkl
+ Testing for 10000 steps
+  games: 4, average_reward: -14.250000, replay_memory_count: 650000, total_train_steps: 500000, exploration_rate: 0.550000, time_elapsed: 44, steps_per_second: 226
+Epoch #11
+ Training for 50000 steps
+  games: 24, average_reward: -18.125000, replay_memory_count: 700000, total_train_steps: 550000, exploration_rate: 0.505000, time_elapsed: 705, steps_per_second: 70
+Saving weights to snapshots/pong_11.pkl
+serializing object to: snapshots/pong_11.pkl
+ Testing for 10000 steps
+  games: 4, average_reward: -13.500000, replay_memory_count: 710000, total_train_steps: 550000, exploration_rate: 0.505000, time_elapsed: 45, steps_per_second: 222
+Epoch #12
+ Training for 50000 steps
+  games: 24, average_reward: -17.208333, replay_memory_count: 760000, total_train_steps: 600000, exploration_rate: 0.460000, time_elapsed: 672, steps_per_second: 74
+Saving weights to snapshots/pong_12.pkl
+serializing object to: snapshots/pong_12.pkl
+ Testing for 10000 steps
+  games: 3, average_reward: -16.666667, replay_memory_count: 770000, total_train_steps: 600000, exploration_rate: 0.460000, time_elapsed: 49, steps_per_second: 201
+Epoch #13
+ Training for 50000 steps
+  games: 22, average_reward: -17.227273, replay_memory_count: 820000, total_train_steps: 650000, exploration_rate: 0.415000, time_elapsed: 705, steps_per_second: 70
+Saving weights to snapshots/pong_13.pkl
+serializing object to: snapshots/pong_13.pkl
+ Testing for 10000 steps
+  games: 4, average_reward: -15.000000, replay_memory_count: 830000, total_train_steps: 650000, exploration_rate: 0.415000, time_elapsed: 48, steps_per_second: 205
+Epoch #14
+ Training for 50000 steps
+  games: 20, average_reward: -16.950000, replay_memory_count: 880000, total_train_steps: 700000, exploration_rate: 0.370000, time_elapsed: 722, steps_per_second: 69
+Saving weights to snapshots/pong_14.pkl
+serializing object to: snapshots/pong_14.pkl
+ Testing for 10000 steps
+  games: 3, average_reward: -10.000000, replay_memory_count: 890000, total_train_steps: 700000, exploration_rate: 0.370000, time_elapsed: 45, steps_per_second: 217
+Epoch #15
+ Training for 50000 steps
+  games: 17, average_reward: -16.529412, replay_memory_count: 940000, total_train_steps: 750000, exploration_rate: 0.325000, time_elapsed: 759, steps_per_second: 65
+Saving weights to snapshots/pong_15.pkl
+serializing object to: snapshots/pong_15.pkl
+ Testing for 10000 steps
+  games: 3, average_reward: -12.000000, replay_memory_count: 950000, total_train_steps: 750000, exploration_rate: 0.325000, time_elapsed: 45, steps_per_second: 218
+Epoch #16
+ Training for 50000 steps
+  games: 17, average_reward: -15.941176, replay_memory_count: 999999, total_train_steps: 800000, exploration_rate: 0.280000, time_elapsed: 730, steps_per_second: 68
+Saving weights to snapshots/pong_16.pkl
+serializing object to: snapshots/pong_16.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -13.000000, replay_memory_count: 999999, total_train_steps: 800000, exploration_rate: 0.280000, time_elapsed: 46, steps_per_second: 213
+Epoch #17
+ Training for 50000 steps
+  games: 15, average_reward: -14.733333, replay_memory_count: 999999, total_train_steps: 850000, exploration_rate: 0.235000, time_elapsed: 670, steps_per_second: 74
+Saving weights to snapshots/pong_17.pkl
+serializing object to: snapshots/pong_17.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -9.500000, replay_memory_count: 999999, total_train_steps: 850000, exploration_rate: 0.235000, time_elapsed: 52, steps_per_second: 188
+Epoch #18
+ Training for 50000 steps
+  games: 14, average_reward: -14.214286, replay_memory_count: 999999, total_train_steps: 900000, exploration_rate: 0.190000, time_elapsed: 730, steps_per_second: 68
+Saving weights to snapshots/pong_18.pkl
+serializing object to: snapshots/pong_18.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -12.500000, replay_memory_count: 999999, total_train_steps: 900000, exploration_rate: 0.190000, time_elapsed: 48, steps_per_second: 205
+Epoch #19
+ Training for 50000 steps
+  games: 12, average_reward: -15.250000, replay_memory_count: 999999, total_train_steps: 950000, exploration_rate: 0.145000, time_elapsed: 744, steps_per_second: 67
+Saving weights to snapshots/pong_19.pkl
+serializing object to: snapshots/pong_19.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -11.500000, replay_memory_count: 999999, total_train_steps: 950000, exploration_rate: 0.145000, time_elapsed: 50, steps_per_second: 199
+Epoch #20
+ Training for 50000 steps
+  games: 11, average_reward: -15.090909, replay_memory_count: 999999, total_train_steps: 1000000, exploration_rate: 0.100000, time_elapsed: 757, steps_per_second: 66
+Saving weights to snapshots/pong_20.pkl
+serializing object to: snapshots/pong_20.pkl
+ Testing for 10000 steps
+  games: 3, average_reward: -10.333333, replay_memory_count: 999999, total_train_steps: 1000000, exploration_rate: 0.100000, time_elapsed: 50, steps_per_second: 199
+Epoch #21
+ Training for 50000 steps
+  games: 10, average_reward: -13.000000, replay_memory_count: 999999, total_train_steps: 1050000, exploration_rate: 0.100000, time_elapsed: 749, steps_per_second: 66
+Saving weights to snapshots/pong_21.pkl
+serializing object to: snapshots/pong_21.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -8.000000, replay_memory_count: 999999, total_train_steps: 1050000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 206
+Epoch #22
+ Training for 50000 steps
+  games: 9, average_reward: -13.111111, replay_memory_count: 999999, total_train_steps: 1100000, exploration_rate: 0.100000, time_elapsed: 761, steps_per_second: 65
+Saving weights to snapshots/pong_22.pkl
+serializing object to: snapshots/pong_22.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -12.500000, replay_memory_count: 999999, total_train_steps: 1100000, exploration_rate: 0.100000, time_elapsed: 57, steps_per_second: 174
+Epoch #23
+ Training for 50000 steps
+  games: 9, average_reward: -13.666667, replay_memory_count: 999999, total_train_steps: 1150000, exploration_rate: 0.100000, time_elapsed: 774, steps_per_second: 64
+Saving weights to snapshots/pong_23.pkl
+serializing object to: snapshots/pong_23.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -6.500000, replay_memory_count: 999999, total_train_steps: 1150000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 211
+Epoch #24
+ Training for 50000 steps
+  games: 9, average_reward: -11.111111, replay_memory_count: 999999, total_train_steps: 1200000, exploration_rate: 0.100000, time_elapsed: 704, steps_per_second: 70
+Saving weights to snapshots/pong_24.pkl
+serializing object to: snapshots/pong_24.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -15.000000, replay_memory_count: 999999, total_train_steps: 1200000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 216
+Epoch #25
+ Training for 50000 steps
+  games: 9, average_reward: -11.666667, replay_memory_count: 999999, total_train_steps: 1250000, exploration_rate: 0.100000, time_elapsed: 976, steps_per_second: 51
+Saving weights to snapshots/pong_25.pkl
+serializing object to: snapshots/pong_25.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -6.500000, replay_memory_count: 999999, total_train_steps: 1250000, exploration_rate: 0.100000, time_elapsed: 44, steps_per_second: 225
+Epoch #26
+ Training for 50000 steps
+  games: 8, average_reward: -7.750000, replay_memory_count: 999999, total_train_steps: 1300000, exploration_rate: 0.100000, time_elapsed: 733, steps_per_second: 68
+Saving weights to snapshots/pong_26.pkl
+serializing object to: snapshots/pong_26.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -11.000000, replay_memory_count: 999999, total_train_steps: 1300000, exploration_rate: 0.100000, time_elapsed: 44, steps_per_second: 222
+Epoch #27
+ Training for 50000 steps
+  games: 8, average_reward: -8.250000, replay_memory_count: 999999, total_train_steps: 1350000, exploration_rate: 0.100000, time_elapsed: 714, steps_per_second: 69
+Saving weights to snapshots/pong_27.pkl
+serializing object to: snapshots/pong_27.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -9.000000, replay_memory_count: 999999, total_train_steps: 1350000, exploration_rate: 0.100000, time_elapsed: 44, steps_per_second: 224
+Epoch #28
+ Training for 50000 steps
+  games: 8, average_reward: -10.250000, replay_memory_count: 999999, total_train_steps: 1400000, exploration_rate: 0.100000, time_elapsed: 711, steps_per_second: 70
+Saving weights to snapshots/pong_28.pkl
+serializing object to: snapshots/pong_28.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -8.000000, replay_memory_count: 999999, total_train_steps: 1400000, exploration_rate: 0.100000, time_elapsed: 44, steps_per_second: 223
+Epoch #29
+ Training for 50000 steps
+  games: 7, average_reward: -7.285714, replay_memory_count: 999999, total_train_steps: 1450000, exploration_rate: 0.100000, time_elapsed: 718, steps_per_second: 69
+Saving weights to snapshots/pong_29.pkl
+serializing object to: snapshots/pong_29.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -8.000000, replay_memory_count: 999999, total_train_steps: 1450000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 214
+Epoch #30
+ Training for 50000 steps
+  games: 7, average_reward: -8.714286, replay_memory_count: 999999, total_train_steps: 1500000, exploration_rate: 0.100000, time_elapsed: 718, steps_per_second: 69
+Saving weights to snapshots/pong_30.pkl
+serializing object to: snapshots/pong_30.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: 0.000000, replay_memory_count: 999999, total_train_steps: 1500000, exploration_rate: 0.100000, time_elapsed: 45, steps_per_second: 218
+Epoch #31
+ Training for 50000 steps
+  games: 7, average_reward: -10.000000, replay_memory_count: 999999, total_train_steps: 1550000, exploration_rate: 0.100000, time_elapsed: 734, steps_per_second: 68
+Saving weights to snapshots/pong_31.pkl
+serializing object to: snapshots/pong_31.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -3.000000, replay_memory_count: 999999, total_train_steps: 1550000, exploration_rate: 0.100000, time_elapsed: 43, steps_per_second: 228
+Epoch #32
+ Training for 50000 steps
+  games: 8, average_reward: -8.250000, replay_memory_count: 999999, total_train_steps: 1600000, exploration_rate: 0.100000, time_elapsed: 706, steps_per_second: 70
+Saving weights to snapshots/pong_32.pkl
+serializing object to: snapshots/pong_32.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -2.000000, replay_memory_count: 999999, total_train_steps: 1600000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 201
+Epoch #33
+ Training for 50000 steps
+  games: 8, average_reward: -6.375000, replay_memory_count: 999999, total_train_steps: 1650000, exploration_rate: 0.100000, time_elapsed: 698, steps_per_second: 71
+Saving weights to snapshots/pong_33.pkl
+serializing object to: snapshots/pong_33.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -16.000000, replay_memory_count: 999999, total_train_steps: 1650000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 214
+Epoch #34
+ Training for 50000 steps
+  games: 7, average_reward: -3.857143, replay_memory_count: 999999, total_train_steps: 1700000, exploration_rate: 0.100000, time_elapsed: 738, steps_per_second: 67
+Saving weights to snapshots/pong_34.pkl
+serializing object to: snapshots/pong_34.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: 0.000000, replay_memory_count: 999999, total_train_steps: 1700000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 210
+Epoch #35
+ Training for 50000 steps
+  games: 7, average_reward: -5.000000, replay_memory_count: 999999, total_train_steps: 1750000, exploration_rate: 0.100000, time_elapsed: 780, steps_per_second: 64
+Saving weights to snapshots/pong_35.pkl
+serializing object to: snapshots/pong_35.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -8.500000, replay_memory_count: 999999, total_train_steps: 1750000, exploration_rate: 0.100000, time_elapsed: 45, steps_per_second: 220
+Epoch #36
+ Training for 50000 steps
+  games: 7, average_reward: -4.000000, replay_memory_count: 999999, total_train_steps: 1800000, exploration_rate: 0.100000, time_elapsed: 720, steps_per_second: 69
+Saving weights to snapshots/pong_36.pkl
+serializing object to: snapshots/pong_36.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: 0.000000, replay_memory_count: 999999, total_train_steps: 1800000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 214
+Epoch #37
+ Training for 50000 steps
+  games: 7, average_reward: -5.714286, replay_memory_count: 999999, total_train_steps: 1850000, exploration_rate: 0.100000, time_elapsed: 699, steps_per_second: 71
+Saving weights to snapshots/pong_37.pkl
+serializing object to: snapshots/pong_37.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -6.500000, replay_memory_count: 999999, total_train_steps: 1850000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 214
+Epoch #38
+ Training for 50000 steps
+  games: 9, average_reward: -9.666667, replay_memory_count: 999999, total_train_steps: 1900000, exploration_rate: 0.100000, time_elapsed: 693, steps_per_second: 72
+Saving weights to snapshots/pong_38.pkl
+serializing object to: snapshots/pong_38.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: 3.000000, replay_memory_count: 999999, total_train_steps: 1900000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 211
+Epoch #39
+ Training for 50000 steps
+  games: 7, average_reward: -6.571429, replay_memory_count: 999999, total_train_steps: 1950000, exploration_rate: 0.100000, time_elapsed: 718, steps_per_second: 69
+Saving weights to snapshots/pong_39.pkl
+serializing object to: snapshots/pong_39.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -3.500000, replay_memory_count: 999999, total_train_steps: 1950000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 211
+Epoch #40
+ Training for 50000 steps
+  games: 7, average_reward: -5.000000, replay_memory_count: 999999, total_train_steps: 2000000, exploration_rate: 0.100000, time_elapsed: 722, steps_per_second: 69
+Saving weights to snapshots/pong_40.pkl
+serializing object to: snapshots/pong_40.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -5.000000, replay_memory_count: 999999, total_train_steps: 2000000, exploration_rate: 0.100000, time_elapsed: 45, steps_per_second: 220
+Epoch #41
+ Training for 50000 steps
+  games: 9, average_reward: -11.111111, replay_memory_count: 999999, total_train_steps: 2050000, exploration_rate: 0.100000, time_elapsed: 703, steps_per_second: 71
+Saving weights to snapshots/pong_41.pkl
+serializing object to: snapshots/pong_41.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -1.500000, replay_memory_count: 999999, total_train_steps: 2050000, exploration_rate: 0.100000, time_elapsed: 44, steps_per_second: 226
+Epoch #42
+ Training for 50000 steps
+  games: 8, average_reward: -10.750000, replay_memory_count: 999999, total_train_steps: 2100000, exploration_rate: 0.100000, time_elapsed: 718, steps_per_second: 69
+Saving weights to snapshots/pong_42.pkl
+serializing object to: snapshots/pong_42.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: 1.500000, replay_memory_count: 999999, total_train_steps: 2100000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 203
+Epoch #43
+ Training for 50000 steps
+  games: 7, average_reward: -4.857143, replay_memory_count: 999999, total_train_steps: 2150000, exploration_rate: 0.100000, time_elapsed: 732, steps_per_second: 68
+Saving weights to snapshots/pong_43.pkl
+serializing object to: snapshots/pong_43.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: 0.000000, replay_memory_count: 999999, total_train_steps: 2150000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 206
+Epoch #44
+ Training for 50000 steps
+  games: 8, average_reward: -6.250000, replay_memory_count: 999999, total_train_steps: 2200000, exploration_rate: 0.100000, time_elapsed: 740, steps_per_second: 67
+Saving weights to snapshots/pong_44.pkl
+serializing object to: snapshots/pong_44.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -8.000000, replay_memory_count: 999999, total_train_steps: 2200000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 200
+Epoch #45
+ Training for 50000 steps
+  games: 7, average_reward: -7.714286, replay_memory_count: 999999, total_train_steps: 2250000, exploration_rate: 0.100000, time_elapsed: 710, steps_per_second: 70
+Saving weights to snapshots/pong_45.pkl
+serializing object to: snapshots/pong_45.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -1.000000, replay_memory_count: 999999, total_train_steps: 2250000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 212
+Epoch #46
+ Training for 50000 steps
+  games: 9, average_reward: -4.888889, replay_memory_count: 999999, total_train_steps: 2300000, exploration_rate: 0.100000, time_elapsed: 744, steps_per_second: 67
+Saving weights to snapshots/pong_46.pkl
+serializing object to: snapshots/pong_46.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -3.000000, replay_memory_count: 999999, total_train_steps: 2300000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 208
+Epoch #47
+ Training for 50000 steps
+  games: 7, average_reward: -5.428571, replay_memory_count: 999999, total_train_steps: 2350000, exploration_rate: 0.100000, time_elapsed: 743, steps_per_second: 67
+Saving weights to snapshots/pong_47.pkl
+serializing object to: snapshots/pong_47.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: 1.000000, replay_memory_count: 999999, total_train_steps: 2350000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 207
+Epoch #48
+ Training for 50000 steps
+  games: 7, average_reward: -6.000000, replay_memory_count: 999999, total_train_steps: 2400000, exploration_rate: 0.100000, time_elapsed: 714, steps_per_second: 70
+Saving weights to snapshots/pong_48.pkl
+serializing object to: snapshots/pong_48.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -4.000000, replay_memory_count: 999999, total_train_steps: 2400000, exploration_rate: 0.100000, time_elapsed: 56, steps_per_second: 177
+Epoch #49
+ Training for 50000 steps
+  games: 8, average_reward: -1.625000, replay_memory_count: 999999, total_train_steps: 2450000, exploration_rate: 0.100000, time_elapsed: 737, steps_per_second: 67
+Saving weights to snapshots/pong_49.pkl
+serializing object to: snapshots/pong_49.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -5.000000, replay_memory_count: 999999, total_train_steps: 2450000, exploration_rate: 0.100000, time_elapsed: 60, steps_per_second: 165
+Epoch #50
+ Training for 50000 steps
+  games: 8, average_reward: -8.250000, replay_memory_count: 999999, total_train_steps: 2500000, exploration_rate: 0.100000, time_elapsed: 708, steps_per_second: 70
+Saving weights to snapshots/pong_50.pkl
+serializing object to: snapshots/pong_50.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -1.000000, replay_memory_count: 999999, total_train_steps: 2500000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 205
+Epoch #51
+ Training for 50000 steps
+  games: 8, average_reward: -3.250000, replay_memory_count: 999999, total_train_steps: 2550000, exploration_rate: 0.100000, time_elapsed: 773, steps_per_second: 64
+Saving weights to snapshots/pong_51.pkl
+serializing object to: snapshots/pong_51.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -3.000000, replay_memory_count: 999999, total_train_steps: 2550000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 205
+Epoch #52
+ Training for 50000 steps
+  games: 7, average_reward: -6.000000, replay_memory_count: 999999, total_train_steps: 2600000, exploration_rate: 0.100000, time_elapsed: 713, steps_per_second: 70
+Saving weights to snapshots/pong_52.pkl
+serializing object to: snapshots/pong_52.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -3.500000, replay_memory_count: 999999, total_train_steps: 2600000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 201
+Epoch #53
+ Training for 50000 steps
+  games: 8, average_reward: -10.000000, replay_memory_count: 999999, total_train_steps: 2650000, exploration_rate: 0.100000, time_elapsed: 718, steps_per_second: 69
+Saving weights to snapshots/pong_53.pkl
+serializing object to: snapshots/pong_53.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -1.000000, replay_memory_count: 999999, total_train_steps: 2650000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 204
+Epoch #54
+ Training for 50000 steps
+  games: 8, average_reward: -7.625000, replay_memory_count: 999999, total_train_steps: 2700000, exploration_rate: 0.100000, time_elapsed: 745, steps_per_second: 67
+Saving weights to snapshots/pong_54.pkl
+serializing object to: snapshots/pong_54.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -1.000000, replay_memory_count: 999999, total_train_steps: 2700000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 208
+Epoch #55
+ Training for 50000 steps
+  games: 8, average_reward: -9.000000, replay_memory_count: 999999, total_train_steps: 2750000, exploration_rate: 0.100000, time_elapsed: 710, steps_per_second: 70
+Saving weights to snapshots/pong_55.pkl
+serializing object to: snapshots/pong_55.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -3.000000, replay_memory_count: 999999, total_train_steps: 2750000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 204
+Epoch #56
+ Training for 50000 steps
+  games: 7, average_reward: -4.857143, replay_memory_count: 999999, total_train_steps: 2800000, exploration_rate: 0.100000, time_elapsed: 714, steps_per_second: 69
+Saving weights to snapshots/pong_56.pkl
+serializing object to: snapshots/pong_56.pkl
+ Testing for 10000 steps
+  games: 3, average_reward: -15.000000, replay_memory_count: 999999, total_train_steps: 2800000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 201
+Epoch #57
+ Training for 50000 steps
+  games: 7, average_reward: -6.428571, replay_memory_count: 999999, total_train_steps: 2850000, exploration_rate: 0.100000, time_elapsed: 724, steps_per_second: 69
+Saving weights to snapshots/pong_57.pkl
+serializing object to: snapshots/pong_57.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -1.000000, replay_memory_count: 999999, total_train_steps: 2850000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 203
+Epoch #58
+ Training for 50000 steps
+  games: 7, average_reward: -4.000000, replay_memory_count: 999999, total_train_steps: 2900000, exploration_rate: 0.100000, time_elapsed: 700, steps_per_second: 71
+Saving weights to snapshots/pong_58.pkl
+serializing object to: snapshots/pong_58.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -1.500000, replay_memory_count: 999999, total_train_steps: 2900000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 211
+Epoch #59
+ Training for 50000 steps
+  games: 6, average_reward: -2.166667, replay_memory_count: 999999, total_train_steps: 2950000, exploration_rate: 0.100000, time_elapsed: 719, steps_per_second: 69
+Saving weights to snapshots/pong_59.pkl
+serializing object to: snapshots/pong_59.pkl
+ Testing for 10000 steps
+  games: 3, average_reward: -8.000000, replay_memory_count: 999999, total_train_steps: 2950000, exploration_rate: 0.100000, time_elapsed: 53, steps_per_second: 186
+Epoch #60
+ Training for 50000 steps
+  games: 8, average_reward: -5.875000, replay_memory_count: 999999, total_train_steps: 3000000, exploration_rate: 0.100000, time_elapsed: 713, steps_per_second: 70
+Saving weights to snapshots/pong_60.pkl
+serializing object to: snapshots/pong_60.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -4.000000, replay_memory_count: 999999, total_train_steps: 3000000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 201
+Epoch #61
+ Training for 50000 steps
+  games: 9, average_reward: -6.777778, replay_memory_count: 999999, total_train_steps: 3050000, exploration_rate: 0.100000, time_elapsed: 718, steps_per_second: 69
+Saving weights to snapshots/pong_61.pkl
+serializing object to: snapshots/pong_61.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: 9.000000, replay_memory_count: 999999, total_train_steps: 3050000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 205
+Epoch #62
+ Training for 50000 steps
+  games: 33, average_reward: -18.575758, replay_memory_count: 999999, total_train_steps: 3100000, exploration_rate: 0.100000, time_elapsed: 714, steps_per_second: 69
+Saving weights to snapshots/pong_62.pkl
+serializing object to: snapshots/pong_62.pkl
+ Testing for 10000 steps
+  games: 13, average_reward: -20.692308, replay_memory_count: 999999, total_train_steps: 3100000, exploration_rate: 0.100000, time_elapsed: 44, steps_per_second: 223
+Epoch #63
+ Training for 50000 steps
+  games: 56, average_reward: -20.803571, replay_memory_count: 999999, total_train_steps: 3150000, exploration_rate: 0.100000, time_elapsed: 704, steps_per_second: 70
+Saving weights to snapshots/pong_63.pkl
+serializing object to: snapshots/pong_63.pkl
+ Testing for 10000 steps
+  games: 10, average_reward: -20.000000, replay_memory_count: 999999, total_train_steps: 3150000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 205
+Epoch #64
+ Training for 50000 steps
+  games: 53, average_reward: -20.509434, replay_memory_count: 999999, total_train_steps: 3200000, exploration_rate: 0.100000, time_elapsed: 703, steps_per_second: 71
+Saving weights to snapshots/pong_64.pkl
+serializing object to: snapshots/pong_64.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -21.000000, replay_memory_count: 999999, total_train_steps: 3200000, exploration_rate: 0.100000, time_elapsed: 60, steps_per_second: 164
+Epoch #65
+ Training for 50000 steps
+  games: 51, average_reward: -20.784314, replay_memory_count: 999999, total_train_steps: 3250000, exploration_rate: 0.100000, time_elapsed: 749, steps_per_second: 66
+Saving weights to snapshots/pong_65.pkl
+serializing object to: snapshots/pong_65.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.636364, replay_memory_count: 999999, total_train_steps: 3250000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 203
+Epoch #66
+ Training for 50000 steps
+  games: 44, average_reward: -20.159091, replay_memory_count: 999999, total_train_steps: 3300000, exploration_rate: 0.100000, time_elapsed: 718, steps_per_second: 69
+Saving weights to snapshots/pong_66.pkl
+serializing object to: snapshots/pong_66.pkl
+ Testing for 10000 steps
+  games: 9, average_reward: -18.111111, replay_memory_count: 999999, total_train_steps: 3300000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 208
+Epoch #67
+ Training for 50000 steps
+  games: 36, average_reward: -19.638889, replay_memory_count: 999999, total_train_steps: 3350000, exploration_rate: 0.100000, time_elapsed: 725, steps_per_second: 68
+Saving weights to snapshots/pong_67.pkl
+serializing object to: snapshots/pong_67.pkl
+ Testing for 10000 steps
+  games: 7, average_reward: -19.571429, replay_memory_count: 999999, total_train_steps: 3350000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 202
+Epoch #68
+ Training for 50000 steps
+  games: 33, average_reward: -18.606061, replay_memory_count: 999999, total_train_steps: 3400000, exploration_rate: 0.100000, time_elapsed: 720, steps_per_second: 69
+Saving weights to snapshots/pong_68.pkl
+serializing object to: snapshots/pong_68.pkl
+ Testing for 10000 steps
+  games: 6, average_reward: -18.666667, replay_memory_count: 999999, total_train_steps: 3400000, exploration_rate: 0.100000, time_elapsed: 59, steps_per_second: 169
+Epoch #69
+ Training for 50000 steps
+  games: 28, average_reward: -19.035714, replay_memory_count: 999999, total_train_steps: 3450000, exploration_rate: 0.100000, time_elapsed: 797, steps_per_second: 62
+Saving weights to snapshots/pong_69.pkl
+serializing object to: snapshots/pong_69.pkl
+ Testing for 10000 steps
+  games: 4, average_reward: -18.500000, replay_memory_count: 999999, total_train_steps: 3450000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 201
+Epoch #70
+ Training for 50000 steps
+  games: 26, average_reward: -18.153846, replay_memory_count: 999999, total_train_steps: 3500000, exploration_rate: 0.100000, time_elapsed: 769, steps_per_second: 65
+Saving weights to snapshots/pong_70.pkl
+serializing object to: snapshots/pong_70.pkl
+ Testing for 10000 steps
+  games: 4, average_reward: -16.000000, replay_memory_count: 999999, total_train_steps: 3500000, exploration_rate: 0.100000, time_elapsed: 50, steps_per_second: 196
+Epoch #71
+ Training for 50000 steps
+  games: 21, average_reward: -17.666667, replay_memory_count: 999999, total_train_steps: 3550000, exploration_rate: 0.100000, time_elapsed: 728, steps_per_second: 68
+Saving weights to snapshots/pong_71.pkl
+serializing object to: snapshots/pong_71.pkl
+ Testing for 10000 steps
+  games: 4, average_reward: -13.000000, replay_memory_count: 999999, total_train_steps: 3550000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 203
+Epoch #72
+ Training for 50000 steps
+  games: 21, average_reward: -17.095238, replay_memory_count: 999999, total_train_steps: 3600000, exploration_rate: 0.100000, time_elapsed: 766, steps_per_second: 65
+Saving weights to snapshots/pong_72.pkl
+serializing object to: snapshots/pong_72.pkl
+ Testing for 10000 steps
+  games: 5, average_reward: -16.000000, replay_memory_count: 999999, total_train_steps: 3600000, exploration_rate: 0.100000, time_elapsed: 57, steps_per_second: 175
+Epoch #73
+ Training for 50000 steps
+  games: 19, average_reward: -16.684211, replay_memory_count: 999999, total_train_steps: 3650000, exploration_rate: 0.100000, time_elapsed: 788, steps_per_second: 63
+Saving weights to snapshots/pong_73.pkl
+serializing object to: snapshots/pong_73.pkl
+ Testing for 10000 steps
+  games: 4, average_reward: -13.750000, replay_memory_count: 999999, total_train_steps: 3650000, exploration_rate: 0.100000, time_elapsed: 50, steps_per_second: 197
+Epoch #74
+ Training for 50000 steps
+  games: 17, average_reward: -16.411765, replay_memory_count: 999999, total_train_steps: 3700000, exploration_rate: 0.100000, time_elapsed: 745, steps_per_second: 67
+Saving weights to snapshots/pong_74.pkl
+serializing object to: snapshots/pong_74.pkl
+ Testing for 10000 steps
+  games: 3, average_reward: -15.333333, replay_memory_count: 999999, total_train_steps: 3700000, exploration_rate: 0.100000, time_elapsed: 51, steps_per_second: 194
+Epoch #75
+ Training for 50000 steps
+  games: 17, average_reward: -16.705882, replay_memory_count: 999999, total_train_steps: 3750000, exploration_rate: 0.100000, time_elapsed: 727, steps_per_second: 68
+Saving weights to snapshots/pong_75.pkl
+serializing object to: snapshots/pong_75.pkl
+ Testing for 10000 steps
+  games: 3, average_reward: -15.666667, replay_memory_count: 999999, total_train_steps: 3750000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 201
+Epoch #76
+ Training for 50000 steps
+  games: 16, average_reward: -15.375000, replay_memory_count: 999999, total_train_steps: 3800000, exploration_rate: 0.100000, time_elapsed: 743, steps_per_second: 67
+Saving weights to snapshots/pong_76.pkl
+serializing object to: snapshots/pong_76.pkl
+ Testing for 10000 steps
+  games: 3, average_reward: -18.000000, replay_memory_count: 999999, total_train_steps: 3800000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 205
+Epoch #77
+ Training for 50000 steps
+  games: 15, average_reward: -15.266667, replay_memory_count: 999999, total_train_steps: 3850000, exploration_rate: 0.100000, time_elapsed: 726, steps_per_second: 68
+Saving weights to snapshots/pong_77.pkl
+serializing object to: snapshots/pong_77.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -14.000000, replay_memory_count: 999999, total_train_steps: 3850000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 202
+Epoch #78
+ Training for 50000 steps
+  games: 15, average_reward: -13.800000, replay_memory_count: 999999, total_train_steps: 3900000, exploration_rate: 0.100000, time_elapsed: 784, steps_per_second: 63
+Saving weights to snapshots/pong_78.pkl
+serializing object to: snapshots/pong_78.pkl
+ Testing for 10000 steps
+  games: 3, average_reward: -12.333333, replay_memory_count: 999999, total_train_steps: 3900000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 200
+Epoch #79
+ Training for 50000 steps
+  games: 12, average_reward: -14.750000, replay_memory_count: 999999, total_train_steps: 3950000, exploration_rate: 0.100000, time_elapsed: 718, steps_per_second: 69
+Saving weights to snapshots/pong_79.pkl
+serializing object to: snapshots/pong_79.pkl
+ Testing for 10000 steps
+  games: 3, average_reward: -10.666667, replay_memory_count: 999999, total_train_steps: 3950000, exploration_rate: 0.100000, time_elapsed: 51, steps_per_second: 194
+Epoch #80
+ Training for 50000 steps
+  games: 11, average_reward: -12.818182, replay_memory_count: 999999, total_train_steps: 4000000, exploration_rate: 0.100000, time_elapsed: 710, steps_per_second: 70
+Saving weights to snapshots/pong_80.pkl
+serializing object to: snapshots/pong_80.pkl
+ Testing for 10000 steps
+  games: 3, average_reward: -16.000000, replay_memory_count: 999999, total_train_steps: 4000000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 203
+Epoch #81
+ Training for 50000 steps
+  games: 11, average_reward: -13.181818, replay_memory_count: 999999, total_train_steps: 4050000, exploration_rate: 0.100000, time_elapsed: 713, steps_per_second: 70
+Saving weights to snapshots/pong_81.pkl
+serializing object to: snapshots/pong_81.pkl
+ Testing for 10000 steps
+  games: 3, average_reward: -14.000000, replay_memory_count: 999999, total_train_steps: 4050000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 205
+Epoch #82
+ Training for 50000 steps
+  games: 11, average_reward: -12.909091, replay_memory_count: 999999, total_train_steps: 4100000, exploration_rate: 0.100000, time_elapsed: 711, steps_per_second: 70
+Saving weights to snapshots/pong_82.pkl
+serializing object to: snapshots/pong_82.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -12.000000, replay_memory_count: 999999, total_train_steps: 4100000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 216
+Epoch #83
+ Training for 50000 steps
+  games: 10, average_reward: -14.000000, replay_memory_count: 999999, total_train_steps: 4150000, exploration_rate: 0.100000, time_elapsed: 689, steps_per_second: 72
+Saving weights to snapshots/pong_83.pkl
+serializing object to: snapshots/pong_83.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -6.000000, replay_memory_count: 999999, total_train_steps: 4150000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 210
+Epoch #84
+ Training for 50000 steps
+  games: 11, average_reward: -12.181818, replay_memory_count: 999999, total_train_steps: 4200000, exploration_rate: 0.100000, time_elapsed: 694, steps_per_second: 71
+Saving weights to snapshots/pong_84.pkl
+serializing object to: snapshots/pong_84.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -10.000000, replay_memory_count: 999999, total_train_steps: 4200000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 200
+Epoch #85
+ Training for 50000 steps
+  games: 10, average_reward: -13.600000, replay_memory_count: 999999, total_train_steps: 4250000, exploration_rate: 0.100000, time_elapsed: 920, steps_per_second: 54
+Saving weights to snapshots/pong_85.pkl
+serializing object to: snapshots/pong_85.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -9.500000, replay_memory_count: 999999, total_train_steps: 4250000, exploration_rate: 0.100000, time_elapsed: 54, steps_per_second: 185
+Epoch #86
+ Training for 50000 steps
+  games: 10, average_reward: -12.600000, replay_memory_count: 999999, total_train_steps: 4300000, exploration_rate: 0.100000, time_elapsed: 910, steps_per_second: 54
+Saving weights to snapshots/pong_86.pkl
+serializing object to: snapshots/pong_86.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.181818, replay_memory_count: 999999, total_train_steps: 4300000, exploration_rate: 0.100000, time_elapsed: 54, steps_per_second: 183
+Epoch #87
+ Training for 50000 steps
+  games: 10, average_reward: -11.900000, replay_memory_count: 999999, total_train_steps: 4350000, exploration_rate: 0.100000, time_elapsed: 860, steps_per_second: 58
+Saving weights to snapshots/pong_87.pkl
+serializing object to: snapshots/pong_87.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -5.000000, replay_memory_count: 999999, total_train_steps: 4350000, exploration_rate: 0.100000, time_elapsed: 45, steps_per_second: 221
+Epoch #88
+ Training for 50000 steps
+  games: 11, average_reward: -13.909091, replay_memory_count: 999999, total_train_steps: 4400000, exploration_rate: 0.100000, time_elapsed: 812, steps_per_second: 61
+Saving weights to snapshots/pong_88.pkl
+serializing object to: snapshots/pong_88.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -7.000000, replay_memory_count: 999999, total_train_steps: 4400000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 210
+Epoch #89
+ Training for 50000 steps
+  games: 10, average_reward: -10.900000, replay_memory_count: 999999, total_train_steps: 4450000, exploration_rate: 0.100000, time_elapsed: 737, steps_per_second: 67
+Saving weights to snapshots/pong_89.pkl
+serializing object to: snapshots/pong_89.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -6.000000, replay_memory_count: 999999, total_train_steps: 4450000, exploration_rate: 0.100000, time_elapsed: 44, steps_per_second: 226
+Epoch #90
+ Training for 50000 steps
+  games: 11, average_reward: -13.454545, replay_memory_count: 999999, total_train_steps: 4500000, exploration_rate: 0.100000, time_elapsed: 710, steps_per_second: 70
+Saving weights to snapshots/pong_90.pkl
+serializing object to: snapshots/pong_90.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -10.000000, replay_memory_count: 999999, total_train_steps: 4500000, exploration_rate: 0.100000, time_elapsed: 45, steps_per_second: 221
+Epoch #91
+ Training for 50000 steps
+  games: 11, average_reward: -13.363636, replay_memory_count: 999999, total_train_steps: 4550000, exploration_rate: 0.100000, time_elapsed: 739, steps_per_second: 67
+Saving weights to snapshots/pong_91.pkl
+serializing object to: snapshots/pong_91.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -6.000000, replay_memory_count: 999999, total_train_steps: 4550000, exploration_rate: 0.100000, time_elapsed: 45, steps_per_second: 218
+Epoch #92
+ Training for 50000 steps
+  games: 12, average_reward: -13.083333, replay_memory_count: 999999, total_train_steps: 4600000, exploration_rate: 0.100000, time_elapsed: 717, steps_per_second: 69
+Saving weights to snapshots/pong_92.pkl
+serializing object to: snapshots/pong_92.pkl
+ Testing for 10000 steps
+  games: 1, average_reward: -11.000000, replay_memory_count: 999999, total_train_steps: 4600000, exploration_rate: 0.100000, time_elapsed: 44, steps_per_second: 226
+Epoch #93
+ Training for 50000 steps
+  games: 11, average_reward: -13.272727, replay_memory_count: 999999, total_train_steps: 4650000, exploration_rate: 0.100000, time_elapsed: 727, steps_per_second: 68
+Saving weights to snapshots/pong_93.pkl
+serializing object to: snapshots/pong_93.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -9.000000, replay_memory_count: 999999, total_train_steps: 4650000, exploration_rate: 0.100000, time_elapsed: 44, steps_per_second: 222
+Epoch #94
+ Training for 50000 steps
+  games: 10, average_reward: -13.100000, replay_memory_count: 999999, total_train_steps: 4700000, exploration_rate: 0.100000, time_elapsed: 755, steps_per_second: 66
+Saving weights to snapshots/pong_94.pkl
+serializing object to: snapshots/pong_94.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -10.500000, replay_memory_count: 999999, total_train_steps: 4700000, exploration_rate: 0.100000, time_elapsed: 44, steps_per_second: 225
+Epoch #95
+ Training for 50000 steps
+  games: 11, average_reward: -12.000000, replay_memory_count: 999999, total_train_steps: 4750000, exploration_rate: 0.100000, time_elapsed: 754, steps_per_second: 66
+Saving weights to snapshots/pong_95.pkl
+serializing object to: snapshots/pong_95.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -13.500000, replay_memory_count: 999999, total_train_steps: 4750000, exploration_rate: 0.100000, time_elapsed: 50, steps_per_second: 199
+Epoch #96
+ Training for 50000 steps
+  games: 10, average_reward: -12.200000, replay_memory_count: 999999, total_train_steps: 4800000, exploration_rate: 0.100000, time_elapsed: 822, steps_per_second: 60
+Saving weights to snapshots/pong_96.pkl
+serializing object to: snapshots/pong_96.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -4.000000, replay_memory_count: 999999, total_train_steps: 4800000, exploration_rate: 0.100000, time_elapsed: 50, steps_per_second: 198
+Epoch #97
+ Training for 50000 steps
+  games: 10, average_reward: -11.300000, replay_memory_count: 999999, total_train_steps: 4850000, exploration_rate: 0.100000, time_elapsed: 742, steps_per_second: 67
+Saving weights to snapshots/pong_97.pkl
+serializing object to: snapshots/pong_97.pkl
+ Testing for 10000 steps
+  games: 2, average_reward: -10.000000, replay_memory_count: 999999, total_train_steps: 4850000, exploration_rate: 0.100000, time_elapsed: 50, steps_per_second: 198
+Epoch #98
+ Training for 50000 steps
+  games: 28, average_reward: -19.178571, replay_memory_count: 999999, total_train_steps: 4900000, exploration_rate: 0.100000, time_elapsed: 747, steps_per_second: 66
+Saving weights to snapshots/pong_98.pkl
+serializing object to: snapshots/pong_98.pkl
+ Testing for 10000 steps
+  games: 13, average_reward: -20.000000, replay_memory_count: 999999, total_train_steps: 4900000, exploration_rate: 0.100000, time_elapsed: 50, steps_per_second: 199
+Epoch #99
+ Training for 50000 steps
+  games: 63, average_reward: -20.682540, replay_memory_count: 999999, total_train_steps: 4950000, exploration_rate: 0.100000, time_elapsed: 721, steps_per_second: 69
+Saving weights to snapshots/pong_99.pkl
+serializing object to: snapshots/pong_99.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.666667, replay_memory_count: 999999, total_train_steps: 4950000, exploration_rate: 0.100000, time_elapsed: 59, steps_per_second: 168
+Epoch #100
+ Training for 50000 steps
+  games: 46, average_reward: -19.760870, replay_memory_count: 999999, total_train_steps: 5000000, exploration_rate: 0.100000, time_elapsed: 772, steps_per_second: 64
+Saving weights to snapshots/pong_100.pkl
+serializing object to: snapshots/pong_100.pkl
+ Testing for 10000 steps
+  games: 9, average_reward: -18.555556, replay_memory_count: 999999, total_train_steps: 5000000, exploration_rate: 0.100000, time_elapsed: 45, steps_per_second: 218
+Epoch #101
+ Training for 50000 steps
+  games: 32, average_reward: -19.281250, replay_memory_count: 999999, total_train_steps: 5050000, exploration_rate: 0.100000, time_elapsed: 726, steps_per_second: 68
+Saving weights to snapshots/pong_101.pkl
+serializing object to: snapshots/pong_101.pkl
+ Testing for 10000 steps
+  games: 8, average_reward: -18.125000, replay_memory_count: 999999, total_train_steps: 5050000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 212
+Epoch #102
+ Training for 50000 steps
+  games: 46, average_reward: -20.173913, replay_memory_count: 999999, total_train_steps: 5100000, exploration_rate: 0.100000, time_elapsed: 783, steps_per_second: 63
+Saving weights to snapshots/pong_102.pkl
+serializing object to: snapshots/pong_102.pkl
+ Testing for 10000 steps
+  games: 13, average_reward: -19.692308, replay_memory_count: 999999, total_train_steps: 5100000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 211
+Epoch #103
+ Training for 50000 steps
+  games: 36, average_reward: -19.305556, replay_memory_count: 999999, total_train_steps: 5150000, exploration_rate: 0.100000, time_elapsed: 727, steps_per_second: 68
+Saving weights to snapshots/pong_103.pkl
+serializing object to: snapshots/pong_103.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.090909, replay_memory_count: 999999, total_train_steps: 5150000, exploration_rate: 0.100000, time_elapsed: 52, steps_per_second: 190
+Epoch #104
+ Training for 50000 steps
+  games: 27, average_reward: -18.000000, replay_memory_count: 999999, total_train_steps: 5200000, exploration_rate: 0.100000, time_elapsed: 808, steps_per_second: 61
+Saving weights to snapshots/pong_104.pkl
+serializing object to: snapshots/pong_104.pkl
+ Testing for 10000 steps
+  games: 3, average_reward: -11.666667, replay_memory_count: 999999, total_train_steps: 5200000, exploration_rate: 0.100000, time_elapsed: 52, steps_per_second: 189
+Epoch #105
+ Training for 50000 steps
+  games: 36, average_reward: -19.361111, replay_memory_count: 999999, total_train_steps: 5250000, exploration_rate: 0.100000, time_elapsed: 752, steps_per_second: 66
+Saving weights to snapshots/pong_105.pkl
+serializing object to: snapshots/pong_105.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.166667, replay_memory_count: 999999, total_train_steps: 5250000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 213
+Epoch #106
+ Training for 50000 steps
+  games: 59, average_reward: -20.644068, replay_memory_count: 999999, total_train_steps: 5300000, exploration_rate: 0.100000, time_elapsed: 733, steps_per_second: 68
+Saving weights to snapshots/pong_106.pkl
+serializing object to: snapshots/pong_106.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -19.833333, replay_memory_count: 999999, total_train_steps: 5300000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 209
+Epoch #107
+ Training for 50000 steps
+  games: 57, average_reward: -20.877193, replay_memory_count: 999999, total_train_steps: 5350000, exploration_rate: 0.100000, time_elapsed: 711, steps_per_second: 70
+Saving weights to snapshots/pong_107.pkl
+serializing object to: snapshots/pong_107.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -19.818182, replay_memory_count: 999999, total_train_steps: 5350000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 212
+Epoch #108
+ Training for 50000 steps
+  games: 58, average_reward: -20.465517, replay_memory_count: 999999, total_train_steps: 5400000, exploration_rate: 0.100000, time_elapsed: 751, steps_per_second: 66
+Saving weights to snapshots/pong_108.pkl
+serializing object to: snapshots/pong_108.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.250000, replay_memory_count: 999999, total_train_steps: 5400000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 206
+Epoch #109
+ Training for 50000 steps
+  games: 58, average_reward: -20.500000, replay_memory_count: 999999, total_train_steps: 5450000, exploration_rate: 0.100000, time_elapsed: 711, steps_per_second: 70
+Saving weights to snapshots/pong_109.pkl
+serializing object to: snapshots/pong_109.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.454545, replay_memory_count: 999999, total_train_steps: 5450000, exploration_rate: 0.100000, time_elapsed: 54, steps_per_second: 184
+Epoch #110
+ Training for 50000 steps
+  games: 58, average_reward: -20.620690, replay_memory_count: 999999, total_train_steps: 5500000, exploration_rate: 0.100000, time_elapsed: 706, steps_per_second: 70
+Saving weights to snapshots/pong_110.pkl
+serializing object to: snapshots/pong_110.pkl
+ Testing for 10000 steps
+  games: 13, average_reward: -19.538462, replay_memory_count: 999999, total_train_steps: 5500000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 212
+Epoch #111
+ Training for 50000 steps
+  games: 59, average_reward: -20.525424, replay_memory_count: 999999, total_train_steps: 5550000, exploration_rate: 0.100000, time_elapsed: 729, steps_per_second: 68
+Saving weights to snapshots/pong_111.pkl
+serializing object to: snapshots/pong_111.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.636364, replay_memory_count: 999999, total_train_steps: 5550000, exploration_rate: 0.100000, time_elapsed: 43, steps_per_second: 231
+Epoch #112
+ Training for 50000 steps
+  games: 58, average_reward: -20.603448, replay_memory_count: 999999, total_train_steps: 5600000, exploration_rate: 0.100000, time_elapsed: 702, steps_per_second: 71
+Saving weights to snapshots/pong_112.pkl
+serializing object to: snapshots/pong_112.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -19.416667, replay_memory_count: 999999, total_train_steps: 5600000, exploration_rate: 0.100000, time_elapsed: 42, steps_per_second: 234
+Epoch #113
+ Training for 50000 steps
+  games: 58, average_reward: -20.482759, replay_memory_count: 999999, total_train_steps: 5650000, exploration_rate: 0.100000, time_elapsed: 703, steps_per_second: 71
+Saving weights to snapshots/pong_113.pkl
+serializing object to: snapshots/pong_113.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.166667, replay_memory_count: 999999, total_train_steps: 5650000, exploration_rate: 0.100000, time_elapsed: 43, steps_per_second: 228
+Epoch #114
+ Training for 50000 steps
+  games: 58, average_reward: -20.706897, replay_memory_count: 999999, total_train_steps: 5700000, exploration_rate: 0.100000, time_elapsed: 708, steps_per_second: 70
+Saving weights to snapshots/pong_114.pkl
+serializing object to: snapshots/pong_114.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.545455, replay_memory_count: 999999, total_train_steps: 5700000, exploration_rate: 0.100000, time_elapsed: 43, steps_per_second: 227
+Epoch #115
+ Training for 50000 steps
+  games: 59, average_reward: -20.593220, replay_memory_count: 999999, total_train_steps: 5750000, exploration_rate: 0.100000, time_elapsed: 713, steps_per_second: 70
+Saving weights to snapshots/pong_115.pkl
+serializing object to: snapshots/pong_115.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -19.181818, replay_memory_count: 999999, total_train_steps: 5750000, exploration_rate: 0.100000, time_elapsed: 44, steps_per_second: 226
+Epoch #116
+ Training for 50000 steps
+  games: 59, average_reward: -20.542373, replay_memory_count: 999999, total_train_steps: 5800000, exploration_rate: 0.100000, time_elapsed: 701, steps_per_second: 71
+Saving weights to snapshots/pong_116.pkl
+serializing object to: snapshots/pong_116.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.166667, replay_memory_count: 999999, total_train_steps: 5800000, exploration_rate: 0.100000, time_elapsed: 43, steps_per_second: 230
+Epoch #117
+ Training for 50000 steps
+  games: 57, average_reward: -20.596491, replay_memory_count: 999999, total_train_steps: 5850000, exploration_rate: 0.100000, time_elapsed: 707, steps_per_second: 70
+Saving weights to snapshots/pong_117.pkl
+serializing object to: snapshots/pong_117.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.500000, replay_memory_count: 999999, total_train_steps: 5850000, exploration_rate: 0.100000, time_elapsed: 44, steps_per_second: 225
+Epoch #118
+ Training for 50000 steps
+  games: 58, average_reward: -20.637931, replay_memory_count: 999999, total_train_steps: 5900000, exploration_rate: 0.100000, time_elapsed: 721, steps_per_second: 69
+Saving weights to snapshots/pong_118.pkl
+serializing object to: snapshots/pong_118.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.833333, replay_memory_count: 999999, total_train_steps: 5900000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 212
+Epoch #119
+ Training for 50000 steps
+  games: 57, average_reward: -20.771930, replay_memory_count: 999999, total_train_steps: 5950000, exploration_rate: 0.100000, time_elapsed: 712, steps_per_second: 70
+Saving weights to snapshots/pong_119.pkl
+serializing object to: snapshots/pong_119.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -19.750000, replay_memory_count: 999999, total_train_steps: 5950000, exploration_rate: 0.100000, time_elapsed: 45, steps_per_second: 220
+Epoch #120
+ Training for 50000 steps
+  games: 56, average_reward: -20.696429, replay_memory_count: 999999, total_train_steps: 6000000, exploration_rate: 0.100000, time_elapsed: 780, steps_per_second: 64
+Saving weights to snapshots/pong_120.pkl
+serializing object to: snapshots/pong_120.pkl
+ Testing for 10000 steps
+  games: 13, average_reward: -19.384615, replay_memory_count: 999999, total_train_steps: 6000000, exploration_rate: 0.100000, time_elapsed: 56, steps_per_second: 176
+Epoch #121
+ Training for 50000 steps
+  games: 57, average_reward: -20.578947, replay_memory_count: 999999, total_train_steps: 6050000, exploration_rate: 0.100000, time_elapsed: 732, steps_per_second: 68
+Saving weights to snapshots/pong_121.pkl
+serializing object to: snapshots/pong_121.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.727273, replay_memory_count: 999999, total_train_steps: 6050000, exploration_rate: 0.100000, time_elapsed: 44, steps_per_second: 223
+Epoch #122
+ Training for 50000 steps
+  games: 57, average_reward: -20.561404, replay_memory_count: 999999, total_train_steps: 6100000, exploration_rate: 0.100000, time_elapsed: 729, steps_per_second: 68
+Saving weights to snapshots/pong_122.pkl
+serializing object to: snapshots/pong_122.pkl
+ Testing for 10000 steps
+  games: 13, average_reward: -19.692308, replay_memory_count: 999999, total_train_steps: 6100000, exploration_rate: 0.100000, time_elapsed: 45, steps_per_second: 218
+Epoch #123
+ Training for 50000 steps
+  games: 57, average_reward: -20.649123, replay_memory_count: 999999, total_train_steps: 6150000, exploration_rate: 0.100000, time_elapsed: 713, steps_per_second: 70
+Saving weights to snapshots/pong_123.pkl
+serializing object to: snapshots/pong_123.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.727273, replay_memory_count: 999999, total_train_steps: 6150000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 200
+Epoch #124
+ Training for 50000 steps
+  games: 59, average_reward: -20.661017, replay_memory_count: 999999, total_train_steps: 6200000, exploration_rate: 0.100000, time_elapsed: 713, steps_per_second: 70
+Saving weights to snapshots/pong_124.pkl
+serializing object to: snapshots/pong_124.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.727273, replay_memory_count: 999999, total_train_steps: 6200000, exploration_rate: 0.100000, time_elapsed: 45, steps_per_second: 220
+Epoch #125
+ Training for 50000 steps
+  games: 57, average_reward: -20.456140, replay_memory_count: 999999, total_train_steps: 6250000, exploration_rate: 0.100000, time_elapsed: 727, steps_per_second: 68
+Saving weights to snapshots/pong_125.pkl
+serializing object to: snapshots/pong_125.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.583333, replay_memory_count: 999999, total_train_steps: 6250000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 204
+Epoch #126
+ Training for 50000 steps
+  games: 58, average_reward: -20.620690, replay_memory_count: 999999, total_train_steps: 6300000, exploration_rate: 0.100000, time_elapsed: 707, steps_per_second: 70
+Saving weights to snapshots/pong_126.pkl
+serializing object to: snapshots/pong_126.pkl
+ Testing for 10000 steps
+  games: 13, average_reward: -20.000000, replay_memory_count: 999999, total_train_steps: 6300000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 217
+Epoch #127
+ Training for 50000 steps
+  games: 56, average_reward: -20.732143, replay_memory_count: 999999, total_train_steps: 6350000, exploration_rate: 0.100000, time_elapsed: 706, steps_per_second: 70
+Saving weights to snapshots/pong_127.pkl
+serializing object to: snapshots/pong_127.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.166667, replay_memory_count: 999999, total_train_steps: 6350000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 217
+Epoch #128
+ Training for 50000 steps
+  games: 57, average_reward: -20.543860, replay_memory_count: 999999, total_train_steps: 6400000, exploration_rate: 0.100000, time_elapsed: 711, steps_per_second: 70
+Saving weights to snapshots/pong_128.pkl
+serializing object to: snapshots/pong_128.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.583333, replay_memory_count: 999999, total_train_steps: 6400000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 216
+Epoch #129
+ Training for 50000 steps
+  games: 58, average_reward: -20.672414, replay_memory_count: 999999, total_train_steps: 6450000, exploration_rate: 0.100000, time_elapsed: 713, steps_per_second: 70
+Saving weights to snapshots/pong_129.pkl
+serializing object to: snapshots/pong_129.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.000000, replay_memory_count: 999999, total_train_steps: 6450000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 206
+Epoch #130
+ Training for 50000 steps
+  games: 58, average_reward: -20.758621, replay_memory_count: 999999, total_train_steps: 6500000, exploration_rate: 0.100000, time_elapsed: 715, steps_per_second: 69
+Saving weights to snapshots/pong_130.pkl
+serializing object to: snapshots/pong_130.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -19.818182, replay_memory_count: 999999, total_train_steps: 6500000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 205
+Epoch #131
+ Training for 50000 steps
+  games: 57, average_reward: -20.561404, replay_memory_count: 999999, total_train_steps: 6550000, exploration_rate: 0.100000, time_elapsed: 707, steps_per_second: 70
+Saving weights to snapshots/pong_131.pkl
+serializing object to: snapshots/pong_131.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.250000, replay_memory_count: 999999, total_train_steps: 6550000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 205
+Epoch #132
+ Training for 50000 steps
+  games: 58, average_reward: -20.741379, replay_memory_count: 999999, total_train_steps: 6600000, exploration_rate: 0.100000, time_elapsed: 718, steps_per_second: 69
+Saving weights to snapshots/pong_132.pkl
+serializing object to: snapshots/pong_132.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.636364, replay_memory_count: 999999, total_train_steps: 6600000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 208
+Epoch #133
+ Training for 50000 steps
+  games: 59, average_reward: -20.627119, replay_memory_count: 999999, total_train_steps: 6650000, exploration_rate: 0.100000, time_elapsed: 718, steps_per_second: 69
+Saving weights to snapshots/pong_133.pkl
+serializing object to: snapshots/pong_133.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.454545, replay_memory_count: 999999, total_train_steps: 6650000, exploration_rate: 0.100000, time_elapsed: 45, steps_per_second: 218
+Epoch #134
+ Training for 50000 steps
+  games: 57, average_reward: -20.403509, replay_memory_count: 999999, total_train_steps: 6700000, exploration_rate: 0.100000, time_elapsed: 708, steps_per_second: 70
+Saving weights to snapshots/pong_134.pkl
+serializing object to: snapshots/pong_134.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.000000, replay_memory_count: 999999, total_train_steps: 6700000, exploration_rate: 0.100000, time_elapsed: 52, steps_per_second: 191
+Epoch #135
+ Training for 50000 steps
+  games: 57, average_reward: -20.456140, replay_memory_count: 999999, total_train_steps: 6750000, exploration_rate: 0.100000, time_elapsed: 708, steps_per_second: 70
+Saving weights to snapshots/pong_135.pkl
+serializing object to: snapshots/pong_135.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -19.666667, replay_memory_count: 999999, total_train_steps: 6750000, exploration_rate: 0.100000, time_elapsed: 56, steps_per_second: 177
+Epoch #136
+ Training for 50000 steps
+  games: 59, average_reward: -20.711864, replay_memory_count: 999999, total_train_steps: 6800000, exploration_rate: 0.100000, time_elapsed: 730, steps_per_second: 68
+Saving weights to snapshots/pong_136.pkl
+serializing object to: snapshots/pong_136.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.272727, replay_memory_count: 999999, total_train_steps: 6800000, exploration_rate: 0.100000, time_elapsed: 61, steps_per_second: 163
+Epoch #137
+ Training for 50000 steps
+  games: 57, average_reward: -20.508772, replay_memory_count: 999999, total_train_steps: 6850000, exploration_rate: 0.100000, time_elapsed: 705, steps_per_second: 70
+Saving weights to snapshots/pong_137.pkl
+serializing object to: snapshots/pong_137.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -19.272727, replay_memory_count: 999999, total_train_steps: 6850000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 216
+Epoch #138
+ Training for 50000 steps
+  games: 58, average_reward: -20.672414, replay_memory_count: 999999, total_train_steps: 6900000, exploration_rate: 0.100000, time_elapsed: 711, steps_per_second: 70
+Saving weights to snapshots/pong_138.pkl
+serializing object to: snapshots/pong_138.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.500000, replay_memory_count: 999999, total_train_steps: 6900000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 205
+Epoch #139
+ Training for 50000 steps
+  games: 57, average_reward: -20.701754, replay_memory_count: 999999, total_train_steps: 6950000, exploration_rate: 0.100000, time_elapsed: 705, steps_per_second: 70
+Saving weights to snapshots/pong_139.pkl
+serializing object to: snapshots/pong_139.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -19.666667, replay_memory_count: 999999, total_train_steps: 6950000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 212
+Epoch #140
+ Training for 50000 steps
+  games: 58, average_reward: -20.844828, replay_memory_count: 999999, total_train_steps: 7000000, exploration_rate: 0.100000, time_elapsed: 701, steps_per_second: 71
+Saving weights to snapshots/pong_140.pkl
+serializing object to: snapshots/pong_140.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.166667, replay_memory_count: 999999, total_train_steps: 7000000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 205
+Epoch #141
+ Training for 50000 steps
+  games: 57, average_reward: -20.491228, replay_memory_count: 999999, total_train_steps: 7050000, exploration_rate: 0.100000, time_elapsed: 696, steps_per_second: 71
+Saving weights to snapshots/pong_141.pkl
+serializing object to: snapshots/pong_141.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.090909, replay_memory_count: 999999, total_train_steps: 7050000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 207
+Epoch #142
+ Training for 50000 steps
+  games: 59, average_reward: -20.542373, replay_memory_count: 999999, total_train_steps: 7100000, exploration_rate: 0.100000, time_elapsed: 718, steps_per_second: 69
+Saving weights to snapshots/pong_142.pkl
+serializing object to: snapshots/pong_142.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.750000, replay_memory_count: 999999, total_train_steps: 7100000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 202
+Epoch #143
+ Training for 50000 steps
+  games: 57, average_reward: -20.754386, replay_memory_count: 999999, total_train_steps: 7150000, exploration_rate: 0.100000, time_elapsed: 712, steps_per_second: 70
+Saving weights to snapshots/pong_143.pkl
+serializing object to: snapshots/pong_143.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.363636, replay_memory_count: 999999, total_train_steps: 7150000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 204
+Epoch #144
+ Training for 50000 steps
+  games: 57, average_reward: -20.438596, replay_memory_count: 999999, total_train_steps: 7200000, exploration_rate: 0.100000, time_elapsed: 735, steps_per_second: 67
+Saving weights to snapshots/pong_144.pkl
+serializing object to: snapshots/pong_144.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -19.416667, replay_memory_count: 999999, total_train_steps: 7200000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 206
+Epoch #145
+ Training for 50000 steps
+  games: 57, average_reward: -20.561404, replay_memory_count: 999999, total_train_steps: 7250000, exploration_rate: 0.100000, time_elapsed: 729, steps_per_second: 68
+Saving weights to snapshots/pong_145.pkl
+serializing object to: snapshots/pong_145.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.166667, replay_memory_count: 999999, total_train_steps: 7250000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 205
+Epoch #146
+ Training for 50000 steps
+  games: 59, average_reward: -20.542373, replay_memory_count: 999999, total_train_steps: 7300000, exploration_rate: 0.100000, time_elapsed: 736, steps_per_second: 67
+Saving weights to snapshots/pong_146.pkl
+serializing object to: snapshots/pong_146.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -19.750000, replay_memory_count: 999999, total_train_steps: 7300000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 200
+Epoch #147
+ Training for 50000 steps
+  games: 60, average_reward: -20.516667, replay_memory_count: 999999, total_train_steps: 7350000, exploration_rate: 0.100000, time_elapsed: 719, steps_per_second: 69
+Saving weights to snapshots/pong_147.pkl
+serializing object to: snapshots/pong_147.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.636364, replay_memory_count: 999999, total_train_steps: 7350000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 206
+Epoch #148
+ Training for 50000 steps
+  games: 57, average_reward: -20.543860, replay_memory_count: 999999, total_train_steps: 7400000, exploration_rate: 0.100000, time_elapsed: 715, steps_per_second: 69
+Saving weights to snapshots/pong_148.pkl
+serializing object to: snapshots/pong_148.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -19.500000, replay_memory_count: 999999, total_train_steps: 7400000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 212
+Epoch #149
+ Training for 50000 steps
+  games: 59, average_reward: -20.542373, replay_memory_count: 999999, total_train_steps: 7450000, exploration_rate: 0.100000, time_elapsed: 708, steps_per_second: 70
+Saving weights to snapshots/pong_149.pkl
+serializing object to: snapshots/pong_149.pkl
+ Testing for 10000 steps
+  games: 13, average_reward: -19.615385, replay_memory_count: 999999, total_train_steps: 7450000, exploration_rate: 0.100000, time_elapsed: 45, steps_per_second: 219
+Epoch #150
+ Training for 50000 steps
+  games: 58, average_reward: -20.741379, replay_memory_count: 999999, total_train_steps: 7500000, exploration_rate: 0.100000, time_elapsed: 696, steps_per_second: 71
+Saving weights to snapshots/pong_150.pkl
+serializing object to: snapshots/pong_150.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.750000, replay_memory_count: 999999, total_train_steps: 7500000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 206
+Epoch #151
+ Training for 50000 steps
+  games: 57, average_reward: -20.666667, replay_memory_count: 999999, total_train_steps: 7550000, exploration_rate: 0.100000, time_elapsed: 718, steps_per_second: 69
+Saving weights to snapshots/pong_151.pkl
+serializing object to: snapshots/pong_151.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -19.833333, replay_memory_count: 999999, total_train_steps: 7550000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 207
+Epoch #152
+ Training for 50000 steps
+  games: 57, average_reward: -20.754386, replay_memory_count: 999999, total_train_steps: 7600000, exploration_rate: 0.100000, time_elapsed: 719, steps_per_second: 69
+Saving weights to snapshots/pong_152.pkl
+serializing object to: snapshots/pong_152.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.818182, replay_memory_count: 999999, total_train_steps: 7600000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 202
+Epoch #153
+ Training for 50000 steps
+  games: 59, average_reward: -20.559322, replay_memory_count: 999999, total_train_steps: 7650000, exploration_rate: 0.100000, time_elapsed: 728, steps_per_second: 68
+Saving weights to snapshots/pong_153.pkl
+serializing object to: snapshots/pong_153.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.818182, replay_memory_count: 999999, total_train_steps: 7650000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 208
+Epoch #154
+ Training for 50000 steps
+  games: 55, average_reward: -20.472727, replay_memory_count: 999999, total_train_steps: 7700000, exploration_rate: 0.100000, time_elapsed: 734, steps_per_second: 68
+Saving weights to snapshots/pong_154.pkl
+serializing object to: snapshots/pong_154.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -19.636364, replay_memory_count: 999999, total_train_steps: 7700000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 211
+Epoch #155
+ Training for 50000 steps
+  games: 57, average_reward: -20.561404, replay_memory_count: 999999, total_train_steps: 7750000, exploration_rate: 0.100000, time_elapsed: 696, steps_per_second: 71
+Saving weights to snapshots/pong_155.pkl
+serializing object to: snapshots/pong_155.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.666667, replay_memory_count: 999999, total_train_steps: 7750000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 214
+Epoch #156
+ Training for 50000 steps
+  games: 56, average_reward: -20.714286, replay_memory_count: 999999, total_train_steps: 7800000, exploration_rate: 0.100000, time_elapsed: 700, steps_per_second: 71
+Saving weights to snapshots/pong_156.pkl
+serializing object to: snapshots/pong_156.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -19.583333, replay_memory_count: 999999, total_train_steps: 7800000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 215
+Epoch #157
+ Training for 50000 steps
+  games: 57, average_reward: -20.561404, replay_memory_count: 999999, total_train_steps: 7850000, exploration_rate: 0.100000, time_elapsed: 696, steps_per_second: 71
+Saving weights to snapshots/pong_157.pkl
+serializing object to: snapshots/pong_157.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.454545, replay_memory_count: 999999, total_train_steps: 7850000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 214
+Epoch #158
+ Training for 50000 steps
+  games: 58, average_reward: -20.689655, replay_memory_count: 999999, total_train_steps: 7900000, exploration_rate: 0.100000, time_elapsed: 699, steps_per_second: 71
+Saving weights to snapshots/pong_158.pkl
+serializing object to: snapshots/pong_158.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.363636, replay_memory_count: 999999, total_train_steps: 7900000, exploration_rate: 0.100000, time_elapsed: 44, steps_per_second: 226
+Epoch #159
+ Training for 50000 steps
+  games: 57, average_reward: -20.491228, replay_memory_count: 999999, total_train_steps: 7950000, exploration_rate: 0.100000, time_elapsed: 694, steps_per_second: 71
+Saving weights to snapshots/pong_159.pkl
+serializing object to: snapshots/pong_159.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.454545, replay_memory_count: 999999, total_train_steps: 7950000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 213
+Epoch #160
+ Training for 50000 steps
+  games: 60, average_reward: -20.700000, replay_memory_count: 999999, total_train_steps: 8000000, exploration_rate: 0.100000, time_elapsed: 717, steps_per_second: 69
+Saving weights to snapshots/pong_160.pkl
+serializing object to: snapshots/pong_160.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.416667, replay_memory_count: 999999, total_train_steps: 8000000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 212
+Epoch #161
+ Training for 50000 steps
+  games: 58, average_reward: -20.534483, replay_memory_count: 999999, total_train_steps: 8050000, exploration_rate: 0.100000, time_elapsed: 719, steps_per_second: 69
+Saving weights to snapshots/pong_161.pkl
+serializing object to: snapshots/pong_161.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.083333, replay_memory_count: 999999, total_train_steps: 8050000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 213
+Epoch #162
+ Training for 50000 steps
+  games: 57, average_reward: -20.666667, replay_memory_count: 999999, total_train_steps: 8100000, exploration_rate: 0.100000, time_elapsed: 705, steps_per_second: 70
+Saving weights to snapshots/pong_162.pkl
+serializing object to: snapshots/pong_162.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.818182, replay_memory_count: 999999, total_train_steps: 8100000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 206
+Epoch #163
+ Training for 50000 steps
+  games: 58, average_reward: -20.586207, replay_memory_count: 999999, total_train_steps: 8150000, exploration_rate: 0.100000, time_elapsed: 714, steps_per_second: 69
+Saving weights to snapshots/pong_163.pkl
+serializing object to: snapshots/pong_163.pkl
+ Testing for 10000 steps
+  games: 13, average_reward: -19.461538, replay_memory_count: 999999, total_train_steps: 8150000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 210
+Epoch #164
+ Training for 50000 steps
+  games: 57, average_reward: -20.631579, replay_memory_count: 999999, total_train_steps: 8200000, exploration_rate: 0.100000, time_elapsed: 706, steps_per_second: 70
+Saving weights to snapshots/pong_164.pkl
+serializing object to: snapshots/pong_164.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -19.916667, replay_memory_count: 999999, total_train_steps: 8200000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 210
+Epoch #165
+ Training for 50000 steps
+  games: 58, average_reward: -20.741379, replay_memory_count: 999999, total_train_steps: 8250000, exploration_rate: 0.100000, time_elapsed: 691, steps_per_second: 72
+Saving weights to snapshots/pong_165.pkl
+serializing object to: snapshots/pong_165.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.000000, replay_memory_count: 999999, total_train_steps: 8250000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 205
+Epoch #166
+ Training for 50000 steps
+  games: 58, average_reward: -20.448276, replay_memory_count: 999999, total_train_steps: 8300000, exploration_rate: 0.100000, time_elapsed: 716, steps_per_second: 69
+Saving weights to snapshots/pong_166.pkl
+serializing object to: snapshots/pong_166.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -19.500000, replay_memory_count: 999999, total_train_steps: 8300000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 209
+Epoch #167
+ Training for 50000 steps
+  games: 59, average_reward: -20.711864, replay_memory_count: 999999, total_train_steps: 8350000, exploration_rate: 0.100000, time_elapsed: 816, steps_per_second: 61
+Saving weights to snapshots/pong_167.pkl
+serializing object to: snapshots/pong_167.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.250000, replay_memory_count: 999999, total_train_steps: 8350000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 200
+Epoch #168
+ Training for 50000 steps
+  games: 57, average_reward: -20.666667, replay_memory_count: 999999, total_train_steps: 8400000, exploration_rate: 0.100000, time_elapsed: 704, steps_per_second: 70
+Saving weights to snapshots/pong_168.pkl
+serializing object to: snapshots/pong_168.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -18.916667, replay_memory_count: 999999, total_train_steps: 8400000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 208
+Epoch #169
+ Training for 50000 steps
+  games: 56, average_reward: -20.785714, replay_memory_count: 999999, total_train_steps: 8450000, exploration_rate: 0.100000, time_elapsed: 705, steps_per_second: 70
+Saving weights to snapshots/pong_169.pkl
+serializing object to: snapshots/pong_169.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -19.909091, replay_memory_count: 999999, total_train_steps: 8450000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 207
+Epoch #170
+ Training for 50000 steps
+  games: 58, average_reward: -20.568966, replay_memory_count: 999999, total_train_steps: 8500000, exploration_rate: 0.100000, time_elapsed: 708, steps_per_second: 70
+Saving weights to snapshots/pong_170.pkl
+serializing object to: snapshots/pong_170.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -19.250000, replay_memory_count: 999999, total_train_steps: 8500000, exploration_rate: 0.100000, time_elapsed: 45, steps_per_second: 218
+Epoch #171
+ Training for 50000 steps
+  games: 56, average_reward: -20.428571, replay_memory_count: 999999, total_train_steps: 8550000, exploration_rate: 0.100000, time_elapsed: 686, steps_per_second: 72
+Saving weights to snapshots/pong_171.pkl
+serializing object to: snapshots/pong_171.pkl
+ Testing for 10000 steps
+  games: 13, average_reward: -19.538462, replay_memory_count: 999999, total_train_steps: 8550000, exploration_rate: 0.100000, time_elapsed: 49, steps_per_second: 202
+Epoch #172
+ Training for 50000 steps
+  games: 57, average_reward: -20.701754, replay_memory_count: 999999, total_train_steps: 8600000, exploration_rate: 0.100000, time_elapsed: 713, steps_per_second: 70
+Saving weights to snapshots/pong_172.pkl
+serializing object to: snapshots/pong_172.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.250000, replay_memory_count: 999999, total_train_steps: 8600000, exploration_rate: 0.100000, time_elapsed: 48, steps_per_second: 207
+Epoch #173
+ Training for 50000 steps
+  games: 58, average_reward: -20.620690, replay_memory_count: 999999, total_train_steps: 8650000, exploration_rate: 0.100000, time_elapsed: 721, steps_per_second: 69
+Saving weights to snapshots/pong_173.pkl
+serializing object to: snapshots/pong_173.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -20.636364, replay_memory_count: 999999, total_train_steps: 8650000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 211
+Epoch #174
+ Training for 50000 steps
+  games: 55, average_reward: -20.581818, replay_memory_count: 999999, total_train_steps: 8700000, exploration_rate: 0.100000, time_elapsed: 694, steps_per_second: 71
+Saving weights to snapshots/pong_174.pkl
+serializing object to: snapshots/pong_174.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -19.916667, replay_memory_count: 999999, total_train_steps: 8700000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 208
+Epoch #175
+ Training for 50000 steps
+  games: 57, average_reward: -20.842105, replay_memory_count: 999999, total_train_steps: 8750000, exploration_rate: 0.100000, time_elapsed: 712, steps_per_second: 70
+Saving weights to snapshots/pong_175.pkl
+serializing object to: snapshots/pong_175.pkl
+ Testing for 10000 steps
+  games: 11, average_reward: -19.545455, replay_memory_count: 999999, total_train_steps: 8750000, exploration_rate: 0.100000, time_elapsed: 47, steps_per_second: 210
+Epoch #176
+ Training for 50000 steps
+  games: 58, average_reward: -20.706897, replay_memory_count: 999999, total_train_steps: 8800000, exploration_rate: 0.100000, time_elapsed: 706, steps_per_second: 70
+Saving weights to snapshots/pong_176.pkl
+serializing object to: snapshots/pong_176.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.000000, replay_memory_count: 999999, total_train_steps: 8800000, exploration_rate: 0.100000, time_elapsed: 43, steps_per_second: 227
+Epoch #177
+ Training for 50000 steps
+  games: 56, average_reward: -20.696429, replay_memory_count: 999999, total_train_steps: 8850000, exploration_rate: 0.100000, time_elapsed: 688, steps_per_second: 72
+Saving weights to snapshots/pong_177.pkl
+serializing object to: snapshots/pong_177.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -19.500000, replay_memory_count: 999999, total_train_steps: 8850000, exploration_rate: 0.100000, time_elapsed: 45, steps_per_second: 221
+Epoch #178
+ Training for 50000 steps
+  games: 57, average_reward: -20.649123, replay_memory_count: 999999, total_train_steps: 8900000, exploration_rate: 0.100000, time_elapsed: 684, steps_per_second: 73
+Saving weights to snapshots/pong_178.pkl
+serializing object to: snapshots/pong_178.pkl
+ Testing for 10000 steps
+  games: 12, average_reward: -20.666667, replay_memory_count: 999999, total_train_steps: 8900000, exploration_rate: 0.100000, time_elapsed: 46, steps_per_second: 216
+Epoch #179
+ Training for 50000 steps
+./train.sh: line 3:  7345 Terminated              python src/main.py $*
+./train.sh: line 4: ull%.*}: command not found
+A.L.E: Arcade Learning Environment (version 0.5.0)
+[Powered by Stella]
+Use -help for help screen.
+Warning: couldn't load settings file: ./stellarc
+Game console created:
+  ROM file:  roms/pong.bin
+  Cart Name: Video Olympics (1978) (Atari)
+  Cart MD5:  60e0ea3cbe0913d39803477945e9e5ec
+  Display Format:  AUTO-DETECT ==> NTSC
+  ROM Size:        2048
+  Bankswitch Type: AUTO-DETECT ==> 2K
+
+Running ROM file...
+Random Seed: Time
+2015-09-23 08:40:57,420 Using minimal action set with size 3
+2015-09-23 08:40:57,420 Replay memory size: 1000000
+2015-09-23 08:40:57,570 Initialized NervanaGPU
+2015-09-23 08:40:57,570 Backend: gpu, RNG seed: None
+2015-09-23 08:40:57,571 Results are written to results/.csv
+2015-09-23 08:40:57,571 Populating replay memory with 50000 random moves
+./train.sh: line 5: 24502 Terminated              python src/main.py --save_weights_path snapshots --csv_file results/$game.csv $*
