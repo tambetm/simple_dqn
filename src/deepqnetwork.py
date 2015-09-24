@@ -29,7 +29,6 @@ class DeepQNetwork:
     self.optimizer = RMSProp(learning_rate = args.learning_rate, 
         decay_rate = args.rmsprop_decay_rate, 
         stochastic_round = args.stochastic_round)
-    self.prepare_layers(layers)
 
     # create target model
     self.target_steps = args.target_steps
@@ -139,7 +138,7 @@ class DeepQNetwork:
     self.model.bprop(deltas)
 
     # perform optimization
-    self.optimizer.optimize(self.layers_to_optimize, epoch)
+    self.optimizer.optimize(self.model.layers_to_optimize, epoch)
 
     # calculate statistics
     self.train_iterations += 1
@@ -186,23 +185,6 @@ class DeepQNetwork:
 
     # return the mean
     return meanq.asnumpyarray()[0,0]
-
-  def prepare_layers(self, layers):
-    # copied from Model.fit()
-    self.layers = []
-    self.layers_to_optimize = []
-
-    for layer in layers:
-        if isinstance(layer, list):
-            self.layers.extend(layer)
-        else:
-            self.layers.append(layer)
-
-    for layer in self.layers:
-        if layer.has_params:
-            self.layers_to_optimize.append(layer)
-        elif isinstance(layer, Merge):
-            self.layers_to_optimize += layer.layers_to_optimize
 
   def load_weights(self, load_path):
     self.model.load_weights(load_path)
