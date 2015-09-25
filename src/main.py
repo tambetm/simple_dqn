@@ -30,6 +30,8 @@ envarg.add_argument("--record_sound_filename", help="Record game sound in this f
 memarg = parser.add_argument_group('Replay memory')
 memarg.add_argument("--replay_size", type=int, default=1000000, help="Maximum size of replay memory.")
 memarg.add_argument("--history_length", type=int, default=4, help="How many screen frames form a state.")
+memarg.add_argument("--min_reward", type=float, default=-1, help="Minimum reward.")
+memarg.add_argument("--max_reward", type=float, default=1, help="Maximum reward.")
 
 netarg = parser.add_argument_group('Deep Q-learning network')
 netarg.add_argument("--learning_rate", type=float, default=0.00025, help="Learning rate.")
