@@ -26,16 +26,7 @@ class Agent:
     self.train_frequency = args.train_frequency
     self.train_repeat = args.train_repeat
 
-    self.resetStats()
-
-  def resetStats(self):
-    self.num_steps = 0
-    self.num_games = 0
-    self.game_rewards = 0
-    self.average_reward = 0
-    self.min_game_reward = sys.maxint
-    self.max_game_reward = -sys.maxint - 1
-    self.last_exploration_rate = 1
+    self.callback = None
 
   def restartRandom(self):
     self.env.restart()
@@ -69,7 +60,6 @@ class Agent:
     # print reward
     if reward <> 0:
       logger.debug("Reward: %d" % reward)
-      self.game_rewards += reward
 
     # always add transition to the memory (otherwise we wouldn't have current state)
     self.mem.add(action, reward, screen, terminal)
@@ -77,17 +67,11 @@ class Agent:
     # restart the game if over
     if terminal:
       self.restartRandom()
-      logger.debug("Game over, score %d" % self.game_rewards)
-      # compute statistics
-      self.num_games += 1
-      self.average_reward += float(self.game_rewards - self.average_reward) / self.num_games
-      self.min_game_reward = min(self.min_game_reward, self.game_rewards)
-      self.max_game_reward = max(self.max_game_reward, self.game_rewards)
-      self.game_rewards = 0
+      logger.debug("Game over")
 
-    # record statistics
-    self.num_steps += 1
-    self.last_exploration_rate = exploration_rate
+    # call callback to record statistics
+    if self.callback:
+      self.callback.on_step(action, reward, terminal, screen, exploration_rate)
 
     return terminal
 

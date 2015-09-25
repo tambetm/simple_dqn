@@ -54,6 +54,7 @@ class ReplayMemory:
     return self.prestates
 
   def getMinibatch(self):
+    # memory must include poststate, prestate and history
     assert self.count > self.history_length
     # sample random indexes
     indexes = []
