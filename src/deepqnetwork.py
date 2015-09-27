@@ -32,15 +32,12 @@ class DeepQNetwork:
 
     # create target model
     self.target_steps = args.target_steps
+    self.train_iterations = 0
     if self.target_steps:
       self.target_model = Model(layers = self.createLayers(num_actions))
       self.save_weights_path = args.save_weights_path
     else:
       self.target_model = self.model
-
-    # statistics
-    self.train_iterations = 0
-    self.average_cost = 0
 
     # remember parameters
     self.num_actions = num_actions
@@ -55,6 +52,8 @@ class DeepQNetwork:
     self.tensor = self.be.empty(self.input_shape)
     self.tensor.lshape = self.input_shape # needed for convolutional networks
     self.targets = self.be.empty((self.num_actions, self.batch_size))
+
+    self.callback = None
 
   def createLayers(self, num_actions):
     # create network
@@ -71,6 +70,14 @@ class DeepQNetwork:
     # The output layer is a fully-connected linear layer with a single output for each valid action.
     layers.append(Affine(nout = num_actions, init = init_norm))
     return layers
+
+  def setTensor(self, states):
+    # change order of axes to match what Neon expects
+    states = np.transpose(states, axes = (1, 2, 3, 0))
+    # copy() shouldn't be necessary here, but Neon doesn't work otherwise
+    self.tensor.set(states.copy())
+    # normalize network input between 0 and 1
+    self.be.divide(self.tensor, 255, self.tensor)
 
   def train(self, minibatch, epoch):
     # expand components of minibatch
@@ -92,10 +99,7 @@ class DeepQNetwork:
       self.target_model.load_weights(filename)
 
     # feed-forward pass for poststates to get Q-values
-    # change order of axes to match what Neon expects
-    # copy() shouldn't be necessary here, but Neon doesn't work on views
-    self.tensor.set(np.transpose(poststates, axes = (1, 2, 3, 0)).copy())
-    self.be.divide(self.tensor, 255, self.tensor) # normalize network input
+    self.setTensor(poststates)
     postq = self.target_model.fprop(self.tensor, inference = True)
     assert postq.shape == (self.num_actions, self.batch_size)
 
@@ -106,8 +110,7 @@ class DeepQNetwork:
     # feed-forward pass for prestates
     # change order of axes to match what Neon expects
     # copy() shouldn't be necessary here, but Neon doesn't work on views
-    self.tensor.set(np.transpose(prestates, axes = (1, 2, 3, 0)).copy())
-    self.be.divide(self.tensor, 255, self.tensor) # normalize network input
+    self.setTensor(prestates)
     preq = self.model.fprop(self.tensor, inference = False)
     assert preq.shape == (self.num_actions, self.batch_size)
 
@@ -140,18 +143,19 @@ class DeepQNetwork:
     # perform optimization
     self.optimizer.optimize(self.model.layers_to_optimize, epoch)
 
-    # calculate statistics
+    # increase number of weight updates (needed for target clone interval)
     self.train_iterations += 1
-    self.average_cost += (cost.asnumpyarray()[0,0] - self.average_cost) / self.train_iterations
+
+    # calculate statistics
+    if self.callback:
+      self.callback.on_train(cost.asnumpyarray()[0,0])
 
   def predict(self, states):
+    # minibatch is full size, because Neon doesn't let change the minibatch size
     assert states.shape == ((self.batch_size, self.history_length,) + self.screen_dim)
 
-    # assign to tensor
-    self.tensor.set(np.transpose(states, axes = (1, 2, 3, 0)).copy())
-    self.be.divide(self.tensor, 255, self.tensor)
-
     # calculate Q-values for the states
+    self.setTensor(states)
     qvalues = self.model.fprop(self.tensor, inference = True)
     assert qvalues.shape == (self.num_actions, self.batch_size)
     if logger.isEnabledFor(logging.DEBUG):
@@ -167,11 +171,8 @@ class DeepQNetwork:
   def getMeanQ(self, states):
     assert states.shape == ((self.batch_size, self.history_length,) + self.screen_dim)
 
-    # assign to tensor
-    self.tensor.set(np.transpose(states, axes = (1, 2, 3, 0)).copy())
-    self.be.divide(self.tensor, 255, self.tensor) # normalize network input
-
     # calculate Q-values for the states
+    self.setTensor(states)
     qvalues = self.model.fprop(self.tensor, inference = True)
     assert qvalues.shape == (self.num_actions, self.batch_size)
     

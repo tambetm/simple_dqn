@@ -30,6 +30,8 @@ envarg.add_argument("--record_sound_filename", help="Record game sound in this f
 memarg = parser.add_argument_group('Replay memory')
 memarg.add_argument("--replay_size", type=int, default=1000000, help="Maximum size of replay memory.")
 memarg.add_argument("--history_length", type=int, default=4, help="How many screen frames form a state.")
+memarg.add_argument("--min_reward", type=float, default=-1, help="Minimum reward.")
+memarg.add_argument("--max_reward", type=float, default=1, help="Maximum reward.")
 
 netarg = parser.add_argument_group('Deep Q-learning network')
 netarg.add_argument("--learning_rate", type=float, default=0.00025, help="Learning rate.")
@@ -58,17 +60,17 @@ antarg.add_argument("--train_repeat", type=int, default=1, help="Number of times
 
 mainarg = parser.add_argument_group('Main loop')
 mainarg.add_argument("--random_steps", type=int, default=50000, help="Populate replay memory with random steps before starting learning.")
-mainarg.add_argument("--train_steps", type=int, default=50000, help="How many training steps per epoch.")
-mainarg.add_argument("--test_steps", type=int, default=10000, help="How many testing steps after each epoch.")
-mainarg.add_argument("--epochs", type=int, default=1000, help="How many epochs to run.")
+mainarg.add_argument("--train_steps", type=int, default=250000, help="How many training steps per epoch.")
+mainarg.add_argument("--test_steps", type=int, default=125000, help="How many testing steps after each epoch.")
+mainarg.add_argument("--epochs", type=int, default=200, help="How many epochs to run.")
 mainarg.add_argument("--play_games", type=int, default=0, help="How many games to play, suppresses training and testing.")
 mainarg.add_argument("--load_weights", help="Load network from file.")
 mainarg.add_argument("--save_weights_path", help="Save network to path. File name will be rom name + epoch.")
+mainarg.add_argument("--csv_file", help="Write training progress to this file.")
 
 comarg = parser.add_argument_group('Common')
 comarg.add_argument("--random_seed", type=int, help="Random seed for repeatable experiments.")
 comarg.add_argument("--log_level", choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"], default="INFO", help="Log level.")
-comarg.add_argument("--csv_file", help="Write training progress to this file.")
 args = parser.parse_args()
 
 logger = logging.getLogger()
@@ -82,6 +84,7 @@ env = Environment(args)
 mem = ReplayMemory(args)
 net = DeepQNetwork(env.numActions(), args)
 agent = Agent(env, mem, net, args)
+stats = Statistics(agent, net, mem, env, args)
 
 if args.load_weights:
   logger.info("Loading weights from %s" % args.load_weights)
@@ -89,12 +92,10 @@ if args.load_weights:
 
 if args.play_games:
   logger.info("Playing for %d game(s)" % args.play_games)
-  agent.resetStats()
+  stats.reset()
   agent.play(args.play_games)
-  logger.info("Average score: %d" % agent.average_reward)
+  stats.write(0, "play")
   sys.exit()
-
-stats = Statistics(agent, net, mem, env, args)
 
 if args.random_steps:
   # populate replay memory with random steps
