@@ -1,8 +1,6 @@
 # Simple DQN
 
-Deep Q-learning agent for replicating DeepMind's results in paper ["Human-level control through deep reinforcement learning"](http://www.nature.com/nature/journal/v518/n7540/full/nature14236.html).
-
-This code grew out of frustration working with [original DeepMind code](https://github.com/tambetm/DeepMind-Atari-Deep-Q-Learner). It is designed to be simple, fast and easy to extend. In particular:
+Deep Q-learning agent for replicating DeepMind's results in paper ["Human-level control through deep reinforcement learning"](http://www.nature.com/nature/journal/v518/n7540/full/nature14236.html). It is designed to be simple, fast and easy to extend. In particular:
  * It's Python :).
  * New [ALE Python interface](https://github.com/bbitmaster/ale_python_interface/wiki/Code-Tutorial) is used.
  * [Fastest convolutions](https://github.com/soumith/convnet-benchmarks) from [Neon deep learning library](http://neon.nervanasys.com/docs/latest/index.html).
@@ -78,7 +76,7 @@ To run training for Pong:
 ```
 ./train.sh roms/pong.bin
 ```
-There are plethora of options, just run `./train.sh --help` to see them. While training, the network weights are saved to `snapshots` folder after each epoch. Name of the file is `<rom_name>_<epoch_nr>.pkl`. 
+There are plethora of options, just run `./train.sh --help` to see them. While training, the network weights are saved to `snapshots` folder after each epoch. Name of the file is `<game>_<epoch_nr>.pkl`. Training statistics are saved to `results/<game>.csv`, see below how to produce plots from it.
 
 ### Resuming training
 
@@ -86,7 +84,7 @@ You can resume training by running
 ```
 ./train.sh roms/pong.bin --load_weights snapshots/pong_10.pkl
 ```
-Pay attention, that exploration rate starts from 1 and replay memory is empty. You may want to start with lower exploration rate, e.g. for epoch 10 usual exploration rate would be 1 - (1 - 0.1) * (10 * 50000 / 1000000) = 0.55. Add  `--exploration_rate_start 0.55` to the command line.
+Pay attention, that exploration rate starts from 1 and replay memory is empty. You may want to start with lower exploration rate, e.g. for epoch 2 usual exploration rate would be 1 - (1 - 0.1) * (2 * 250000 / 1000000) = 0.55. Add  `--exploration_rate_start 0.55 --exploration_decay_steps 500000` to the command line.
 
 ### Only testing
 
@@ -102,9 +100,14 @@ To see the game screen while playing run
 ```
 ./play.sh roms/pong.bin --load_weights snapshots/pong_61.pkl --minimal_action_set
 ```
-You can do this even without GPU, by adding `--backend cpu` to command line.
+You can do this even without GPU, by adding `--backend cpu` to command line. During gameplay you can use following keys: 'a' - slow down, 's' - speed up, 'm' - manual control mode, '[' - volume down, ']' - volume up. Visualization works even in text terminal!
 
 ### Record game video
+
+You will need `avconv` for this to work:
+```
+sudo apt-get install libav-tools
+```
 
 To play one game and record video
 ```
@@ -112,11 +115,25 @@ To play one game and record video
 ```
 First game frames are extracted to `videos/pong` folder as PNG files. Then `avconv` is used to convert these into video.
 
+### Plotting results
+
+You will need matplotlib for Python:
+```
+pip install matplotlib
+```
+
+To plot results:
+```
+./plot.sh results/pong.csv
+```
+This produces `results/pong.png`, which includes four main figures: average reward per game, number of games per phase (training, test or random), average Q-value of validation set and average network loss. You can customize the plotting result with `--fields` option - list comma separated names of CSV field names (the first row). For example default results are achieved with `--fields average_reward,meanq,nr_games,meancost`. Order of figures is left to right, top to bottom.
+
 ### Profiling
 
 There are two additional scripts for profiling:
  * `profile_train.sh` - runs Pong game 1000 steps in training mode. This is for figuring out bottlenecks in minibatch sampling and network training code. Prediction is disabled by setting exploration rate to 1.
  * `profile_test.sh` - runs Pong game 1000 steps in testing mode. This is for figuring out bottlenecks in prediction code. Exploration is disabled by setting exploration rate to 0.
+ * `profile_random.sh` - runs Pong game 1000 steps with random actions. This is for measuring performance of ALE interface, network is not used at all.
 
 ## Credits
 
