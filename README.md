@@ -91,6 +91,7 @@ Pay attention, that exploration rate starts from 1 and replay memory is empty. Y
 To run only testing on pre-trained model:
 ```
 ./test.sh roms/pong.bin --load_weights snapshots/pong_49.pkl
+```
 
 ### Play one game with visualization
 
