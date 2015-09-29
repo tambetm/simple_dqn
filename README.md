@@ -84,7 +84,7 @@ You can resume training by running
 ```
 ./train.sh roms/pong.bin --load_weights snapshots/pong_10.pkl
 ```
-Pay attention, that exploration rate starts from 1 and replay memory is empty. You may want to start with lower exploration rate, e.g. for epoch 10 usual exploration rate would be 1 - (1 - 0.1) * (10 * 50000 / 1000000) = 0.55. Add  `--exploration_rate_start 0.55` to the command line.
+Pay attention, that exploration rate starts from 1 and replay memory is empty. You may want to start with lower exploration rate, e.g. for epoch 2 usual exploration rate would be 1 - (1 - 0.1) * (2 * 250000 / 1000000) = 0.55. Add  `--exploration_rate_start 0.55` to the command line.
 
 ### Only testing
 
