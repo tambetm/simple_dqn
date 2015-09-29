@@ -1,8 +1,6 @@
 # Simple DQN
 
-Deep Q-learning agent for replicating DeepMind's results in paper ["Human-level control through deep reinforcement learning"](http://www.nature.com/nature/journal/v518/n7540/full/nature14236.html).
-
-This code grew out of frustration working with [original DeepMind code](https://github.com/tambetm/DeepMind-Atari-Deep-Q-Learner). It is designed to be simple, fast and easy to extend. In particular:
+Deep Q-learning agent for replicating DeepMind's results in paper ["Human-level control through deep reinforcement learning"](http://www.nature.com/nature/journal/v518/n7540/full/nature14236.html). It is designed to be simple, fast and easy to extend. In particular:
  * It's Python :).
  * New [ALE Python interface](https://github.com/bbitmaster/ale_python_interface/wiki/Code-Tutorial) is used.
  * [Fastest convolutions](https://github.com/soumith/convnet-benchmarks) from [Neon deep learning library](http://neon.nervanasys.com/docs/latest/index.html).
