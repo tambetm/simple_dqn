@@ -82,7 +82,7 @@ There are plethora of options, just run `./train.sh --help` to see them. While t
 
 You can resume training by running 
 ```
-./train.sh roms/pong.bin --load_weights snapshots/pong_10.pkl
+./train.sh roms/pong.bin --load_weights snapshots/pong_2.pkl
 ```
 Pay attention, that exploration rate starts from 1 and replay memory is empty. You may want to start with lower exploration rate, e.g. for epoch 2 usual exploration rate would be 1 - (1 - 0.1) * (2 * 250000 / 1000000) = 0.55. Add  `--exploration_rate_start 0.55 --exploration_decay_steps 500000` to the command line.
 
@@ -90,15 +90,14 @@ Pay attention, that exploration rate starts from 1 and replay memory is empty. Y
 
 To run only testing on pre-trained model:
 ```
-./test.sh roms/pong.bin --load_weights snapshots/pong_61.pkl --minimal_action_set
+./test.sh roms/pong.bin --load_weights snapshots/pong_49.pkl
 ```
-Option `--minimal_action_set` must be added to current Pong model, because it was trained with minimal actions (left, right and nothing).
 
 ### Play one game with visualization
 
 To see the game screen while playing run
 ```
-./play.sh roms/pong.bin --load_weights snapshots/pong_61.pkl --minimal_action_set
+./play.sh roms/pong.bin --load_weights snapshots/pong_49.pkl
 ```
 You can do this even without GPU, by adding `--backend cpu` to command line. During gameplay you can use following keys: 'a' - slow down, 's' - speed up, 'm' - manual control mode, '[' - volume down, ']' - volume up. Visualization works even in text terminal!
 
@@ -111,7 +110,7 @@ sudo apt-get install libav-tools
 
 To play one game and record video
 ```
-./record.sh roms/pong.bin --load_weights snapshots/pong_61.pkl --minimal_action_set
+./record.sh roms/pong.bin --load_weights snapshots/pong_49.pkl
 ```
 First game frames are extracted to `videos/pong` folder as PNG files. Then `avconv` is used to convert these into video.
 
@@ -137,4 +136,4 @@ There are two additional scripts for profiling:
 
 ## Credits
 
-This wouldn't have happened without inspiration and preceding work from my fellow PhD students [Kristjan Korjus](https://github.com/kristjankorjus), [Ardi Tampuu](https://github.com/RDTm) and [Ilya Kuzovkin](https://github.com/kuz) from [Computational Neuroscience lab](http://neuro.cs.ut.ee/) run by Raul Vicente in [University of Tartu](http://www.ut.ee/en), [Estonia](https://e-estonia.com/). Also I would like to thank [Nathan Sprague](https://github.com/spragunr) and other nice folks at [Deep Q-Learning list](https://groups.google.com/forum/#!forum/deep-q-learning).
+This wouldn't have happened without inspiration and preceding work from my fellow PhD students [Kristjan Korjus](https://github.com/kristjankorjus), [Ardi Tampuu](https://github.com/RDTm), [Ilya Kuzovkin](https://github.com/kuz) and [Taivo Pungas](https://github.com/taivop) from [Computational Neuroscience lab](http://neuro.cs.ut.ee/) run by Raul Vicente in [University of Tartu](http://www.ut.ee/en), [Estonia](https://e-estonia.com/). Also I would like to thank [Nathan Sprague](https://github.com/spragunr) and other nice folks at [Deep Q-Learning list](https://groups.google.com/forum/#!forum/deep-q-learning).
