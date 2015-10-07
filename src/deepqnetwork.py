@@ -108,21 +108,22 @@ class DeepQNetwork:
     assert maxpostq.shape == (1, self.batch_size)
 
     # feed-forward pass for prestates
-    # change order of axes to match what Neon expects
-    # copy() shouldn't be necessary here, but Neon doesn't work on views
     self.setTensor(prestates)
     preq = self.model.fprop(self.tensor, inference = False)
     assert preq.shape == (self.num_actions, self.batch_size)
 
     # make copy of prestate Q-values as targets
-    self.targets.copy(preq)
+    targets = preq.asnumpyarray()
 
     # update Q-value targets for actions taken
     for i, action in enumerate(actions):
       if terminals[i]:
-        self.targets[action, i] = float(rewards[i])
+        targets[action, i] = float(rewards[i])
       else:
-        self.targets[action, i] = float(rewards[i]) + self.discount_rate * maxpostq[0,i]
+        targets[action, i] = float(rewards[i]) + self.discount_rate * maxpostq[0,i]
+
+    # copy targets to GPU memory
+    self.targets.set(targets)
 
     # calculate errors
     deltas = self.cost.get_errors(preq, self.targets)
