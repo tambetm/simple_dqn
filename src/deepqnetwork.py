@@ -14,6 +14,14 @@ logger = logging.getLogger(__name__)
 
 class DeepQNetwork:
   def __init__(self, num_actions, args):
+    # remember parameters
+    self.num_actions = num_actions
+    self.batch_size = args.batch_size
+    self.discount_rate = args.discount_rate
+    self.history_length = args.history_length
+    self.screen_dim = (args.screen_height, args.screen_width)
+    self.clip_error = args.clip_error
+
     # create Neon backend
     self.be = gen_backend(backend = args.backend,
                  batch_size = args.batch_size,
@@ -22,10 +30,17 @@ class DeepQNetwork:
                  default_dtype = np.dtype(args.datatype).type,
                  stochastic_round = args.stochastic_round)
 
+    # prepare tensors once and reuse them
+    self.input_shape = (self.history_length,) + self.screen_dim + (self.batch_size,)
+    self.tensor = self.be.empty(self.input_shape)
+    self.tensor.lshape = self.input_shape # needed for convolutional networks
+    self.targets = self.be.empty((self.num_actions, self.batch_size))
+
     # create model
     layers = self.createLayers(num_actions)
     self.model = Model(layers = layers)
     self.cost = GeneralizedCost(costfunc = SumSquared())
+    self.model.initialize(self.tensor.shape, self.cost)
     self.optimizer = RMSProp(learning_rate = args.learning_rate, 
         decay_rate = args.rmsprop_decay_rate, 
         stochastic_round = args.stochastic_round)
@@ -35,23 +50,10 @@ class DeepQNetwork:
     self.train_iterations = 0
     if self.target_steps:
       self.target_model = Model(layers = self.createLayers(num_actions))
+      self.target_model.initialize(self.tensor.shape)
       self.save_weights_path = args.save_weights_path
     else:
       self.target_model = self.model
-
-    # remember parameters
-    self.num_actions = num_actions
-    self.batch_size = args.batch_size
-    self.discount_rate = args.discount_rate
-    self.history_length = args.history_length
-    self.screen_dim = (args.screen_height, args.screen_width)
-    self.clip_error = args.clip_error
-
-    # prepare tensors once and reuse them
-    self.input_shape = (self.history_length,) + self.screen_dim + (self.batch_size,)
-    self.tensor = self.be.empty(self.input_shape)
-    self.tensor.lshape = self.input_shape # needed for convolutional networks
-    self.targets = self.be.empty((self.num_actions, self.batch_size))
 
     self.callback = None
 
