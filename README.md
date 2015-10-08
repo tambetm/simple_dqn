@@ -62,6 +62,8 @@ Also you need OpenCV, which is pain to install to virtual environment. I ended u
 sudo apt-get install python-opencv
 ln -s /usr/lib/python2.7/dist-packages/cv2.so NEON_HOME/.venv/lib/python2.7/site-packages/
 ```
+`NEON_HOME` here means the folder where you installed (cloned) Neon.
+
 Then just check out the code:
 ```
 git clone https://github.com/tambetm/simple_dqn.git
