@@ -33,14 +33,14 @@ class DeepQNetwork:
     # prepare tensors once and reuse them
     self.input_shape = (self.history_length,) + self.screen_dim + (self.batch_size,)
     self.tensor = self.be.empty(self.input_shape)
-    self.tensor.lshape = self.input_shape # needed for convolutional networks
+    self.tensor.lshape = self.input_shape # HACK: needed for convolutional networks
     self.targets = self.be.empty((self.num_actions, self.batch_size))
 
     # create model
     layers = self.createLayers(num_actions)
     self.model = Model(layers = layers)
     self.cost = GeneralizedCost(costfunc = SumSquared())
-    self.model.initialize(self.tensor.shape, self.cost)
+    self.model.initialize(self.tensor.shape[:-1], self.cost)
     self.optimizer = RMSProp(learning_rate = args.learning_rate, 
         decay_rate = args.rmsprop_decay_rate, 
         stochastic_round = args.stochastic_round)
@@ -50,7 +50,7 @@ class DeepQNetwork:
     self.train_iterations = 0
     if self.target_steps:
       self.target_model = Model(layers = self.createLayers(num_actions))
-      self.target_model.initialize(self.tensor.shape)
+      self.target_model.initialize(self.tensor.shape[:-1])
       self.save_weights_path = args.save_weights_path
     else:
       self.target_model = self.model
@@ -93,8 +93,6 @@ class DeepQNetwork:
     assert prestates.shape[0] == actions.shape[0] == rewards.shape[0] == poststates.shape[0] == terminals.shape[0]
 
     if self.target_steps and self.train_iterations % self.target_steps == 0:
-      # HACK: push something through network, so that weights exist
-      self.model.fprop(self.tensor)
       # HACK: serialize network to disk and read it back to clone
       filename = os.path.join(self.save_weights_path, "target_network.pkl")
       save_obj(self.model.serialize(keep_states = False), filename)
