@@ -136,6 +136,15 @@ There are two additional scripts for profiling:
  * `profile_test.sh` - runs Pong game 1000 steps in testing mode. This is for figuring out bottlenecks in prediction code. Exploration is disabled by setting exploration rate to 0.
  * `profile_random.sh` - runs Pong game 1000 steps with random actions. This is for measuring performance of ALE interface, network is not used at all.
 
+### Known differences
+
+ * Full action set is used by default, DeepMind uses minimal action set. Use `--minimal_action_set` option to force this manually.
+ * Repeat action probability is set to ALE default 0.25. DeepMind used older ALE, where it was effectively 0. Use `--repeat_action_probability 0` to force this manually.
+ * Testing experiences are stored in replay memory. I initially tought it was harmless and made code simpler, but on a second thought it may affect the replay memory distribution in unexpected ways and it's just not correct to see test data during training.
+ * DeepMind considers loss of life as episode end, but only during training.
+
+These are currently in TODO list.
+
 ## Credits
 
 This wouldn't have happened without inspiration and preceding work from my fellow PhD students [Kristjan Korjus](https://github.com/kristjankorjus), [Ardi Tampuu](https://github.com/RDTm), [Ilya Kuzovkin](https://github.com/kuz) and [Taivo Pungas](https://github.com/taivop) from [Computational Neuroscience lab](http://neuro.cs.ut.ee/) run by Raul Vicente in [University of Tartu](http://www.ut.ee/en), [Estonia](https://e-estonia.com/). Also I would like to thank [Nathan Sprague](https://github.com/spragunr) and other nice folks at [Deep Q-Learning list](https://groups.google.com/forum/#!forum/deep-q-learning).
