@@ -7,6 +7,8 @@ Deep Q-learning agent for replicating DeepMind's results in paper ["Human-level 
  * Every screen is kept only once in replay memory, fast minibatch sampling with Numpy array slicing.
  * The number of array and datatype conversions is minimized.
 
+See the gameplay videos for [Breakout](https://youtu.be/KkIf0Ok5GCE) and [Pong](https://youtu.be/0ZlgrQS3krg).
+
 Restriction from Neon is, that it currently works only on Maxwell architecture GPU-s. Hopefully this [will change](https://github.com/NervanaSystems/neon/issues/80). You can still simulate playing from pretrained models using just CPU, see the example below.
 
 ## Installation
