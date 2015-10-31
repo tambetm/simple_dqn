@@ -2,7 +2,7 @@ from neon.util.argparser import NeonArgparser
 from neon.backends import gen_backend
 from neon.initializers import Gaussian
 from neon.optimizers import RMSProp
-from neon.layers import Affine, Conv, Merge, GeneralizedCost
+from neon.layers import Affine, Conv, GeneralizedCost
 from neon.transforms import Rectlin
 from neon.models import Model
 from neon.transforms import SumSquared
