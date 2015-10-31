@@ -74,9 +74,9 @@ cd simple_dqn
 
 ### Training
 
-To run training for Pong:
+To run training for Breakout:
 ```
-./train.sh roms/pong.bin
+./train.sh roms/breakout.bin
 ```
 There are plethora of options, just run `./train.sh --help` to see them. While training, the network weights are saved to `snapshots` folder after each epoch. Name of the file is `<game>_<epoch_nr>.pkl`. Training statistics are saved to `results/<game>.csv`, see below how to produce plots from it.
 
@@ -84,7 +84,7 @@ There are plethora of options, just run `./train.sh --help` to see them. While t
 
 You can resume training by running 
 ```
-./train.sh roms/pong.bin --load_weights snapshots/pong_2.pkl
+./train.sh roms/pong.bin --load_weights snapshots/breakout_2.pkl
 ```
 Pay attention, that exploration rate starts from 1 and replay memory is empty. You may want to start with lower exploration rate, e.g. for epoch 2 usual exploration rate would be 1 - (1 - 0.1) * (2 * 250000 / 1000000) = 0.55. Add  `--exploration_rate_start 0.55 --exploration_decay_steps 500000` to the command line.
 
@@ -92,14 +92,14 @@ Pay attention, that exploration rate starts from 1 and replay memory is empty. Y
 
 To run only testing on pre-trained model:
 ```
-./test.sh roms/pong.bin --load_weights snapshots/pong_49.pkl
+./test.sh snapshots/breakout_77.pkl
 ```
 
 ### Play one game with visualization
 
 To see the game screen while playing run
 ```
-./play.sh roms/pong.bin --load_weights snapshots/pong_49.pkl
+./play.sh snapshots/breakout_77.pkl
 ```
 You can do this even without GPU, by adding `--backend cpu` to command line. During gameplay you can use following keys: 'a' - slow down, 's' - speed up, 'm' - manual control mode, '[' - volume down, ']' - volume up. Visualization works even in text terminal!
 
@@ -112,9 +112,9 @@ sudo apt-get install libav-tools
 
 To play one game and record video
 ```
-./record.sh roms/pong.bin --load_weights snapshots/pong_49.pkl
+./record.sh snapshots/breakout_77.pkl
 ```
-First game frames are extracted to `videos/pong` folder as PNG files. Then `avconv` is used to convert these into video.
+First game frames are extracted to `videos/<game>` folder as PNG files. Then `avconv` is used to convert these into video, which is saved to `videos/<game>_<epoch_nr>.mov`.
 
 ### Plotting results
 
@@ -125,21 +125,19 @@ pip install matplotlib
 
 To plot results:
 ```
-./plot.sh results/pong.csv
+./plot.sh results/breakout.csv
 ```
-This produces `results/pong.png`, which includes four main figures: average reward per game, number of games per phase (training, test or random), average Q-value of validation set and average network loss. You can customize the plotting result with `--fields` option - list comma separated names of CSV field names (the first row). For example default results are achieved with `--fields average_reward,meanq,nr_games,meancost`. Order of figures is left to right, top to bottom.
+This produces `results/breakout.png`, which includes four main figures: average reward per game, number of games per phase (training, test or random), average Q-value of validation set and average network loss. You can customize the plotting result with `--fields` option - list comma separated CSV field names (the first row). For example default results are achieved with `--fields average_reward,meanq,nr_games,meancost`. Order of figures is left to right, top to bottom.
 
 ### Profiling
 
-There are two additional scripts for profiling:
+There are three additional scripts for profiling:
  * `profile_train.sh` - runs Pong game 1000 steps in training mode. This is for figuring out bottlenecks in minibatch sampling and network training code. Prediction is disabled by setting exploration rate to 1.
  * `profile_test.sh` - runs Pong game 1000 steps in testing mode. This is for figuring out bottlenecks in prediction code. Exploration is disabled by setting exploration rate to 0.
  * `profile_random.sh` - runs Pong game 1000 steps with random actions. This is for measuring performance of ALE interface, network is not used at all.
 
 ### Known differences
 
- * Full action set is used by default, DeepMind uses minimal action set. Use `--minimal_action_set` option to force this manually.
- * Repeat action probability is set to ALE default 0.25. DeepMind used older ALE, where it was effectively 0. Use `--repeat_action_probability 0` to force this manually.
  * Testing experiences are stored in replay memory. I initially tought it was harmless and made code simpler, but on a second thought it may affect the replay memory distribution in unexpected ways and it's just not correct to see test data during training.
  * DeepMind considers loss of life as episode end, but only during training.
 
