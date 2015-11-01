@@ -86,7 +86,7 @@ There are plethora of options, just run `./train.sh --help` to see them. While t
 
 You can resume training by running 
 ```
-./train.sh roms/pong.bin --load_weights snapshots/breakout_2.pkl
+./train.sh roms/breakout.bin --load_weights snapshots/breakout_2.pkl
 ```
 Pay attention, that exploration rate starts from 1 and replay memory is empty. You may want to start with lower exploration rate, e.g. for epoch 2 usual exploration rate would be 1 - (1 - 0.1) * (2 * 250000 / 1000000) = 0.55. Add  `--exploration_rate_start 0.55 --exploration_decay_steps 500000` to the command line.
 
