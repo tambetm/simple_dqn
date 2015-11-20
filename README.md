@@ -7,6 +7,8 @@ Deep Q-learning agent for replicating DeepMind's results in paper ["Human-level 
  * Every screen is kept only once in replay memory, fast minibatch sampling with Numpy array slicing.
  * The number of array and datatype conversions is minimized.
 
+See the gameplay videos for [Breakout](https://youtu.be/KkIf0Ok5GCE) and [Pong](https://youtu.be/0ZlgrQS3krg).
+
 Restriction from Neon is, that it currently works only on Maxwell architecture GPU-s. Hopefully this [will change](https://github.com/NervanaSystems/neon/issues/80). You can still simulate playing from pretrained models using just CPU, see the example below.
 
 ## Installation
@@ -84,7 +86,7 @@ There are plethora of options, just run `./train.sh --help` to see them. While t
 
 You can resume training by running 
 ```
-./train.sh roms/pong.bin --load_weights snapshots/breakout_2.pkl
+./train.sh roms/breakout.bin --load_weights snapshots/breakout_2.pkl
 ```
 Pay attention, that exploration rate starts from 1 and replay memory is empty. You may want to start with lower exploration rate, e.g. for epoch 2 usual exploration rate would be 1 - (1 - 0.1) * (2 * 250000 / 1000000) = 0.55. Add  `--exploration_rate_start 0.55 --exploration_decay_steps 500000` to the command line.
 

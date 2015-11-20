@@ -3644,3 +3644,680 @@ Random Seed: Time
 2015-10-31 19:09:03,670 deserializing object from:  snapshots/target_network.pkl
 2015-10-31 19:13:06,957 serializing object to: snapshots/target_network.pkl
 2015-10-31 19:13:06,962 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 19:17:14,188 serializing object to: snapshots/target_network.pkl
+2015-10-31 19:17:14,194 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 19:21:17,633 serializing object to: snapshots/target_network.pkl
+2015-10-31 19:21:17,639 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 19:22:18,485   num_games: 98, average_reward: 16.428571, min_game_reward: 11, max_game_reward: 21
+2015-10-31 19:22:18,485   last_exploration_rate: 0.100000, epoch_time: 1525s, steps_per_second: 163
+2015-10-31 19:22:18,485 Saving weights to snapshots/pong_169.pkl
+2015-10-31 19:22:18,488 serializing object to: snapshots/pong_169.pkl
+2015-10-31 19:22:18,496  Testing for 125000 steps
+2015-10-31 19:29:56,176   num_games: 49, average_reward: 19.020408, min_game_reward: 12, max_game_reward: 21
+2015-10-31 19:29:56,176   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 272
+2015-10-31 19:29:56,176 Epoch #170
+2015-10-31 19:29:56,176  Training for 250000 steps
+2015-10-31 19:32:58,453 serializing object to: snapshots/target_network.pkl
+2015-10-31 19:32:58,458 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 19:37:01,522 serializing object to: snapshots/target_network.pkl
+2015-10-31 19:37:01,527 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 19:41:05,062 serializing object to: snapshots/target_network.pkl
+2015-10-31 19:41:05,067 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 19:45:08,243 serializing object to: snapshots/target_network.pkl
+2015-10-31 19:45:08,248 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 19:49:11,533 serializing object to: snapshots/target_network.pkl
+2015-10-31 19:49:11,538 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 19:53:14,649 serializing object to: snapshots/target_network.pkl
+2015-10-31 19:53:14,654 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 19:55:16,223   num_games: 99, average_reward: 16.060606, min_game_reward: 8, max_game_reward: 21
+2015-10-31 19:55:16,224   last_exploration_rate: 0.100000, epoch_time: 1520s, steps_per_second: 164
+2015-10-31 19:55:16,224 Saving weights to snapshots/pong_170.pkl
+2015-10-31 19:55:16,226 serializing object to: snapshots/pong_170.pkl
+2015-10-31 19:55:16,258  Testing for 125000 steps
+2015-10-31 20:02:53,760   num_games: 49, average_reward: 18.918367, min_game_reward: 13, max_game_reward: 21
+2015-10-31 20:02:53,760   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 273
+2015-10-31 20:02:53,760 Epoch #171
+2015-10-31 20:02:53,760  Training for 250000 steps
+2015-10-31 20:04:55,321 serializing object to: snapshots/target_network.pkl
+2015-10-31 20:04:55,326 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 20:08:58,256 serializing object to: snapshots/target_network.pkl
+2015-10-31 20:08:58,261 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 20:13:01,332 serializing object to: snapshots/target_network.pkl
+2015-10-31 20:13:01,338 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 20:17:04,858 serializing object to: snapshots/target_network.pkl
+2015-10-31 20:17:04,863 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 20:21:07,811 serializing object to: snapshots/target_network.pkl
+2015-10-31 20:21:07,816 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 20:25:10,565 serializing object to: snapshots/target_network.pkl
+2015-10-31 20:25:10,570 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 20:28:13,035   num_games: 98, average_reward: 16.346939, min_game_reward: 3, max_game_reward: 21
+2015-10-31 20:28:13,035   last_exploration_rate: 0.100000, epoch_time: 1520s, steps_per_second: 164
+2015-10-31 20:28:13,035 Saving weights to snapshots/pong_171.pkl
+2015-10-31 20:28:13,037 serializing object to: snapshots/pong_171.pkl
+2015-10-31 20:28:13,046  Testing for 125000 steps
+2015-10-31 20:35:50,571   num_games: 49, average_reward: 18.734694, min_game_reward: 15, max_game_reward: 21
+2015-10-31 20:35:50,571   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 273
+2015-10-31 20:35:50,571 Epoch #172
+2015-10-31 20:35:50,571  Training for 250000 steps
+2015-10-31 20:36:51,560 serializing object to: snapshots/target_network.pkl
+2015-10-31 20:36:51,565 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 20:40:55,033 serializing object to: snapshots/target_network.pkl
+2015-10-31 20:40:55,038 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 20:44:58,557 serializing object to: snapshots/target_network.pkl
+2015-10-31 20:44:58,562 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 20:49:01,424 serializing object to: snapshots/target_network.pkl
+2015-10-31 20:49:01,430 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 20:53:04,533 serializing object to: snapshots/target_network.pkl
+2015-10-31 20:53:04,538 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 20:57:07,744 serializing object to: snapshots/target_network.pkl
+2015-10-31 20:57:07,750 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 21:01:10,839   num_games: 101, average_reward: 16.118812, min_game_reward: 6, max_game_reward: 20
+2015-10-31 21:01:10,839   last_exploration_rate: 0.100000, epoch_time: 1521s, steps_per_second: 164
+2015-10-31 21:01:10,839 Saving weights to snapshots/pong_172.pkl
+2015-10-31 21:01:10,841 serializing object to: snapshots/pong_172.pkl
+2015-10-31 21:01:10,850  Testing for 125000 steps
+2015-10-31 21:08:48,168   num_games: 54, average_reward: 18.870370, min_game_reward: 16, max_game_reward: 21
+2015-10-31 21:08:48,168   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 273
+2015-10-31 21:08:48,168 Epoch #173
+2015-10-31 21:08:48,168  Training for 250000 steps
+2015-10-31 21:08:48,174 serializing object to: snapshots/target_network.pkl
+2015-10-31 21:08:48,179 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 21:12:51,538 serializing object to: snapshots/target_network.pkl
+2015-10-31 21:12:51,543 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 21:16:54,171 serializing object to: snapshots/target_network.pkl
+2015-10-31 21:16:54,176 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 21:20:57,303 serializing object to: snapshots/target_network.pkl
+2015-10-31 21:20:57,308 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 21:25:00,203 serializing object to: snapshots/target_network.pkl
+2015-10-31 21:25:00,208 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 21:29:02,912 serializing object to: snapshots/target_network.pkl
+2015-10-31 21:29:02,917 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 21:33:06,248 serializing object to: snapshots/target_network.pkl
+2015-10-31 21:33:06,253 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 21:34:07,151   num_games: 96, average_reward: 16.000000, min_game_reward: 10, max_game_reward: 21
+2015-10-31 21:34:07,151   last_exploration_rate: 0.100000, epoch_time: 1519s, steps_per_second: 164
+2015-10-31 21:34:07,151 Saving weights to snapshots/pong_173.pkl
+2015-10-31 21:34:07,153 serializing object to: snapshots/pong_173.pkl
+2015-10-31 21:34:07,162  Testing for 125000 steps
+2015-10-31 21:41:44,818   num_games: 55, average_reward: 18.690909, min_game_reward: 14, max_game_reward: 21
+2015-10-31 21:41:44,818   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 273
+2015-10-31 21:41:44,818 Epoch #174
+2015-10-31 21:41:44,818  Training for 250000 steps
+2015-10-31 21:44:47,081 serializing object to: snapshots/target_network.pkl
+2015-10-31 21:44:47,086 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 21:48:50,919 serializing object to: snapshots/target_network.pkl
+2015-10-31 21:48:50,924 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 21:52:54,470 serializing object to: snapshots/target_network.pkl
+2015-10-31 21:52:54,476 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 21:56:58,126 serializing object to: snapshots/target_network.pkl
+2015-10-31 21:56:58,131 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 22:01:01,520 serializing object to: snapshots/target_network.pkl
+2015-10-31 22:01:01,525 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 22:05:05,261 serializing object to: snapshots/target_network.pkl
+2015-10-31 22:05:05,266 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 22:07:06,768   num_games: 99, average_reward: 16.383838, min_game_reward: 9, max_game_reward: 20
+2015-10-31 22:07:06,768   last_exploration_rate: 0.100000, epoch_time: 1522s, steps_per_second: 164
+2015-10-31 22:07:06,768 Saving weights to snapshots/pong_174.pkl
+2015-10-31 22:07:06,771 serializing object to: snapshots/pong_174.pkl
+2015-10-31 22:07:06,779  Testing for 125000 steps
+2015-10-31 22:14:44,282   num_games: 58, average_reward: 19.500000, min_game_reward: 16, max_game_reward: 21
+2015-10-31 22:14:44,282   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 273
+2015-10-31 22:14:44,282 Epoch #175
+2015-10-31 22:14:44,282  Training for 250000 steps
+2015-10-31 22:16:45,893 serializing object to: snapshots/target_network.pkl
+2015-10-31 22:16:45,898 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 22:20:48,715 serializing object to: snapshots/target_network.pkl
+2015-10-31 22:20:48,720 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 22:24:51,951 serializing object to: snapshots/target_network.pkl
+2015-10-31 22:24:51,956 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 22:28:54,962 serializing object to: snapshots/target_network.pkl
+2015-10-31 22:28:54,968 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 22:32:57,999 serializing object to: snapshots/target_network.pkl
+2015-10-31 22:32:58,004 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 22:37:01,425 serializing object to: snapshots/target_network.pkl
+2015-10-31 22:37:01,430 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 22:40:03,519   num_games: 97, average_reward: 16.061856, min_game_reward: 9, max_game_reward: 20
+2015-10-31 22:40:03,519   last_exploration_rate: 0.100000, epoch_time: 1519s, steps_per_second: 164
+2015-10-31 22:40:03,519 Saving weights to snapshots/pong_175.pkl
+2015-10-31 22:40:03,522 serializing object to: snapshots/pong_175.pkl
+2015-10-31 22:40:03,530  Testing for 125000 steps
+2015-10-31 22:47:40,873   num_games: 52, average_reward: 18.865385, min_game_reward: 15, max_game_reward: 21
+2015-10-31 22:47:40,873   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 273
+2015-10-31 22:47:40,873 Epoch #176
+2015-10-31 22:47:40,873  Training for 250000 steps
+2015-10-31 22:48:41,604 serializing object to: snapshots/target_network.pkl
+2015-10-31 22:48:41,609 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 22:52:44,514 serializing object to: snapshots/target_network.pkl
+2015-10-31 22:52:44,519 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 22:56:47,689 serializing object to: snapshots/target_network.pkl
+2015-10-31 22:56:47,694 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 23:00:50,837 serializing object to: snapshots/target_network.pkl
+2015-10-31 23:00:50,842 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 23:04:53,924 serializing object to: snapshots/target_network.pkl
+2015-10-31 23:04:53,929 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 23:08:57,007 serializing object to: snapshots/target_network.pkl
+2015-10-31 23:08:57,012 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 23:12:59,777   num_games: 99, average_reward: 16.242424, min_game_reward: 5, max_game_reward: 21
+2015-10-31 23:12:59,777   last_exploration_rate: 0.100000, epoch_time: 1519s, steps_per_second: 164
+2015-10-31 23:12:59,777 Saving weights to snapshots/pong_176.pkl
+2015-10-31 23:12:59,780 serializing object to: snapshots/pong_176.pkl
+2015-10-31 23:12:59,788  Testing for 125000 steps
+2015-10-31 23:20:37,701   num_games: 54, average_reward: 19.074074, min_game_reward: 13, max_game_reward: 21
+2015-10-31 23:20:37,701   last_exploration_rate: 0.050000, epoch_time: 458s, steps_per_second: 272
+2015-10-31 23:20:37,701 Epoch #177
+2015-10-31 23:20:37,701  Training for 250000 steps
+2015-10-31 23:20:37,706 serializing object to: snapshots/target_network.pkl
+2015-10-31 23:20:37,712 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 23:24:40,872 serializing object to: snapshots/target_network.pkl
+2015-10-31 23:24:40,877 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 23:28:44,446 serializing object to: snapshots/target_network.pkl
+2015-10-31 23:28:44,451 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 23:32:48,003 serializing object to: snapshots/target_network.pkl
+2015-10-31 23:32:48,008 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 23:36:51,733 serializing object to: snapshots/target_network.pkl
+2015-10-31 23:36:51,738 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 23:40:55,332 serializing object to: snapshots/target_network.pkl
+2015-10-31 23:40:55,337 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 23:44:58,483 serializing object to: snapshots/target_network.pkl
+2015-10-31 23:44:58,488 deserializing object from:  snapshots/target_network.pkl
+2015-10-31 23:45:59,194   num_games: 101, average_reward: 16.168317, min_game_reward: 2, max_game_reward: 21
+2015-10-31 23:45:59,194   last_exploration_rate: 0.100000, epoch_time: 1522s, steps_per_second: 164
+2015-10-31 23:45:59,194 Saving weights to snapshots/pong_177.pkl
+2015-10-31 23:45:59,196 serializing object to: snapshots/pong_177.pkl
+2015-10-31 23:45:59,204  Testing for 125000 steps
+2015-10-31 23:53:35,860   num_games: 50, average_reward: 19.360000, min_game_reward: 15, max_game_reward: 21
+2015-10-31 23:53:35,860   last_exploration_rate: 0.050000, epoch_time: 456s, steps_per_second: 273
+2015-10-31 23:53:35,860 Epoch #178
+2015-10-31 23:53:35,860  Training for 250000 steps
+2015-10-31 23:56:38,345 serializing object to: snapshots/target_network.pkl
+2015-10-31 23:56:38,350 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 00:00:41,381 serializing object to: snapshots/target_network.pkl
+2015-11-01 00:00:41,386 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 00:04:44,645 serializing object to: snapshots/target_network.pkl
+2015-11-01 00:04:44,650 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 00:08:48,100 serializing object to: snapshots/target_network.pkl
+2015-11-01 00:08:48,105 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 00:12:51,391 serializing object to: snapshots/target_network.pkl
+2015-11-01 00:12:51,396 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 00:16:55,197 serializing object to: snapshots/target_network.pkl
+2015-11-01 00:16:55,202 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 00:18:57,189   num_games: 99, average_reward: 15.878788, min_game_reward: 9, max_game_reward: 21
+2015-11-01 00:18:57,189   last_exploration_rate: 0.100000, epoch_time: 1522s, steps_per_second: 164
+2015-11-01 00:18:57,189 Saving weights to snapshots/pong_178.pkl
+2015-11-01 00:18:57,191 serializing object to: snapshots/pong_178.pkl
+2015-11-01 00:18:57,200  Testing for 125000 steps
+2015-11-01 00:26:34,909   num_games: 51, average_reward: 18.529412, min_game_reward: 13, max_game_reward: 21
+2015-11-01 00:26:34,909   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 272
+2015-11-01 00:26:34,909 Epoch #179
+2015-11-01 00:26:34,910  Training for 250000 steps
+2015-11-01 00:28:36,437 serializing object to: snapshots/target_network.pkl
+2015-11-01 00:28:36,442 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 00:32:39,661 serializing object to: snapshots/target_network.pkl
+2015-11-01 00:32:39,667 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 00:36:42,758 serializing object to: snapshots/target_network.pkl
+2015-11-01 00:36:42,763 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 00:40:45,643 serializing object to: snapshots/target_network.pkl
+2015-11-01 00:40:45,648 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 00:44:48,746 serializing object to: snapshots/target_network.pkl
+2015-11-01 00:44:48,752 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 00:48:51,499 serializing object to: snapshots/target_network.pkl
+2015-11-01 00:48:51,504 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 00:51:54,098   num_games: 97, average_reward: 16.237113, min_game_reward: 4, max_game_reward: 21
+2015-11-01 00:51:54,098   last_exploration_rate: 0.100000, epoch_time: 1519s, steps_per_second: 164
+2015-11-01 00:51:54,098 Saving weights to snapshots/pong_179.pkl
+2015-11-01 00:51:54,100 serializing object to: snapshots/pong_179.pkl
+2015-11-01 00:51:54,108  Testing for 125000 steps
+2015-11-01 00:59:31,936   num_games: 51, average_reward: 19.392157, min_game_reward: 16, max_game_reward: 21
+2015-11-01 00:59:31,936   last_exploration_rate: 0.050000, epoch_time: 458s, steps_per_second: 272
+2015-11-01 00:59:31,936 Epoch #180
+2015-11-01 00:59:31,936  Training for 250000 steps
+2015-11-01 01:00:32,621 serializing object to: snapshots/target_network.pkl
+2015-11-01 01:00:32,626 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 01:04:35,663 serializing object to: snapshots/target_network.pkl
+2015-11-01 01:04:35,668 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 01:08:38,248 serializing object to: snapshots/target_network.pkl
+2015-11-01 01:08:38,253 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 01:12:41,016 serializing object to: snapshots/target_network.pkl
+2015-11-01 01:12:41,021 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 01:16:43,998 serializing object to: snapshots/target_network.pkl
+2015-11-01 01:16:44,003 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 01:20:46,953 serializing object to: snapshots/target_network.pkl
+2015-11-01 01:20:46,958 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 01:24:50,079   num_games: 101, average_reward: 16.900990, min_game_reward: 11, max_game_reward: 21
+2015-11-01 01:24:50,079   last_exploration_rate: 0.100000, epoch_time: 1518s, steps_per_second: 164
+2015-11-01 01:24:50,079 Saving weights to snapshots/pong_180.pkl
+2015-11-01 01:24:50,082 serializing object to: snapshots/pong_180.pkl
+2015-11-01 01:24:50,090  Testing for 125000 steps
+2015-11-01 01:32:27,808   num_games: 50, average_reward: 18.500000, min_game_reward: 15, max_game_reward: 21
+2015-11-01 01:32:27,808   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 272
+2015-11-01 01:32:27,808 Epoch #181
+2015-11-01 01:32:27,808  Training for 250000 steps
+2015-11-01 01:32:27,813 serializing object to: snapshots/target_network.pkl
+2015-11-01 01:32:27,818 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 01:36:30,653 serializing object to: snapshots/target_network.pkl
+2015-11-01 01:36:30,658 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 01:40:33,508 serializing object to: snapshots/target_network.pkl
+2015-11-01 01:40:33,513 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 01:44:36,147 serializing object to: snapshots/target_network.pkl
+2015-11-01 01:44:36,152 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 01:48:40,167 serializing object to: snapshots/target_network.pkl
+2015-11-01 01:48:40,173 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 01:52:43,190 serializing object to: snapshots/target_network.pkl
+2015-11-01 01:52:43,195 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 01:56:46,338 serializing object to: snapshots/target_network.pkl
+2015-11-01 01:56:46,343 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 01:57:47,196   num_games: 99, average_reward: 16.111111, min_game_reward: 7, max_game_reward: 21
+2015-11-01 01:57:47,196   last_exploration_rate: 0.100000, epoch_time: 1520s, steps_per_second: 164
+2015-11-01 01:57:47,196 Saving weights to snapshots/pong_181.pkl
+2015-11-01 01:57:47,198 serializing object to: snapshots/pong_181.pkl
+2015-11-01 01:57:47,231  Testing for 125000 steps
+2015-11-01 02:05:24,349   num_games: 52, average_reward: 18.961538, min_game_reward: 16, max_game_reward: 21
+2015-11-01 02:05:24,349   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 273
+2015-11-01 02:05:24,349 Epoch #182
+2015-11-01 02:05:24,349  Training for 250000 steps
+2015-11-01 02:08:26,734 serializing object to: snapshots/target_network.pkl
+2015-11-01 02:08:26,739 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 02:12:29,847 serializing object to: snapshots/target_network.pkl
+2015-11-01 02:12:29,853 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 02:16:33,182 serializing object to: snapshots/target_network.pkl
+2015-11-01 02:16:33,187 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 02:20:36,736 serializing object to: snapshots/target_network.pkl
+2015-11-01 02:20:36,741 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 02:24:39,643 serializing object to: snapshots/target_network.pkl
+2015-11-01 02:24:39,648 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 02:28:42,938 serializing object to: snapshots/target_network.pkl
+2015-11-01 02:28:42,943 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 02:30:44,812   num_games: 98, average_reward: 16.244898, min_game_reward: 12, max_game_reward: 21
+2015-11-01 02:30:44,812   last_exploration_rate: 0.100000, epoch_time: 1521s, steps_per_second: 164
+2015-11-01 02:30:44,812 Saving weights to snapshots/pong_182.pkl
+2015-11-01 02:30:44,814 serializing object to: snapshots/pong_182.pkl
+2015-11-01 02:30:44,822  Testing for 125000 steps
+2015-11-01 02:38:21,341   num_games: 57, average_reward: 19.421053, min_game_reward: 14, max_game_reward: 21
+2015-11-01 02:38:21,341   last_exploration_rate: 0.050000, epoch_time: 456s, steps_per_second: 273
+2015-11-01 02:38:21,341 Epoch #183
+2015-11-01 02:38:21,341  Training for 250000 steps
+2015-11-01 02:40:23,061 serializing object to: snapshots/target_network.pkl
+2015-11-01 02:40:23,066 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 02:44:26,402 serializing object to: snapshots/target_network.pkl
+2015-11-01 02:44:26,407 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 02:48:29,813 serializing object to: snapshots/target_network.pkl
+2015-11-01 02:48:29,818 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 02:52:33,305 serializing object to: snapshots/target_network.pkl
+2015-11-01 02:52:33,310 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 02:56:36,628 serializing object to: snapshots/target_network.pkl
+2015-11-01 02:56:36,633 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 03:00:40,132 serializing object to: snapshots/target_network.pkl
+2015-11-01 03:00:40,137 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 03:03:42,236   num_games: 98, average_reward: 16.428571, min_game_reward: 6, max_game_reward: 21
+2015-11-01 03:03:42,237   last_exploration_rate: 0.100000, epoch_time: 1521s, steps_per_second: 164
+2015-11-01 03:03:42,237 Saving weights to snapshots/pong_183.pkl
+2015-11-01 03:03:42,239 serializing object to: snapshots/pong_183.pkl
+2015-11-01 03:03:42,247  Testing for 125000 steps
+2015-11-01 03:11:18,989   num_games: 51, average_reward: 19.529412, min_game_reward: 15, max_game_reward: 21
+2015-11-01 03:11:18,989   last_exploration_rate: 0.050000, epoch_time: 456s, steps_per_second: 273
+2015-11-01 03:11:18,989 Epoch #184
+2015-11-01 03:11:18,989  Training for 250000 steps
+2015-11-01 03:12:19,793 serializing object to: snapshots/target_network.pkl
+2015-11-01 03:12:19,798 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 03:16:23,000 serializing object to: snapshots/target_network.pkl
+2015-11-01 03:16:23,005 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 03:20:25,964 serializing object to: snapshots/target_network.pkl
+2015-11-01 03:20:25,969 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 03:24:29,146 serializing object to: snapshots/target_network.pkl
+2015-11-01 03:24:29,151 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 03:28:32,422 serializing object to: snapshots/target_network.pkl
+2015-11-01 03:28:32,427 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 03:32:35,771 serializing object to: snapshots/target_network.pkl
+2015-11-01 03:32:35,776 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 03:36:38,952   num_games: 99, average_reward: 16.636364, min_game_reward: 10, max_game_reward: 21
+2015-11-01 03:36:38,952   last_exploration_rate: 0.100000, epoch_time: 1520s, steps_per_second: 164
+2015-11-01 03:36:38,952 Saving weights to snapshots/pong_184.pkl
+2015-11-01 03:36:38,954 serializing object to: snapshots/pong_184.pkl
+2015-11-01 03:36:38,962  Testing for 125000 steps
+2015-11-01 03:44:16,357   num_games: 58, average_reward: 19.189655, min_game_reward: 16, max_game_reward: 21
+2015-11-01 03:44:16,357   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 273
+2015-11-01 03:44:16,357 Epoch #185
+2015-11-01 03:44:16,357  Training for 250000 steps
+2015-11-01 03:44:16,363 serializing object to: snapshots/target_network.pkl
+2015-11-01 03:44:16,368 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 03:48:19,578 serializing object to: snapshots/target_network.pkl
+2015-11-01 03:48:19,583 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 03:52:22,940 serializing object to: snapshots/target_network.pkl
+2015-11-01 03:52:22,945 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 03:56:26,157 serializing object to: snapshots/target_network.pkl
+2015-11-01 03:56:26,162 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 04:00:29,218 serializing object to: snapshots/target_network.pkl
+2015-11-01 04:00:29,224 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 04:04:32,352 serializing object to: snapshots/target_network.pkl
+2015-11-01 04:04:32,357 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 04:08:35,423 serializing object to: snapshots/target_network.pkl
+2015-11-01 04:08:35,428 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 04:09:36,280   num_games: 97, average_reward: 15.969072, min_game_reward: 6, max_game_reward: 21
+2015-11-01 04:09:36,281   last_exploration_rate: 0.100000, epoch_time: 1520s, steps_per_second: 164
+2015-11-01 04:09:36,281 Saving weights to snapshots/pong_185.pkl
+2015-11-01 04:09:36,283 serializing object to: snapshots/pong_185.pkl
+2015-11-01 04:09:36,291  Testing for 125000 steps
+2015-11-01 04:17:13,550   num_games: 56, average_reward: 18.946429, min_game_reward: 13, max_game_reward: 21
+2015-11-01 04:17:13,550   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 273
+2015-11-01 04:17:13,551 Epoch #186
+2015-11-01 04:17:13,551  Training for 250000 steps
+2015-11-01 04:20:16,071 serializing object to: snapshots/target_network.pkl
+2015-11-01 04:20:16,076 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 04:24:19,670 serializing object to: snapshots/target_network.pkl
+2015-11-01 04:24:19,675 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 04:28:22,908 serializing object to: snapshots/target_network.pkl
+2015-11-01 04:28:22,914 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 04:32:26,421 serializing object to: snapshots/target_network.pkl
+2015-11-01 04:32:26,426 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 04:36:29,650 serializing object to: snapshots/target_network.pkl
+2015-11-01 04:36:29,655 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 04:40:33,120 serializing object to: snapshots/target_network.pkl
+2015-11-01 04:40:33,125 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 04:42:34,564   num_games: 99, average_reward: 16.030303, min_game_reward: 8, max_game_reward: 21
+2015-11-01 04:42:34,564   last_exploration_rate: 0.100000, epoch_time: 1521s, steps_per_second: 164
+2015-11-01 04:42:34,564 Saving weights to snapshots/pong_186.pkl
+2015-11-01 04:42:34,567 serializing object to: snapshots/pong_186.pkl
+2015-11-01 04:42:34,575  Testing for 125000 steps
+2015-11-01 04:50:12,431   num_games: 53, average_reward: 19.094340, min_game_reward: 15, max_game_reward: 21
+2015-11-01 04:50:12,431   last_exploration_rate: 0.050000, epoch_time: 458s, steps_per_second: 272
+2015-11-01 04:50:12,431 Epoch #187
+2015-11-01 04:50:12,431  Training for 250000 steps
+2015-11-01 04:52:14,006 serializing object to: snapshots/target_network.pkl
+2015-11-01 04:52:14,011 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 04:56:16,932 serializing object to: snapshots/target_network.pkl
+2015-11-01 04:56:16,938 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 05:00:20,155 serializing object to: snapshots/target_network.pkl
+2015-11-01 05:00:20,161 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 05:04:23,112 serializing object to: snapshots/target_network.pkl
+2015-11-01 05:04:23,117 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 05:08:26,024 serializing object to: snapshots/target_network.pkl
+2015-11-01 05:08:26,029 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 05:12:29,159 serializing object to: snapshots/target_network.pkl
+2015-11-01 05:12:29,164 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 05:15:31,139   num_games: 99, average_reward: 16.202020, min_game_reward: 7, max_game_reward: 20
+2015-11-01 05:15:31,139   last_exploration_rate: 0.100000, epoch_time: 1519s, steps_per_second: 164
+2015-11-01 05:15:31,139 Saving weights to snapshots/pong_187.pkl
+2015-11-01 05:15:31,142 serializing object to: snapshots/pong_187.pkl
+2015-11-01 05:15:31,150  Testing for 125000 steps
+2015-11-01 05:23:07,737   num_games: 57, average_reward: 19.052632, min_game_reward: 15, max_game_reward: 21
+2015-11-01 05:23:07,737   last_exploration_rate: 0.050000, epoch_time: 456s, steps_per_second: 273
+2015-11-01 05:23:07,737 Epoch #188
+2015-11-01 05:23:07,737  Training for 250000 steps
+2015-11-01 05:24:08,422 serializing object to: snapshots/target_network.pkl
+2015-11-01 05:24:08,427 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 05:28:11,835 serializing object to: snapshots/target_network.pkl
+2015-11-01 05:28:11,840 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 05:32:15,193 serializing object to: snapshots/target_network.pkl
+2015-11-01 05:32:15,198 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 05:36:18,401 serializing object to: snapshots/target_network.pkl
+2015-11-01 05:36:18,406 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 05:40:21,379 serializing object to: snapshots/target_network.pkl
+2015-11-01 05:40:21,384 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 05:44:24,464 serializing object to: snapshots/target_network.pkl
+2015-11-01 05:44:24,469 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 05:48:27,394   num_games: 100, average_reward: 16.150000, min_game_reward: 4, max_game_reward: 21
+2015-11-01 05:48:27,394   last_exploration_rate: 0.100000, epoch_time: 1520s, steps_per_second: 164
+2015-11-01 05:48:27,394 Saving weights to snapshots/pong_188.pkl
+2015-11-01 05:48:27,396 serializing object to: snapshots/pong_188.pkl
+2015-11-01 05:48:27,404  Testing for 125000 steps
+2015-11-01 05:56:04,836   num_games: 57, average_reward: 19.368421, min_game_reward: 15, max_game_reward: 21
+2015-11-01 05:56:04,836   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 273
+2015-11-01 05:56:04,836 Epoch #189
+2015-11-01 05:56:04,836  Training for 250000 steps
+2015-11-01 05:56:04,842 serializing object to: snapshots/target_network.pkl
+2015-11-01 05:56:04,847 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 06:00:07,676 serializing object to: snapshots/target_network.pkl
+2015-11-01 06:00:07,681 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 06:04:10,887 serializing object to: snapshots/target_network.pkl
+2015-11-01 06:04:10,892 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 06:08:13,990 serializing object to: snapshots/target_network.pkl
+2015-11-01 06:08:13,996 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 06:12:17,147 serializing object to: snapshots/target_network.pkl
+2015-11-01 06:12:17,153 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 06:16:20,303 serializing object to: snapshots/target_network.pkl
+2015-11-01 06:16:20,308 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 06:20:23,066 serializing object to: snapshots/target_network.pkl
+2015-11-01 06:20:23,071 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 06:21:23,624   num_games: 102, average_reward: 16.519608, min_game_reward: 5, max_game_reward: 20
+2015-11-01 06:21:23,624   last_exploration_rate: 0.100000, epoch_time: 1519s, steps_per_second: 164
+2015-11-01 06:21:23,624 Saving weights to snapshots/pong_189.pkl
+2015-11-01 06:21:23,626 serializing object to: snapshots/pong_189.pkl
+2015-11-01 06:21:23,635  Testing for 125000 steps
+2015-11-01 06:29:01,860   num_games: 52, average_reward: 18.884615, min_game_reward: 15, max_game_reward: 21
+2015-11-01 06:29:01,860   last_exploration_rate: 0.050000, epoch_time: 458s, steps_per_second: 272
+2015-11-01 06:29:01,861 Epoch #190
+2015-11-01 06:29:01,861  Training for 250000 steps
+2015-11-01 06:32:04,091 serializing object to: snapshots/target_network.pkl
+2015-11-01 06:32:04,097 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 06:36:07,090 serializing object to: snapshots/target_network.pkl
+2015-11-01 06:36:07,095 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 06:40:09,892 serializing object to: snapshots/target_network.pkl
+2015-11-01 06:40:09,897 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 06:44:12,874 serializing object to: snapshots/target_network.pkl
+2015-11-01 06:44:12,879 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 06:48:15,821 serializing object to: snapshots/target_network.pkl
+2015-11-01 06:48:15,826 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 06:52:18,796 serializing object to: snapshots/target_network.pkl
+2015-11-01 06:52:18,801 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 06:54:20,268   num_games: 97, average_reward: 15.855670, min_game_reward: 4, max_game_reward: 20
+2015-11-01 06:54:20,268   last_exploration_rate: 0.100000, epoch_time: 1519s, steps_per_second: 164
+2015-11-01 06:54:20,268 Saving weights to snapshots/pong_190.pkl
+2015-11-01 06:54:20,271 serializing object to: snapshots/pong_190.pkl
+2015-11-01 06:54:20,279  Testing for 125000 steps
+2015-11-01 07:01:57,433   num_games: 50, average_reward: 18.480000, min_game_reward: 14, max_game_reward: 21
+2015-11-01 07:01:57,433   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 273
+2015-11-01 07:01:57,433 Epoch #191
+2015-11-01 07:01:57,433  Training for 250000 steps
+2015-11-01 07:03:58,988 serializing object to: snapshots/target_network.pkl
+2015-11-01 07:03:58,994 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 07:08:02,292 serializing object to: snapshots/target_network.pkl
+2015-11-01 07:08:02,297 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 07:12:05,298 serializing object to: snapshots/target_network.pkl
+2015-11-01 07:12:05,303 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 07:16:08,447 serializing object to: snapshots/target_network.pkl
+2015-11-01 07:16:08,452 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 07:20:11,391 serializing object to: snapshots/target_network.pkl
+2015-11-01 07:20:11,396 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 07:24:15,004 serializing object to: snapshots/target_network.pkl
+2015-11-01 07:24:15,009 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 07:27:17,682   num_games: 97, average_reward: 16.061856, min_game_reward: 9, max_game_reward: 20
+2015-11-01 07:27:17,683   last_exploration_rate: 0.100000, epoch_time: 1520s, steps_per_second: 164
+2015-11-01 07:27:17,683 Saving weights to snapshots/pong_191.pkl
+2015-11-01 07:27:17,685 serializing object to: snapshots/pong_191.pkl
+2015-11-01 07:27:17,714  Testing for 125000 steps
+2015-11-01 07:34:55,078   num_games: 51, average_reward: 18.921569, min_game_reward: 16, max_game_reward: 21
+2015-11-01 07:34:55,078   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 273
+2015-11-01 07:34:55,078 Epoch #192
+2015-11-01 07:34:55,078  Training for 250000 steps
+2015-11-01 07:35:55,848 serializing object to: snapshots/target_network.pkl
+2015-11-01 07:35:55,854 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 07:39:59,122 serializing object to: snapshots/target_network.pkl
+2015-11-01 07:39:59,128 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 07:44:02,630 serializing object to: snapshots/target_network.pkl
+2015-11-01 07:44:02,635 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 07:48:06,480 serializing object to: snapshots/target_network.pkl
+2015-11-01 07:48:06,496 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 07:52:09,115 serializing object to: snapshots/target_network.pkl
+2015-11-01 07:52:09,120 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 07:56:11,848 serializing object to: snapshots/target_network.pkl
+2015-11-01 07:56:11,854 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 08:00:14,853   num_games: 100, average_reward: 16.390000, min_game_reward: 6, max_game_reward: 21
+2015-11-01 08:00:14,853   last_exploration_rate: 0.100000, epoch_time: 1520s, steps_per_second: 164
+2015-11-01 08:00:14,854 Saving weights to snapshots/pong_192.pkl
+2015-11-01 08:00:14,856 serializing object to: snapshots/pong_192.pkl
+2015-11-01 08:00:14,866  Testing for 125000 steps
+2015-11-01 08:07:52,416   num_games: 56, average_reward: 19.035714, min_game_reward: 16, max_game_reward: 21
+2015-11-01 08:07:52,416   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 273
+2015-11-01 08:07:52,416 Epoch #193
+2015-11-01 08:07:52,416  Training for 250000 steps
+2015-11-01 08:07:52,422 serializing object to: snapshots/target_network.pkl
+2015-11-01 08:07:52,427 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 08:11:55,457 serializing object to: snapshots/target_network.pkl
+2015-11-01 08:11:55,463 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 08:15:58,305 serializing object to: snapshots/target_network.pkl
+2015-11-01 08:15:58,311 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 08:20:01,235 serializing object to: snapshots/target_network.pkl
+2015-11-01 08:20:01,240 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 08:24:04,412 serializing object to: snapshots/target_network.pkl
+2015-11-01 08:24:04,417 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 08:28:07,424 serializing object to: snapshots/target_network.pkl
+2015-11-01 08:28:07,429 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 08:32:10,882 serializing object to: snapshots/target_network.pkl
+2015-11-01 08:32:10,888 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 08:33:11,685   num_games: 100, average_reward: 16.160000, min_game_reward: 8, max_game_reward: 21
+2015-11-01 08:33:11,685   last_exploration_rate: 0.100000, epoch_time: 1520s, steps_per_second: 164
+2015-11-01 08:33:11,685 Saving weights to snapshots/pong_193.pkl
+2015-11-01 08:33:11,687 serializing object to: snapshots/pong_193.pkl
+2015-11-01 08:33:11,697  Testing for 125000 steps
+2015-11-01 08:40:48,916   num_games: 57, average_reward: 18.964912, min_game_reward: 13, max_game_reward: 21
+2015-11-01 08:40:48,916   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 273
+2015-11-01 08:40:48,916 Epoch #194
+2015-11-01 08:40:48,916  Training for 250000 steps
+2015-11-01 08:43:51,268 serializing object to: snapshots/target_network.pkl
+2015-11-01 08:43:51,274 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 08:47:54,288 serializing object to: snapshots/target_network.pkl
+2015-11-01 08:47:54,294 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 08:51:57,563 serializing object to: snapshots/target_network.pkl
+2015-11-01 08:51:57,569 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 08:56:00,625 serializing object to: snapshots/target_network.pkl
+2015-11-01 08:56:00,630 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 09:00:03,621 serializing object to: snapshots/target_network.pkl
+2015-11-01 09:00:03,627 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 09:04:06,578 serializing object to: snapshots/target_network.pkl
+2015-11-01 09:04:06,583 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 09:06:08,318   num_games: 97, average_reward: 16.144330, min_game_reward: 8, max_game_reward: 21
+2015-11-01 09:06:08,318   last_exploration_rate: 0.100000, epoch_time: 1520s, steps_per_second: 164
+2015-11-01 09:06:08,318 Saving weights to snapshots/pong_194.pkl
+2015-11-01 09:06:08,320 serializing object to: snapshots/pong_194.pkl
+2015-11-01 09:06:08,351  Testing for 125000 steps
+2015-11-01 09:13:46,049   num_games: 52, average_reward: 19.096154, min_game_reward: 15, max_game_reward: 21
+2015-11-01 09:13:46,049   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 272
+2015-11-01 09:13:46,049 Epoch #195
+2015-11-01 09:13:46,049  Training for 250000 steps
+2015-11-01 09:15:47,698 serializing object to: snapshots/target_network.pkl
+2015-11-01 09:15:47,703 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 09:19:50,368 serializing object to: snapshots/target_network.pkl
+2015-11-01 09:19:50,373 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 09:23:53,374 serializing object to: snapshots/target_network.pkl
+2015-11-01 09:23:53,380 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 09:27:56,327 serializing object to: snapshots/target_network.pkl
+2015-11-01 09:27:56,333 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 09:31:59,584 serializing object to: snapshots/target_network.pkl
+2015-11-01 09:31:59,590 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 09:36:02,794 serializing object to: snapshots/target_network.pkl
+2015-11-01 09:36:02,800 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 09:39:05,238   num_games: 99, average_reward: 16.272727, min_game_reward: 6, max_game_reward: 21
+2015-11-01 09:39:05,238   last_exploration_rate: 0.100000, epoch_time: 1519s, steps_per_second: 164
+2015-11-01 09:39:05,238 Saving weights to snapshots/pong_195.pkl
+2015-11-01 09:39:05,241 serializing object to: snapshots/pong_195.pkl
+2015-11-01 09:39:05,249  Testing for 125000 steps
+2015-11-01 09:46:42,939   num_games: 57, average_reward: 19.263158, min_game_reward: 16, max_game_reward: 21
+2015-11-01 09:46:42,939   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 272
+2015-11-01 09:46:42,939 Epoch #196
+2015-11-01 09:46:42,939  Training for 250000 steps
+2015-11-01 09:47:43,885 serializing object to: snapshots/target_network.pkl
+2015-11-01 09:47:43,890 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 09:51:47,391 serializing object to: snapshots/target_network.pkl
+2015-11-01 09:51:47,397 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 09:55:50,872 serializing object to: snapshots/target_network.pkl
+2015-11-01 09:55:50,878 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 09:59:54,366 serializing object to: snapshots/target_network.pkl
+2015-11-01 09:59:54,372 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 10:03:57,904 serializing object to: snapshots/target_network.pkl
+2015-11-01 10:03:57,909 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 10:08:01,638 serializing object to: snapshots/target_network.pkl
+2015-11-01 10:08:01,644 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 10:12:04,485   num_games: 99, average_reward: 16.666667, min_game_reward: 9, max_game_reward: 21
+2015-11-01 10:12:04,485   last_exploration_rate: 0.100000, epoch_time: 1522s, steps_per_second: 164
+2015-11-01 10:12:04,486 Saving weights to snapshots/pong_196.pkl
+2015-11-01 10:12:04,488 serializing object to: snapshots/pong_196.pkl
+2015-11-01 10:12:04,496  Testing for 125000 steps
+2015-11-01 10:19:41,714   num_games: 55, average_reward: 18.836364, min_game_reward: 15, max_game_reward: 21
+2015-11-01 10:19:41,715   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 273
+2015-11-01 10:19:41,715 Epoch #197
+2015-11-01 10:19:41,715  Training for 250000 steps
+2015-11-01 10:19:41,720 serializing object to: snapshots/target_network.pkl
+2015-11-01 10:19:41,725 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 10:23:44,648 serializing object to: snapshots/target_network.pkl
+2015-11-01 10:23:44,653 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 10:27:47,533 serializing object to: snapshots/target_network.pkl
+2015-11-01 10:27:47,538 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 10:31:50,601 serializing object to: snapshots/target_network.pkl
+2015-11-01 10:31:50,607 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 10:35:53,436 serializing object to: snapshots/target_network.pkl
+2015-11-01 10:35:53,441 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 10:39:56,325 serializing object to: snapshots/target_network.pkl
+2015-11-01 10:39:56,331 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 10:43:59,290 serializing object to: snapshots/target_network.pkl
+2015-11-01 10:43:59,295 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 10:44:59,977   num_games: 100, average_reward: 16.350000, min_game_reward: 10, max_game_reward: 20
+2015-11-01 10:44:59,977   last_exploration_rate: 0.100000, epoch_time: 1519s, steps_per_second: 164
+2015-11-01 10:44:59,978 Saving weights to snapshots/pong_197.pkl
+2015-11-01 10:44:59,980 serializing object to: snapshots/pong_197.pkl
+2015-11-01 10:44:59,988  Testing for 125000 steps
+2015-11-01 10:52:38,002   num_games: 58, average_reward: 19.000000, min_game_reward: 15, max_game_reward: 21
+2015-11-01 10:52:38,002   last_exploration_rate: 0.050000, epoch_time: 458s, steps_per_second: 272
+2015-11-01 10:52:38,002 Epoch #198
+2015-11-01 10:52:38,002  Training for 250000 steps
+2015-11-01 10:55:40,541 serializing object to: snapshots/target_network.pkl
+2015-11-01 10:55:40,546 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 10:59:43,977 serializing object to: snapshots/target_network.pkl
+2015-11-01 10:59:43,983 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 11:03:47,415 serializing object to: snapshots/target_network.pkl
+2015-11-01 11:03:47,420 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 11:07:50,960 serializing object to: snapshots/target_network.pkl
+2015-11-01 11:07:50,965 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 11:11:54,629 serializing object to: snapshots/target_network.pkl
+2015-11-01 11:11:54,634 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 11:15:58,394 serializing object to: snapshots/target_network.pkl
+2015-11-01 11:15:58,399 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 11:17:59,965   num_games: 100, average_reward: 15.760000, min_game_reward: 5, max_game_reward: 21
+2015-11-01 11:17:59,965   last_exploration_rate: 0.100000, epoch_time: 1522s, steps_per_second: 164
+2015-11-01 11:17:59,965 Saving weights to snapshots/pong_198.pkl
+2015-11-01 11:17:59,967 serializing object to: snapshots/pong_198.pkl
+2015-11-01 11:17:59,996  Testing for 125000 steps
+2015-11-01 11:25:37,136   num_games: 58, average_reward: 18.879310, min_game_reward: 14, max_game_reward: 21
+2015-11-01 11:25:37,136   last_exploration_rate: 0.050000, epoch_time: 457s, steps_per_second: 273
+2015-11-01 11:25:37,136 Epoch #199
+2015-11-01 11:25:37,136  Training for 250000 steps
+2015-11-01 11:27:38,900 serializing object to: snapshots/target_network.pkl
+2015-11-01 11:27:38,906 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 11:31:42,419 serializing object to: snapshots/target_network.pkl
+2015-11-01 11:31:42,424 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 11:35:45,282 serializing object to: snapshots/target_network.pkl
+2015-11-01 11:35:45,287 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 11:39:48,076 serializing object to: snapshots/target_network.pkl
+2015-11-01 11:39:48,081 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 11:43:50,800 serializing object to: snapshots/target_network.pkl
+2015-11-01 11:43:50,805 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 11:47:53,709 serializing object to: snapshots/target_network.pkl
+2015-11-01 11:47:53,715 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 11:50:55,834   num_games: 101, average_reward: 16.564356, min_game_reward: 8, max_game_reward: 21
+2015-11-01 11:50:55,834   last_exploration_rate: 0.100000, epoch_time: 1519s, steps_per_second: 164
+2015-11-01 11:50:55,834 Saving weights to snapshots/pong_199.pkl
+2015-11-01 11:50:55,836 serializing object to: snapshots/pong_199.pkl
+2015-11-01 11:50:55,844  Testing for 125000 steps
+2015-11-01 11:58:33,663   num_games: 52, average_reward: 19.442308, min_game_reward: 14, max_game_reward: 21
+2015-11-01 11:58:33,663   last_exploration_rate: 0.050000, epoch_time: 458s, steps_per_second: 272
+2015-11-01 11:58:33,663 Epoch #200
+2015-11-01 11:58:33,663  Training for 250000 steps
+2015-11-01 11:59:34,304 serializing object to: snapshots/target_network.pkl
+2015-11-01 11:59:34,310 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 12:03:37,326 serializing object to: snapshots/target_network.pkl
+2015-11-01 12:03:37,331 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 12:07:39,946 serializing object to: snapshots/target_network.pkl
+2015-11-01 12:07:39,951 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 12:11:42,967 serializing object to: snapshots/target_network.pkl
+2015-11-01 12:11:42,972 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 12:15:46,154 serializing object to: snapshots/target_network.pkl
+2015-11-01 12:15:46,160 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 12:19:49,014 serializing object to: snapshots/target_network.pkl
+2015-11-01 12:19:49,019 deserializing object from:  snapshots/target_network.pkl
+2015-11-01 12:23:51,691   num_games: 101, average_reward: 16.217822, min_game_reward: 5, max_game_reward: 21
+2015-11-01 12:23:51,691   last_exploration_rate: 0.100000, epoch_time: 1518s, steps_per_second: 164
+2015-11-01 12:23:51,691 Saving weights to snapshots/pong_200.pkl
+2015-11-01 12:23:51,694 serializing object to: snapshots/pong_200.pkl
+2015-11-01 12:23:51,702  Testing for 125000 steps
+2015-11-01 12:31:28,391   num_games: 57, average_reward: 18.614035, min_game_reward: 14, max_game_reward: 21
+2015-11-01 12:31:28,391   last_exploration_rate: 0.050000, epoch_time: 456s, steps_per_second: 273
+2015-11-01 12:31:28,391 All done
