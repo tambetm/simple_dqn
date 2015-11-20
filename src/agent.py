@@ -44,7 +44,7 @@ class Agent:
     else:
       return self.exploration_rate_end
 
-  def step(self, exploration_rate):
+  def step(self, exploration_rate, training = False):
     # exploration rate determines the probability of random moves
     if random.random() < exploration_rate:
       action = random.randrange(self.num_actions)
@@ -56,7 +56,7 @@ class Agent:
       logger.debug("Predicted action = %d" % action)
 
     # perform the action
-    reward, screen, terminal = self.env.act(action)
+    reward, screen, terminal = self.env.act(action, training)
     # print reward
     if reward <> 0:
       logger.debug("Reward: %d" % reward)
@@ -66,8 +66,8 @@ class Agent:
 
     # restart the game if over
     if terminal:
+      logger.debug("Terminal state, restarting")
       self.restartRandom()
-      logger.debug("Game over")
 
     # call callback to record statistics
     if self.callback:
@@ -87,8 +87,8 @@ class Agent:
     assert self.mem.count >= self.history_length, "Not enough history in replay memory, increase random steps."
     # play given number of steps
     for i in xrange(train_steps):
-      # perform game step
-      self.step(self.exploration_rate())
+      # perform game step, with training = True
+      self.step(self.exploration_rate(), True)
       # train after every train_frequency steps
       if i % self.train_frequency == 0:
         # train for train_repeat times

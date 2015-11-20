@@ -67,7 +67,7 @@ mainarg.add_argument("--test_steps", type=int, default=125000, help="How many te
 mainarg.add_argument("--epochs", type=int, default=200, help="How many epochs to run.")
 mainarg.add_argument("--play_games", type=int, default=0, help="How many games to play, suppresses training and testing.")
 mainarg.add_argument("--load_weights", help="Load network from file.")
-mainarg.add_argument("--save_weights_path", help="Save network to path. File name will be rom name + epoch.")
+mainarg.add_argument("--save_weights_prefix", help="Save network to given file. Epoch and extension will be appended.")
 mainarg.add_argument("--csv_file", help="Write training progress to this file.")
 
 comarg = parser.add_argument_group('Common')
@@ -116,11 +116,8 @@ for epoch in xrange(args.epochs):
     agent.train(args.train_steps, epoch)
     stats.write(epoch + 1, "train")
 
-    if args.save_weights_path:
-      if not os.path.exists(args.save_weights_path):
-        os.makedirs(args.save_weights_path)
-      game, ext = os.path.splitext(os.path.basename(args.rom_file))
-      filename = os.path.join(args.save_weights_path, "%s_%d.pkl" % (game, epoch + 1))
+    if args.save_weights_prefix:
+      filename = args.save_weights_prefix + "_%d.pkl" % (epoch + 1)
       logger.info("Saving weights to %s" % filename)
       net.save_weights(filename)
 

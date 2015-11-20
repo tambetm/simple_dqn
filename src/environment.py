@@ -59,6 +59,15 @@ class Environment:
     resized = cv2.resize(screen, self.dims)
     return resized
 
-  def act(self, action):
+  def act(self, action, training = False):
     reward = self.ale.act(self.actions[action])
-    return reward, self.getScreen(), self.ale.game_over()
+
+    # during training loss of life is considered terminal state
+    lives = self.ale.lives()
+    if training and lives < self.lives:
+      terminal = True
+    else:
+      terminal = self.ale.game_over()
+    self.lives = lives
+        
+    return reward, self.getScreen(), terminal

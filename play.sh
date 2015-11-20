@@ -2,7 +2,7 @@
 
 snapshot=$1
 full=${1##*/}
-game=${full%_*}
+game=${full%%_*}
 rom="roms/$game.bin"
 shift
 
