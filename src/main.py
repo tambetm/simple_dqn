@@ -61,6 +61,10 @@ antarg.add_argument("--exploration_rate_test", type=float, default=0.05, help="E
 antarg.add_argument("--train_frequency", type=int, default=4, help="Perform training after this many game steps.")
 antarg.add_argument("--train_repeat", type=int, default=1, help="Number of times to sample minibatch during training.")
 
+nvisarg = parser.add_argument_group('Visualization')
+nvisarg.add_argument("--visualization_filters", type=int, default=4, help="Number of filters to visualize from each convolutional layer.")
+nvisarg.add_argument("--visualization_file", help="Write layer visualization to this file.")
+
 mainarg = parser.add_argument_group('Main loop')
 mainarg.add_argument("--random_steps", type=int, default=50000, help="Populate replay memory with random steps before starting learning.")
 mainarg.add_argument("--train_steps", type=int, default=250000, help="How many training steps per epoch.")
@@ -98,6 +102,10 @@ if args.play_games:
   stats.reset()
   agent.play(args.play_games)
   stats.write(0, "play")
+  if args.visualization_file:
+    from visualization import visualize
+    minibatch = mem.getMinibatch()
+    visualize(net.model, minibatch[0], args.visualization_filters, args.visualization_file)
   sys.exit()
 
 if args.random_steps:
