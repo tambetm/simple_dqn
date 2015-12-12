@@ -60,6 +60,7 @@ antarg.add_argument("--exploration_decay_steps", type=float, default=1000000, he
 antarg.add_argument("--exploration_rate_test", type=float, default=0.05, help="Exploration rate used during testing.")
 antarg.add_argument("--train_frequency", type=int, default=4, help="Perform training after this many game steps.")
 antarg.add_argument("--train_repeat", type=int, default=1, help="Number of times to sample minibatch during training.")
+antarg.add_argument("--buffer_size", type=int, default=100, help="Buffer size for keeping track of current state.")
 
 nvisarg = parser.add_argument_group('Visualization')
 nvisarg.add_argument("--visualization_filters", type=int, default=4, help="Number of filters to visualize from each convolutional layer.")
@@ -87,8 +88,8 @@ if args.random_seed:
   random.seed(args.random_seed)
 
 # instantiate classes
-env = Environment(args)
-mem = ReplayMemory(args)
+env = Environment(args.rom_file, args)
+mem = ReplayMemory(args.replay_size, args)
 net = DeepQNetwork(env.numActions(), args)
 agent = Agent(env, mem, net, args)
 stats = Statistics(agent, net, mem, env, args)

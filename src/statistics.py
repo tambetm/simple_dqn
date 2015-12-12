@@ -80,16 +80,19 @@ class Statistics:
       self.num_games = 1
       self.average_reward = self.game_rewards
 
-    if self.validation_states is None:
+    if self.validation_states is None and self.mem.count > self.mem.batch_size:
       # sample states for measuring Q-value dynamics
       prestates, actions, rewards, poststates, terminals = self.mem.getMinibatch()
       self.validation_states = prestates
 
     if self.csv_name:
-      qvalues = self.net.predict(self.validation_states)
-      maxqs = np.max(qvalues, axis=1)
-      assert maxqs.shape[0] == qvalues.shape[0]
-      meanq = np.mean(maxqs)
+      if self.validation_states is not None:
+        qvalues = self.net.predict(self.validation_states)
+        maxqs = np.max(qvalues, axis=1)
+        assert maxqs.shape[0] == qvalues.shape[0]
+        meanq = np.mean(maxqs)
+      else:
+        meanq = 0
 
       self.csv_writer.writerow((
           epoch,

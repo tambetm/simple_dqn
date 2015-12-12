@@ -6,7 +6,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class Environment:
-  def __init__(self, args):
+  def __init__(self, rom_file, args):
     self.ale = ALEInterface()
     if args.display_screen:
       if sys.platform == 'darwin':
@@ -36,7 +36,7 @@ class Environment:
       self.ale.setBool('sound', True)
       self.ale.setString('record_sound_filename', args.record_sound_filename)
 
-    self.ale.loadROM(args.rom_file)
+    self.ale.loadROM(rom_file)
 
     if args.minimal_action_set:
       self.actions = self.ale.getMinimalActionSet()
@@ -47,6 +47,7 @@ class Environment:
     logger.debug("Actions: " + str(self.actions))
 
     self.dims = (args.screen_height, args.screen_width)
+    self.lives = self.ale.lives()
 
   def numActions(self):
     return len(self.actions)

@@ -4,13 +4,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 class ReplayMemory:
-  def __init__(self, args):
+  def __init__(self, size, args):
+    self.size = size
     # preallocate memory
-    self.actions = np.empty(args.replay_size, dtype = np.uint8)
-    self.rewards = np.empty(args.replay_size, dtype = np.integer)
-    self.screens = np.empty((args.replay_size, args.screen_height, args.screen_width), dtype = np.uint8)
-    self.terminals = np.empty(args.replay_size, dtype = np.bool)
-    self.size = args.replay_size
+    self.actions = np.empty(self.size, dtype = np.uint8)
+    self.rewards = np.empty(self.size, dtype = np.integer)
+    self.screens = np.empty((self.size, args.screen_height, args.screen_width), dtype = np.uint8)
+    self.terminals = np.empty(self.size, dtype = np.bool)
     self.history_length = args.history_length
     self.dims = (args.screen_height, args.screen_width)
     self.batch_size = args.batch_size
