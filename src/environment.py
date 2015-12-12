@@ -55,14 +55,16 @@ class Environment:
     self.ale.reset_game()
     self.lives = self.ale.lives()
 
+  def act(self, action):
+    reward = self.ale.act(self.actions[action])
+    return reward
+
   def getScreen(self):
     screen = self.ale.getScreenGrayscale()
     resized = cv2.resize(screen, self.dims)
     return resized
 
-  def act(self, action, training = False):
-    reward = self.ale.act(self.actions[action])
-
+  def isTerminal(self, training = False):
     # during training loss of life is considered terminal state
     lives = self.ale.lives()
     if training and lives < self.lives:
@@ -70,5 +72,5 @@ class Environment:
     else:
       terminal = self.ale.game_over()
     self.lives = lives
-        
-    return reward, self.getScreen(), terminal
+
+    return terminal

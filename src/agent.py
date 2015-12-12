@@ -32,7 +32,9 @@ class Agent:
     self.env.restart()
     # perform random number of dummy actions to produce more random game dynamics
     for i in xrange(random.randint(self.history_length, self.random_starts) + 1):
-      reward, screen, terminal = self.env.act(0)
+      reward = self.env.act(0)
+      screen = self.env.getScreen()
+      terminal = self.env.isTerminal()
       assert not terminal, "terminal state occurred during random initialization"
       # add dummy states to replay memory to guarantee history_length screens
       self.mem.add(0, reward, screen, terminal)
@@ -61,7 +63,10 @@ class Agent:
       logger.debug("Predicted action = %d" % action)
 
     # perform the action
-    reward, screen, terminal = self.env.act(action, training)
+    reward = self.env.act(action)
+    screen = self.env.getScreen()
+    terminal = self.env.isTerminal(training)
+
     # print reward
     if reward <> 0:
       logger.debug("Reward: %d" % reward)
