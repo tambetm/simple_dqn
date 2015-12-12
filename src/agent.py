@@ -52,7 +52,12 @@ class Agent:
     else:
       # otherwise choose action with highest Q-value
       state = self.mem.getCurrentState()
-      action = self.net.predict(state)
+      # for convenience getCurrentState() returns minibatch
+      # where first item is the current state
+      qvalues = self.net.predict(state)
+      assert len(qvalues[0]) == self.num_actions
+      # choose highest Q-value of first state
+      action = np.argmax(qvalues[0])
       logger.debug("Predicted action = %d" % action)
 
     # perform the action

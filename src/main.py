@@ -104,8 +104,8 @@ if args.play_games:
   stats.write(0, "play")
   if args.visualization_file:
     from visualization import visualize
-    minibatch = mem.getMinibatch()
-    visualize(net.model, minibatch[0], args.visualization_filters, args.visualization_file)
+    prestates, actions, rewards, poststates, terminals = mem.getMinibatch()
+    visualize(net.model, prestates, args.visualization_filters, args.visualization_file)
   sys.exit()
 
 if args.random_steps:

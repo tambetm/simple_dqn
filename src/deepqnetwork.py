@@ -171,31 +171,8 @@ class DeepQNetwork:
     if logger.isEnabledFor(logging.DEBUG):
       logger.debug("Q-values: " + str(qvalues.asnumpyarray()[:,0]))
 
-    # find the action with highest q-value
-    actions = self.be.argmax(qvalues, axis = 0)
-    assert actions.shape == (1, self.batch_size)
-
-    # take only the first result
-    return actions.asnumpyarray()[0,0]
-
-  def getMeanQ(self, states):
-    assert states.shape == ((self.batch_size, self.history_length,) + self.screen_dim)
-
-    # calculate Q-values for the states
-    self.setInput(states)
-    qvalues = self.model.fprop(self.input, inference = True)
-    assert qvalues.shape == (self.num_actions, self.batch_size)
-    
-    # take maximum Q-value for each state
-    actions = self.be.max(qvalues, axis = 0)
-    assert actions.astensor().shape == (1, self.batch_size)
-    
-    # calculate mean Q-value of all states
-    meanq = self.be.mean(actions, axis = 1)
-    assert meanq.astensor().shape == (1, 1)
-
-    # return the mean
-    return meanq.asnumpyarray()[0,0]
+    # transpose the result, so that batch size is first dimension
+    return qvalues.T.asnumpyarray()
 
   def load_weights(self, load_path):
     self.model.load_weights(load_path)

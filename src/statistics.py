@@ -2,6 +2,7 @@ import sys
 import csv
 import time
 import logging
+import numpy as np
 logger = logging.getLogger(__name__)
 
 class Statistics:
@@ -85,7 +86,10 @@ class Statistics:
       self.validation_states = prestates
 
     if self.csv_name:
-      meanq = self.net.getMeanQ(self.validation_states)
+      qvalues = self.net.predict(self.validation_states)
+      maxqs = np.max(qvalues, axis=1)
+      assert maxqs.shape[0] == qvalues.shape[0]
+      meanq = np.mean(maxqs)
 
       self.csv_writer.writerow((
           epoch,
