@@ -37,7 +37,7 @@ class DeepQNetwork:
     self.targets = self.be.empty((self.num_actions, self.batch_size))
 
     # create model
-    layers = self.createLayers(num_actions)
+    layers = self._createLayers(num_actions)
     self.model = Model(layers = layers)
     self.cost = GeneralizedCost(costfunc = SumSquared())
     self.model.initialize(self.input_shape[:-1], self.cost)
@@ -58,7 +58,7 @@ class DeepQNetwork:
     self.target_steps = args.target_steps
     self.train_iterations = 0
     if self.target_steps:
-      self.target_model = Model(layers = self.createLayers(num_actions))
+      self.target_model = Model(layers = self._createLayers(num_actions))
       self.target_model.initialize(self.input_shape[:-1])
       self.save_weights_prefix = args.save_weights_prefix
     else:
@@ -66,7 +66,7 @@ class DeepQNetwork:
 
     self.callback = None
 
-  def createLayers(self, num_actions):
+  def _createLayers(self, num_actions):
     # create network
     init_norm = Gaussian(loc=0.0, scale=0.01)
     layers = []
@@ -82,7 +82,7 @@ class DeepQNetwork:
     layers.append(Affine(nout=num_actions, init = init_norm))
     return layers
 
-  def setInput(self, states):
+  def _setInput(self, states):
     # change order of axes to match what Neon expects
     states = np.transpose(states, axes = (1, 2, 3, 0))
     # copy() shouldn't be necessary here, but Neon doesn't work otherwise
@@ -108,7 +108,7 @@ class DeepQNetwork:
       self.target_model.load_weights(filename)
 
     # feed-forward pass for poststates to get Q-values
-    self.setInput(poststates)
+    self._setInput(poststates)
     postq = self.target_model.fprop(self.input, inference = True)
     assert postq.shape == (self.num_actions, self.batch_size)
 
@@ -117,7 +117,7 @@ class DeepQNetwork:
     assert maxpostq.shape == (1, self.batch_size)
 
     # feed-forward pass for prestates
-    self.setInput(prestates)
+    self._setInput(prestates)
     preq = self.model.fprop(self.input, inference = False)
     assert preq.shape == (self.num_actions, self.batch_size)
 
@@ -165,7 +165,7 @@ class DeepQNetwork:
     assert states.shape == ((self.batch_size, self.history_length,) + self.screen_dim)
 
     # calculate Q-values for the states
-    self.setInput(states)
+    self._setInput(states)
     qvalues = self.model.fprop(self.input, inference = True)
     assert qvalues.shape == (self.num_actions, self.batch_size)
     if logger.isEnabledFor(logging.DEBUG):

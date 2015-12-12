@@ -28,7 +28,7 @@ class Agent:
 
     self.callback = None
 
-  def restartRandom(self):
+  def _restartRandom(self):
     self.env.restart()
     # perform random number of dummy actions to produce more random game dynamics
     for i in xrange(random.randint(self.history_length, self.random_starts) + 1):
@@ -39,7 +39,7 @@ class Agent:
       # add dummy states to replay memory to guarantee history_length screens
       self.mem.add(0, reward, screen, terminal)
 
-  def exploration_rate(self):
+  def _exploration_rate(self):
     # calculate decaying exploration rate
     if self.total_train_steps < self.exploration_decay_steps:
       return self.exploration_rate_start - self.total_train_steps * (self.exploration_rate_start - self.exploration_rate_end) / self.exploration_decay_steps
@@ -77,7 +77,7 @@ class Agent:
     # restart the game if over
     if terminal:
       logger.debug("Terminal state, restarting")
-      self.restartRandom()
+      self._restartRandom()
 
     # call callback to record statistics
     if self.callback:
@@ -98,7 +98,7 @@ class Agent:
     # play given number of steps
     for i in xrange(train_steps):
       # perform game step, with training = True
-      self.step(self.exploration_rate(), True)
+      self.step(self._exploration_rate(), True)
       # train after every train_frequency steps
       if i % self.train_frequency == 0:
         # train for train_repeat times
@@ -112,7 +112,7 @@ class Agent:
 
   def test(self, test_steps, epoch = 0):
     # just make sure there is history_length screens to form a state
-    self.restartRandom()
+    self._restartRandom()
     # play given number of steps
     for i in xrange(test_steps):
       # perform game step
@@ -120,7 +120,7 @@ class Agent:
 
   def play(self, num_games):
     # just make sure there is history_length screens to form a state
-    self.restartRandom()
+    self._restartRandom()
     for i in xrange(num_games):
       # play until terminal state
       while not self.step(self.exploration_rate_test):
