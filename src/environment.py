@@ -53,6 +53,7 @@ class Environment:
 
   def restart(self):
     self.ale.reset_game()
+    self.lives = self.ale.lives()
 
   def getScreen(self):
     screen = self.ale.getScreenGrayscale()
