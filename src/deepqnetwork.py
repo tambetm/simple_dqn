@@ -1,7 +1,7 @@
 from neon.util.argparser import NeonArgparser
 from neon.backends import gen_backend
 from neon.initializers import Gaussian
-from neon.optimizers import RMSProp
+from neon.optimizers import RMSProp, Adam, Adadelta
 from neon.layers import Affine, Conv, GeneralizedCost
 from neon.transforms import Rectlin
 from neon.models import Model
@@ -41,9 +41,18 @@ class DeepQNetwork:
     self.model = Model(layers = layers)
     self.cost = GeneralizedCost(costfunc = SumSquared())
     self.model.initialize(self.input_shape[:-1], self.cost)
-    self.optimizer = RMSProp(learning_rate = args.learning_rate, 
-        decay_rate = args.rmsprop_decay_rate, 
-        stochastic_round = args.stochastic_round)
+    if args.optimizer == 'rmsprop':
+      self.optimizer = RMSProp(learning_rate = args.learning_rate, 
+          decay_rate = args.decay_rate, 
+          stochastic_round = args.stochastic_round)
+    elif args.optimizer == 'adam':
+      self.optimizer = Adam(learning_rate = args.learning_rate, 
+          stochastic_round = args.stochastic_round)
+    elif args.optimizer == 'adadelta':
+      self.optimizer = Adadelta(decay = args.decay_rate, 
+          stochastic_round = args.stochastic_round)
+    else:
+      assert false, "Unknown optimizer"
 
     # create target model
     self.target_steps = args.target_steps
@@ -70,7 +79,7 @@ class DeepQNetwork:
     # The final hidden layer is fully-connected and consists of 512 rectifier units.
     layers.append(Affine(nout=512, init=init_norm, activation=Rectlin()))
     # The output layer is a fully-connected linear layer with a single output for each valid action.
-    layers.append(Affine(nout = num_actions, init = init_norm))
+    layers.append(Affine(nout=num_actions, init = init_norm))
     return layers
 
   def setInput(self, states):
