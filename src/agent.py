@@ -127,5 +127,5 @@ class Agent:
     self._restartRandom()
     for i in xrange(num_games):
       # play until terminal state
-      while not self.step(self.exploration_rate_test, True):
+      while not self.step(self.exploration_rate_test):
         pass
