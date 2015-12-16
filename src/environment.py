@@ -47,6 +47,7 @@ class Environment:
     logger.debug("Actions: " + str(self.actions))
 
     self.dims = (args.screen_height, args.screen_width)
+    self.use_lives = args.use_lives
     self.lives = self.ale.lives()
 
   def numActions(self):
@@ -68,7 +69,7 @@ class Environment:
   def isTerminal(self, training = False):
     # during training loss of life is considered terminal state
     lives = self.ale.lives()
-    if training and lives < self.lives:
+    if self.use_lives and training and lives < self.lives:
       terminal = True
     else:
       terminal = self.ale.game_over()

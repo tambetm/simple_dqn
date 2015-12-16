@@ -77,7 +77,6 @@ class Agent:
     if training:
       self.mem.add(action, reward, screen, terminal)
 
-
     # restart the game if over
     if terminal:
       logger.debug("Terminal state, restarting")

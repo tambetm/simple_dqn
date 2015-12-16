@@ -13,21 +13,22 @@ import os
 
 parser = argparse.ArgumentParser()
 
+def str2bool(v):
+  return v.lower() in ("yes", "true", "t", "1")
+
 envarg = parser.add_argument_group('Environment')
 envarg.add_argument("rom_file")
-envarg.add_argument("--display_screen", action="store_true", default=False, help="Display game screen during training and testing.")
-#envarg.add_argument("--sound", action="store_true", default=False, help="Play (or record) sound.")
-envarg.add_argument("--random_starts", type=int, default=30, help="Perform max this number of dummy actions after game restart, to produce more random game dynamics.")
+envarg.add_argument("--display_screen", type=str2bool, default=False, help="Display game screen during training and testing.")
+#envarg.add_argument("--sound", type=str2bool, default=False, help="Play (or record) sound.")
 envarg.add_argument("--frame_skip", type=int, default=4, help="How many times to repeat each chosen action.")
 envarg.add_argument("--repeat_action_probability", type=float, default=0, help="Probability, that chosen action will be repeated. Otherwise random action is chosen during repeating.")
-actarg = envarg.add_mutually_exclusive_group(required=False)
-actarg.add_argument("--minimal_action_set", dest="minimal_action_set", action="store_true", default=True, help="Use minimal action set.")
-actarg.add_argument("--full_action_set", dest="minimal_action_set", action="store_false", help="Use full action set.")
-envarg.add_argument("--color_averaging", action="store_true", default=True, help="Perform color averaging with previous frame.")
+envarg.add_argument("--minimal_action_set", dest="minimal_action_set", type=str2bool, default=True, help="Use minimal action set.")
+envarg.add_argument("--color_averaging", type=str2bool, default=True, help="Perform color averaging with previous frame.")
 envarg.add_argument("--screen_width", type=int, default=84, help="Screen width after resize.")
 envarg.add_argument("--screen_height", type=int, default=84, help="Screen height after resize.")
 envarg.add_argument("--record_screen_path", help="Record game screens under this path. Subfolder for each game is created.")
 envarg.add_argument("--record_sound_filename", help="Record game sound in this file.")
+envarg.add_argument("--use_lives", type=str2bool, default=False, help="Life loss terminates the episode during training.")
 
 memarg = parser.add_argument_group('Replay memory')
 memarg.add_argument("--replay_size", type=int, default=1000000, help="Maximum size of replay memory.")
@@ -44,7 +45,7 @@ netarg.add_argument("--decay_rate", type=float, default=0.95, help="Decay rate f
 netarg.add_argument("--clip_error", type=float, default=1, help="Clip error term in update between this number and its negative.")
 netarg.add_argument("--target_steps", type=int, default=10000, help="Copy main network to target network after this many steps.")
 
-#netarg.add_argument("--rescale_r", action="store_true", help="Rescale rewards.")
+#netarg.add_argument("--rescale_r", type=str2bool, help="Rescale rewards.")
 #missing: bufferSize=512,valid_size=500,min_reward=-1,max_reward=1
 
 neonarg = parser.add_argument_group('Neon')
@@ -60,6 +61,7 @@ antarg.add_argument("--exploration_decay_steps", type=float, default=1000000, he
 antarg.add_argument("--exploration_rate_test", type=float, default=0.05, help="Exploration rate used during testing.")
 antarg.add_argument("--train_frequency", type=int, default=4, help="Perform training after this many game steps.")
 antarg.add_argument("--train_repeat", type=int, default=1, help="Number of times to sample minibatch during training.")
+antarg.add_argument("--random_starts", type=int, default=30, help="Perform max this number of dummy actions after game restart, to produce more random game dynamics.")
 antarg.add_argument("--buffer_size", type=int, default=2000, help="Buffer size for keeping track of current state.")
 
 nvisarg = parser.add_argument_group('Visualization')
@@ -105,7 +107,14 @@ if args.play_games:
   stats.write(0, "play")
   if args.visualization_file:
     from visualization import visualize
+    '''
+    states = [agent.buf.getState(i) for i in xrange(agent.history_length, agent.buf.count - agent.random_starts)]
+    import numpy as np
+    prestates = np.array(states)
+    print prestates.shape
+    '''
     prestates, actions, rewards, poststates, terminals = agent.buf.getMinibatch()
+    prestates = prestates / 255.
     visualize(net.model, prestates, args.visualization_filters, args.visualization_file)
   sys.exit()
 

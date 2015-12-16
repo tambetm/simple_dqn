@@ -1,5 +1,5 @@
 from neon.data import DataIterator
-from neon.callbacks.callbacks import DeconvCallback
+from nvis.callbacks import DeconvCallback
 from nvis.figure import deconv_summary_page
 from nvis.data import h5_deconv_data
 import h5py

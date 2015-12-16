@@ -6,4 +6,4 @@ game=${full%%_*}
 rom="roms/$game.bin"
 shift
 
-python src/main.py --play_games 1 --display_screen --load_weights $snapshot $rom $*
+python src/main.py --play_games 1 --display_screen true --load_weights $snapshot $rom $*
