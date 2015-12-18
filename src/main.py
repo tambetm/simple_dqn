@@ -62,7 +62,7 @@ antarg.add_argument("--exploration_rate_test", type=float, default=0.05, help="E
 antarg.add_argument("--train_frequency", type=int, default=4, help="Perform training after this many game steps.")
 antarg.add_argument("--train_repeat", type=int, default=1, help="Number of times to sample minibatch during training.")
 antarg.add_argument("--random_starts", type=int, default=30, help="Perform max this number of dummy actions after game restart, to produce more random game dynamics.")
-antarg.add_argument("--buffer_size", type=int, default=2000, help="Buffer size for keeping track of current state.")
+antarg.add_argument("--buffer_size", type=int, default=10000, help="Buffer size for keeping track of current state.")
 
 nvisarg = parser.add_argument_group('Visualization')
 nvisarg.add_argument("--visualization_filters", type=int, default=4, help="Number of filters to visualize from each convolutional layer.")
@@ -107,15 +107,16 @@ if args.play_games:
   stats.write(0, "play")
   if args.visualization_file:
     from visualization import visualize
-    '''
-    states = [agent.buf.getState(i) for i in xrange(agent.history_length, agent.buf.count - agent.random_starts)]
+    # use states recorded during gameplay. NB! Check buffer size, that it can accomodate one game!
+    states = [agent.buf.getState(i) for i in xrange(agent.history_length, agent.buf.current - agent.random_starts)]
     import numpy as np
-    prestates = np.array(states)
-    print prestates.shape
+    states = np.array(states)
+    logger.info("Collected %d game states" % states.shape[0])
     '''
-    prestates, actions, rewards, poststates, terminals = agent.buf.getMinibatch()
-    prestates = prestates / 255.
-    visualize(net.model, prestates, args.visualization_filters, args.visualization_file)
+    states, actions, rewards, poststates, terminals = agent.buf.getMinibatch()
+    '''
+    states = states / 255.
+    visualize(net.model, states, args.visualization_filters, args.visualization_file)
   sys.exit()
 
 if args.random_steps:
