@@ -2,12 +2,15 @@
 
 Deep Q-learning agent for replicating DeepMind's results in paper ["Human-level control through deep reinforcement learning"](http://www.nature.com/nature/journal/v518/n7540/full/nature14236.html). It is designed to be simple, fast and easy to extend. In particular:
  * It's Python :).
- * New [ALE Python interface](https://github.com/bbitmaster/ale_python_interface/wiki/Code-Tutorial) is used.
+ * ALE [native Python interface](https://github.com/bbitmaster/ale_python_interface/wiki/Code-Tutorial) is used.
  * [Fastest convolutions](https://github.com/soumith/convnet-benchmarks) from [Neon deep learning library](http://neon.nervanasys.com/docs/latest/index.html).
  * Every screen is kept only once in replay memory, fast minibatch sampling with Numpy array slicing.
  * The number of array and datatype conversions is minimized.
 
-See the gameplay videos for [Breakout](https://youtu.be/KkIf0Ok5GCE) and [Pong](https://youtu.be/0ZlgrQS3krg).
+See the example gameplay videos for Breakout and Pong:
+
+[![Breakout](http://img.youtube.com/vi/KkIf0Ok5GCE/default.jpg)](https://youtu.be/KkIf0Ok5GCE)
+[![Pong](http://img.youtube.com/vi/0ZlgrQS3krg/default.jpg)](https://youtu.be/0ZlgrQS3krg)
 
 Restriction from Neon is, that it currently works only on Maxwell architecture GPU-s. Hopefully this [will change](https://github.com/NervanaSystems/neon/issues/80). You can still simulate playing from pretrained models using just CPU, see the example below.
 
@@ -28,6 +31,9 @@ git clone https://github.com/NervanaSystems/neon.git
 cd neon
 make
 ```
+
+If you want to make use of the filter visualization, run `make -e VIS=true` instead. If you’ve already installed Neon without enabling visualization dependencies you’ll need to `touch vis_requirements.txt` prior to the `make -e VIS=true` call to ensure virtualenv Python dependencies get triggered.
+
 Neon installs itself into virtual environment in `.venv`. You need to activate that to import Neon in Python:
 ```
 source .venv/bin/activate
@@ -72,6 +78,18 @@ git clone https://github.com/tambetm/simple_dqn.git
 cd simple_dqn
 ```
 
+### Optional
+
+For plotting install `matplotlib`:
+```
+pip install matplotlib
+```
+
+For producing game videos install `avconv`:
+```
+sudo apt-get install libav-tools
+```
+
 ## Running the code
 
 ### Training
@@ -86,20 +104,20 @@ There are plethora of options, just run `./train.sh --help` to see them. While t
 
 You can resume training by running 
 ```
-./train.sh roms/breakout.bin --load_weights snapshots/breakout_2.pkl
+./train.sh roms/breakout.bin --load_weights snapshots/breakout_10.pkl
 ```
-Pay attention, that exploration rate starts from 1 and replay memory is empty. You may want to start with lower exploration rate, e.g. for epoch 2 usual exploration rate would be 1 - (1 - 0.1) * (2 * 250000 / 1000000) = 0.55. Add  `--exploration_rate_start 0.55 --exploration_decay_steps 500000` to the command line.
+Pay attention, that exploration rate starts from 1 and replay memory is empty. To start with lower exploration rate add `--exploration_rate_start 0.1 --exploration_decay_steps 0` to the command line.
 
 ### Only testing
 
-To run only testing on pre-trained model:
+To run only testing on a pre-trained model:
 ```
 ./test.sh snapshots/breakout_77.pkl
 ```
 
 ### Play one game with visualization
 
-To see the game screen while playing run
+To play one game and show game screen while playing:
 ```
 ./play.sh snapshots/breakout_77.pkl
 ```
@@ -107,12 +125,7 @@ You can do this even without GPU, by adding `--backend cpu` to command line. Dur
 
 ### Record game video
 
-You will need `avconv` for this to work:
-```
-sudo apt-get install libav-tools
-```
-
-To play one game and record video
+To play one game and record a video:
 ```
 ./record.sh snapshots/breakout_77.pkl
 ```
@@ -120,16 +133,29 @@ First game frames are extracted to `videos/<game>` folder as PNG files. Then `av
 
 ### Plotting results
 
-You will need matplotlib for Python:
-```
-pip install matplotlib
-```
-
 To plot results:
 ```
 ./plot.sh results/breakout.csv
 ```
 This produces `results/breakout.png`, which includes four main figures: average reward per game, number of games per phase (training, test or random), average Q-value of validation set and average network loss. You can customize the plotting result with `--fields` option - list comma separated CSV field names (the first row). For example default results are achieved with `--fields average_reward,meanq,nr_games,meancost`. Order of figures is left to right, top to bottom.
+
+### Visualizing filters
+
+To produce filter visualizations with guided backpropagation:
+
+```
+./nvis.sh snapshots/breakout_77.pkl
+```
+
+What the filter visualization does:
+
+1. first it plays one game to produce a set of states (one state is 4 frames), 
+2. then it finds the states which activate each filter the most,
+3. finally it carries out guided backpropagation to show which parts of the screen affect the "activeness" of each filter the most. 
+
+The result is written to file `results/<game>.html`. By default only 4 filters from each convolutional layer are visualized. To see more filters add `--visualization_filters <nr_filters>` to the command line.
+
+NB! Because it is not very clear how to visualize the state consisting of  4 frames, I made a simplification - I'm using only the last 3 frames and putting them to different color channels. So everything that is gray hasn't changed, blue is the most recent change, then green and then red. It is easier to understand if you look at the trace of a ball - it is marked by red-green-blue.
 
 ### Profiling
 
