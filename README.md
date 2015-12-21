@@ -153,7 +153,9 @@ What the filter visualization does:
 2. then it finds the states which activate each filter the most,
 3. finally it carries out guided backpropagation to show which parts of the screen affect the "activeness" of each filter the most. 
 
-The result is written to file `results/<game>.html`. NB! Because it is not very clear how to visualize the state consisting of  4 frames, I made a simplification - I'm using only the last 3 frames and putting them to different color channels. So everything that is gray hasn't changed, blue is the most recent change, then green and then red. It is easier to understand if you look at the trace of a ball - it is marked by red-green-blue.
+The result is written to file `results/<game>.html`. By default only 4 filters from each convolutional layer are visualized. To see more filters add `--visualization_filters <nr_filters>` to the command line.
+
+NB! Because it is not very clear how to visualize the state consisting of  4 frames, I made a simplification - I'm using only the last 3 frames and putting them to different color channels. So everything that is gray hasn't changed, blue is the most recent change, then green and then red. It is easier to understand if you look at the trace of a ball - it is marked by red-green-blue.
 
 ### Profiling
 
