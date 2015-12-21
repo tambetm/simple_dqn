@@ -14,8 +14,6 @@ class Agent:
     self.num_actions = self.env.numActions()
     self.random_starts = args.random_starts
     self.history_length = args.history_length
-    # buffer for current state
-    self.buf = ReplayMemory(args.buffer_size, args)
 
     self.exploration_rate_start = args.exploration_rate_start
     self.exploration_rate_end = args.exploration_rate_end
@@ -37,7 +35,7 @@ class Agent:
       terminal = self.env.isTerminal()
       assert not terminal, "terminal state occurred during random initialization"
       # add dummy states to buffer to guarantee history_length screens
-      self.buf.add(0, reward, screen, terminal)
+      self.mem.add(0, reward, screen, terminal)
 
   def _exploration_rate(self):
     # calculate decaying exploration rate
@@ -46,14 +44,14 @@ class Agent:
     else:
       return self.exploration_rate_end
 
-  def step(self, exploration_rate, training = False):
+  def step(self, exploration_rate):
     # exploration rate determines the probability of random moves
     if random.random() < exploration_rate:
       action = random.randrange(self.num_actions)
       logger.debug("Random action = %d" % action)
     else:
       # otherwise choose action with highest Q-value
-      state = self.buf.getCurrentState()
+      state = self.mem.getCurrentState()
       # for convenience getCurrentState() returns minibatch
       # where first item is the current state
       qvalues = self.net.predict(state)
@@ -65,17 +63,14 @@ class Agent:
     # perform the action
     reward = self.env.act(action)
     screen = self.env.getScreen()
-    terminal = self.env.isTerminal(training)
+    terminal = self.env.isTerminal()
 
     # print reward
     if reward <> 0:
       logger.debug("Reward: %d" % reward)
 
     # add transition to buffer (otherwise we wouldn't have current state)
-    self.buf.add(action, reward, screen, terminal)
-    # if training, then also add transitions to replay memory
-    if training:
-      self.mem.add(action, reward, screen, terminal)
+    self.mem.add(action, reward, screen, terminal)
 
     # restart the game if over
     if terminal:
@@ -92,16 +87,16 @@ class Agent:
     # play given number of steps
     for i in xrange(random_steps):
       # use exploration rate 1 = completely random
-      self.step(1, True)
+      self.step(1)
 
   def train(self, train_steps, epoch = 0):
     # do not do restart here, continue from testing
     # initially there should be enough random steps to produce current state
-    assert self.buf.count >= self.history_length, "Not enough history in replay memory, increase random steps."
+    assert self.mem.count >= self.history_length, "Not enough history in replay memory, increase random steps."
     # play given number of steps
     for i in xrange(train_steps):
-      # perform game step, with training = True
-      self.step(self._exploration_rate(), True)
+      # perform game step
+      self.step(self._exploration_rate())
       # train after every train_frequency steps
       if i % self.train_frequency == 0:
         # train for train_repeat times

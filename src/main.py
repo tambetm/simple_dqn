@@ -28,7 +28,6 @@ envarg.add_argument("--screen_width", type=int, default=84, help="Screen width a
 envarg.add_argument("--screen_height", type=int, default=84, help="Screen height after resize.")
 envarg.add_argument("--record_screen_path", help="Record game screens under this path. Subfolder for each game is created.")
 envarg.add_argument("--record_sound_filename", help="Record game sound in this file.")
-envarg.add_argument("--use_lives", type=str2bool, default=False, help="Life loss terminates the episode during training.")
 
 memarg = parser.add_argument_group('Replay memory')
 memarg.add_argument("--replay_size", type=int, default=1000000, help="Maximum size of replay memory.")
@@ -62,7 +61,6 @@ antarg.add_argument("--exploration_rate_test", type=float, default=0.05, help="E
 antarg.add_argument("--train_frequency", type=int, default=4, help="Perform training after this many game steps.")
 antarg.add_argument("--train_repeat", type=int, default=1, help="Number of times to sample minibatch during training.")
 antarg.add_argument("--random_starts", type=int, default=30, help="Perform max this number of dummy actions after game restart, to produce more random game dynamics.")
-antarg.add_argument("--buffer_size", type=int, default=10000, help="Buffer size for keeping track of current state.")
 
 nvisarg = parser.add_argument_group('Visualization')
 nvisarg.add_argument("--visualization_filters", type=int, default=4, help="Number of filters to visualize from each convolutional layer.")
@@ -108,13 +106,10 @@ if args.play_games:
   if args.visualization_file:
     from visualization import visualize
     # use states recorded during gameplay. NB! Check buffer size, that it can accomodate one game!
-    states = [agent.buf.getState(i) for i in xrange(agent.history_length, agent.buf.current - agent.random_starts)]
+    states = [agent.mem.getState(i) for i in xrange(agent.history_length, agent.mem.current - agent.random_starts)]
+    logger.info("Collected %d game states" % len(states))
     import numpy as np
     states = np.array(states)
-    logger.info("Collected %d game states" % states.shape[0])
-    '''
-    states, actions, rewards, poststates, terminals = agent.buf.getMinibatch()
-    '''
     states = states / 255.
     visualize(net.model, states, args.visualization_filters, args.visualization_file)
   sys.exit()

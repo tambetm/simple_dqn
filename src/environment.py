@@ -47,15 +47,12 @@ class Environment:
     logger.debug("Actions: " + str(self.actions))
 
     self.dims = (args.screen_height, args.screen_width)
-    self.use_lives = args.use_lives
-    self.lives = self.ale.lives()
 
   def numActions(self):
     return len(self.actions)
 
   def restart(self):
     self.ale.reset_game()
-    self.lives = self.ale.lives()
 
   def act(self, action):
     reward = self.ale.act(self.actions[action])
@@ -66,13 +63,5 @@ class Environment:
     resized = cv2.resize(screen, self.dims)
     return resized
 
-  def isTerminal(self, training = False):
-    # during training loss of life is considered terminal state
-    lives = self.ale.lives()
-    if self.use_lives and training and lives < self.lives:
-      terminal = True
-    else:
-      terminal = self.ale.game_over()
-    self.lives = lives
-
-    return terminal
+  def isTerminal(self):
+    return self.ale.game_over()
