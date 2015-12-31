@@ -100,6 +100,8 @@ To run training for Breakout:
 ```
 There are plethora of options, just run `./train.sh --help` to see them. While training, the network weights are saved to `snapshots` folder after each epoch. Name of the file is `<game>_<epoch_nr>.pkl`. Training statistics are saved to `results/<game>.csv`, see below how to produce plots from it.
 
+**NB!** Currently there are issues when training new models with the latest Neon. In short you need to use Neon commit [7a56fa9](https://github.com/NervanaSystems/neon/commit/7a56fa9645a51e97c05f2e5afbbd1df7057ae832) for training. For details refer to https://github.com/tambetm/simple_dqn/issues/4.
+
 ### Resuming training
 
 You can resume training by running 
