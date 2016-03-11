@@ -35,7 +35,7 @@ make
 
 **NB!** Currently there are issues with the latest Neon. Known good commit is [7a56fa9](https://github.com/NervanaSystems/neon/commit/7a56fa9645a51e97c05f2e5afbbd1df7057ae832). For details refer to https://github.com/tambetm/simple_dqn/issues/4.
 
-If you want to make use of the filter visualization, run `make -e VIS=true` instead. If you’ve already installed Neon without enabling visualization dependencies you’ll need to `touch vis_requirements.txt` prior to the `make -e VIS=true` call to ensure virtualenv Python dependencies get triggered.
+If you want to try out the filter visualization, use latest Neon and run `make -e VIS=true` instead. If you’ve already installed Neon without enabling visualization dependencies you’ll need to `touch vis_requirements.txt` prior to the `make -e VIS=true` call to ensure virtualenv Python dependencies get triggered.
 
 Neon installs itself into virtual environment in `.venv`. You need to activate that to import Neon in Python:
 ```
