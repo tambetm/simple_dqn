@@ -27,7 +27,7 @@ class DeepQNetwork:
                  batch_size = args.batch_size,
                  rng_seed = args.random_seed,
                  device_id = args.device_id,
-                 datatype = np.dtype(args.datatype).type,
+                 default_dtype = np.dtype(args.datatype).type,
                  stochastic_round = args.stochastic_round)
 
     # prepare tensors once and reuse them

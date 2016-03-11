@@ -29,8 +29,11 @@ Check out and compile the code:
 ```
 git clone https://github.com/NervanaSystems/neon.git
 cd neon
+git checkout 7a56fa9645a51e97c05f2e5afbbd1df7057ae832
 make
 ```
+
+**NB!** Currently there are issues with the latest Neon. Known good commit is [7a56fa9](https://github.com/NervanaSystems/neon/commit/7a56fa9645a51e97c05f2e5afbbd1df7057ae832). For details refer to https://github.com/tambetm/simple_dqn/issues/4.
 
 If you want to make use of the filter visualization, run `make -e VIS=true` instead. If you’ve already installed Neon without enabling visualization dependencies you’ll need to `touch vis_requirements.txt` prior to the `make -e VIS=true` call to ensure virtualenv Python dependencies get triggered.
 
@@ -99,8 +102,6 @@ To run training for Breakout:
 ./train.sh roms/breakout.bin
 ```
 There are plethora of options, just run `./train.sh --help` to see them. While training, the network weights are saved to `snapshots` folder after each epoch. Name of the file is `<game>_<epoch_nr>.pkl`. Training statistics are saved to `results/<game>.csv`, see below how to produce plots from it.
-
-**NB!** Currently there are issues when training new models with the latest Neon. In short you need to use Neon commit [7a56fa9](https://github.com/NervanaSystems/neon/commit/7a56fa9645a51e97c05f2e5afbbd1df7057ae832) for training. For details refer to https://github.com/tambetm/simple_dqn/issues/4.
 
 ### Resuming training
 
