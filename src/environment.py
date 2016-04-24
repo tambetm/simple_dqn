@@ -46,7 +46,8 @@ class Environment:
       logger.info("Using full action set with size %d" % len(self.actions))
     logger.debug("Actions: " + str(self.actions))
 
-    self.dims = (args.screen_height, args.screen_width)
+    # OpenCV expects width as first and height as second
+    self.dims = (args.screen_width, args.screen_height)
 
   def numActions(self):
     return len(self.actions)
