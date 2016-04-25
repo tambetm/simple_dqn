@@ -2,7 +2,8 @@
 
 Deep Q-learning agent for replicating DeepMind's results in paper ["Human-level control through deep reinforcement learning"](http://www.nature.com/nature/journal/v518/n7540/full/nature14236.html). It is designed to be simple, fast and easy to extend. In particular:
  * It's Python :).
- * ALE [native Python interface](https://github.com/bbitmaster/ale_python_interface/wiki/Code-Tutorial) is used.
+ * ALE [native Python interface](https://github.com/bbitmaster/ale_python_interface/wiki/Code-Tutorial) is used (optional if using OpenAI RL Gym).
+ * Updated to support training and testing with OpenAI RL Gym.
  * [Fastest convolutions](https://github.com/soumith/convnet-benchmarks) from [Neon deep learning library](http://neon.nervanasys.com/docs/latest/index.html).
  * Every screen is kept only once in replay memory, fast minibatch sampling with Numpy array slicing.
  * The number of array and datatype conversions is minimized.
@@ -42,7 +43,7 @@ Neon installs itself into virtual environment in `.venv`. You need to activate t
 source .venv/bin/activate
 ```
 
-### Arcade Learning Environment
+### Arcade Learning Environment (optional if using OpenAI Gym)
 
 Install prerequisites:
 ```
@@ -101,6 +102,12 @@ To run training for Breakout:
 ```
 ./train.sh roms/breakout.bin
 ```
+If using RL Gym:
+```
+./train.sh "Breakout-v0" --train_rl_gym True --screen_width 40 --screen_height 52
+```
+Note that RL Gym uses different screen dimensions and grayscale conversion which will affect training performance.
+
 There are plethora of options, just run `./train.sh --help` to see them. While training, the network weights are saved to `snapshots` folder after each epoch. Name of the file is `<game>_<epoch_nr>.pkl`. Training statistics are saved to `results/<game>.csv`, see below how to produce plots from it.
 
 ### Resuming training
@@ -118,6 +125,11 @@ To run only testing on a pre-trained model:
 ./test.sh snapshots/breakout_77.pkl
 ```
 
+To test using RL Gym:
+```
+python src/test_gym.py "Breakout-v0" <output_folder> --load_weights snapshots/breakout_77.pkl
+```
+After which you can then upload your results to OpenAI Gym. Note that the RL Gym environment differs from the default environment so testing using RL Gym should use a model trained using RL Gym.
 ### Play one game with visualization
 
 To play one game and show game screen while playing:
