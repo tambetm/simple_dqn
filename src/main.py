@@ -77,7 +77,7 @@ mainarg.add_argument("--save_weights_prefix", help="Save network to given file. 
 mainarg.add_argument("--csv_file", help="Write training progress to this file.")
 
 comarg = parser.add_argument_group('Common')
-comarg.add_argument("--train_rl_gym", type=str2bool, default=False, help="Whether to train agent on rl-gym loaded env")
+comarg.add_argument("--train_gym", type=str2bool, default=False, help="Whether to train agent using OpenAI Gym")
 comarg.add_argument("--random_seed", type=int, help="Random seed for repeatable experiments.")
 comarg.add_argument("--log_level", choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"], default="INFO", help="Log level.")
 args = parser.parse_args()
@@ -90,7 +90,7 @@ if args.random_seed:
   random.seed(args.random_seed)
 
 # instantiate classes
-env = GymEnvironment(args.rom_file, args) if args.train_rl_gym else Environment(args.rom_file, args)
+env = GymEnvironment(args.rom_file, args) if args.train_gym else Environment(args.rom_file, args)
 mem = ReplayMemory(args.replay_size, args)
 net = DeepQNetwork(env.numActions(), args)
 agent = Agent(env, mem, net, args)

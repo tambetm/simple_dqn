@@ -72,9 +72,11 @@ class DeepQNetwork:
     layers = []
     if self.screen_dim == (84, 84):
       # The first hidden layer convolves 32 filters of 8x8 with stride 4 with the input image and applies a rectifier nonlinearity.
+      logger.info("Using 8x8 filter for first Conv")
       layers.append(Conv((8, 8, 32), strides=4, init=init_norm, activation=Rectlin()))
     elif self.screen_dim == (52, 40):
       # The first hidden layer convolves 32 filters of 5x4 with stride 2 with the input image and applies a rectifier nonlinearity.
+      logger.info("Using 5x4 filter for first Conv")
       layers.append(Conv((5, 4, 32), strides=2, init=init_norm, activation=Rectlin()))
     else:
       raise NotImplementedError("Unsupported screen dim.")
