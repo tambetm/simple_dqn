@@ -70,8 +70,15 @@ class DeepQNetwork:
     # create network
     init_norm = Gaussian(loc=0.0, scale=0.01)
     layers = []
-    # The first hidden layer convolves 32 filters of 8x8 with stride 4 with the input image and applies a rectifier nonlinearity.
-    layers.append(Conv((8, 8, 32), strides=4, init=init_norm, activation=Rectlin()))
+    if self.screen_dim == (84, 84):
+      # The first hidden layer convolves 32 filters of 8x8 with stride 4 with the input image and applies a rectifier nonlinearity.
+      layers.append(Conv((8, 8, 32), strides=4, init=init_norm, activation=Rectlin()))
+    elif self.screen_dim == (52, 40):
+      # The first hidden layer convolves 32 filters of 5x4 with stride 2 with the input image and applies a rectifier nonlinearity.
+      layers.append(Conv((5, 4, 32), strides=2, init=init_norm, activation=Rectlin()))
+    else:
+      raise NotImplementedError("Unsupported screen dim.")
+
     # The second hidden layer convolves 64 filters of 4x4 with stride 2, again followed by a rectifier nonlinearity.
     layers.append(Conv((4, 4, 64), strides=2, init=init_norm, activation=Rectlin()))
     # This is followed by a third convolutional layer that convolves 64 filters of 3x3 with stride 1 followed by a rectifier.

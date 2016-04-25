@@ -66,3 +66,31 @@ class Environment:
 
   def isTerminal(self):
     return self.ale.game_over()
+
+class GymEnvironment:
+  # For training with Open AI Gym Environment
+  def __init__(self, rom_file, args):
+    import gym
+    self.gym = gym.make(rom_file)
+    self.obs = None
+    self.terminal = None
+
+  def numActions(self):
+    return self.gym.action_space.n
+
+  def restart(self):
+    self.gym.reset()
+    self.obs = None
+    self.terminal = None
+
+  def act(self, action):
+    self.obs, reward, self.terminal, _ = self.gym.step(action)
+    return reward
+
+  def getScreen(self):
+    assert self.obs is not None
+    return self.obs
+
+  def isTerminal(self):
+    assert self.terminal is not None
+    return self.terminal
