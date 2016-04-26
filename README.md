@@ -31,8 +31,6 @@ cd neon
 make
 ```
 
-The issue with running the latest neon has been fixed.
-
 If you want to try out the filter visualization, use latest Neon and run `make -e VIS=true` instead. If you’ve already installed Neon without enabling visualization dependencies you’ll need to `touch vis_requirements.txt` prior to the `make -e VIS=true` call to ensure virtualenv Python dependencies get triggered.
 
 Neon installs itself into virtual environment in `.venv`. You need to activate that to import Neon in Python:
@@ -40,7 +38,8 @@ Neon installs itself into virtual environment in `.venv`. You need to activate t
 source .venv/bin/activate
 ```
 
-### Arcade Learning Environment (optional if using OpenAI Gym)
+###Environment
+#### Arcade Learning Environment (optional if using OpenAI Gym)
 
 Install prerequisites:
 ```
@@ -57,6 +56,9 @@ Install Python library (assuming you have activated Neon virtual environment):
 ```
 pip install .
 ```
+
+#### OpenAI Gym (optional if using ALE)
+Install instructions [here](https://gym.openai.com/docs).
 
 ### Simple DQN
 
@@ -136,6 +138,14 @@ To test using OpenAI Gym:
 python src/test_gym.py "Breakout-v0" <output_folder> --load_weights snapshots/breakout_77.pkl
 ```
 After which you can then upload your results to OpenAI Gym. Note that the OpenAI Gym environment differs from the default environment so testing using OpenAI Gym should use a model trained using OpenAI Gym.
+
+#### Testing with Nervana Cloud
+
+To test a model using Nervana Cloud run:
+```
+ncloud train src/main.py --args "--random_steps 0 --train_steps 0 --epochs 1 --load_weights snapshops/breakout_77.pkl" --custom_code_url https://github.com/NervanaSystems/simple_dqn
+```
+
 ### Play one game with visualization
 
 To play one game and show game screen while playing:
