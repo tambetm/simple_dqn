@@ -13,8 +13,6 @@ See the example gameplay videos for Breakout and Pong:
 [![Breakout](http://img.youtube.com/vi/KkIf0Ok5GCE/default.jpg)](https://youtu.be/KkIf0Ok5GCE)
 [![Pong](http://img.youtube.com/vi/0ZlgrQS3krg/default.jpg)](https://youtu.be/0ZlgrQS3krg)
 
-Restriction from Neon is, that it currently works only on Maxwell architecture GPU-s. Hopefully this [will change](https://github.com/NervanaSystems/neon/issues/80). You can still simulate playing from pretrained models using just CPU, see the example below.
-
 ## Installation
 
 Currently only instructions for Ubuntu are provided. For OS X refer to [ALE](https://github.com/mgbellemare/Arcade-Learning-Environment/blob/master/doc/manual/manual.pdf) and [Neon](http://neon.nervanasys.com/docs/latest/user_guide.html#installation) documentation.
@@ -30,11 +28,10 @@ Check out and compile the code:
 ```
 git clone https://github.com/NervanaSystems/neon.git
 cd neon
-git checkout 7a56fa9645a51e97c05f2e5afbbd1df7057ae832
 make
 ```
 
-**NB!** Currently there are issues with the latest Neon. Known good commit is [7a56fa9](https://github.com/NervanaSystems/neon/commit/7a56fa9645a51e97c05f2e5afbbd1df7057ae832). For details refer to https://github.com/tambetm/simple_dqn/issues/4.
+The issue with running the latest neon has been fixed.
 
 If you want to try out the filter visualization, use latest Neon and run `make -e VIS=true` instead. If you’ve already installed Neon without enabling visualization dependencies you’ll need to `touch vis_requirements.txt` prior to the `make -e VIS=true` call to ensure virtualenv Python dependencies get triggered.
 
@@ -78,7 +75,7 @@ ln -s /usr/lib/python2.7/dist-packages/cv2.so NEON_HOME/.venv/lib/python2.7/site
 
 Then just check out the code:
 ```
-git clone https://github.com/tambetm/simple_dqn.git
+git clone https://github.com/NervanaSystems/simple_dqn
 cd simple_dqn
 ```
 
@@ -109,6 +106,15 @@ If using OpenAI Gym:
 Note that OpenAI Gym uses different screen dimensions and grayscale conversion which will affect training performance.
 
 There are plethora of options, just run `./train.sh --help` to see them. While training, the network weights are saved to `snapshots` folder after each epoch. Name of the file is `<game>_<epoch_nr>.pkl`. Training statistics are saved to `results/<game>.csv`, see below how to produce plots from it.
+
+#### Training with Nervana Cloud
+To train a model with Nervana Cloud, first install and configure [Nervana Cloud](http://doc.cloud.nervanasys.com/docs/latest/ncloud.html).
+
+Assuming the necessary dependencies are installed, run
+```
+ncloud train src/main.py --args "roms/breakout.bin --save_weights_prefix snapshopts/breakout --csv_file results/breakout.csv" --custom_code_url https://github.com/NervanaSystems/simple_dqn
+```
+This will download the repo and run the training script.
 
 ### Resuming training
 

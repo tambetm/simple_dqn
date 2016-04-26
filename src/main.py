@@ -84,7 +84,6 @@ args = parser.parse_args()
 
 logger = logging.getLogger()
 logger.setLevel(args.log_level)
-logger.handlers.pop()
 
 if args.random_seed:
   random.seed(args.random_seed)

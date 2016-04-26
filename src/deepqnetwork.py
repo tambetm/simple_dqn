@@ -27,7 +27,7 @@ class DeepQNetwork:
                  batch_size = args.batch_size,
                  rng_seed = args.random_seed,
                  device_id = args.device_id,
-                 default_dtype = np.dtype(args.datatype).type,
+                 datatype = np.dtype(args.datatype).type,
                  stochastic_round = args.stochastic_round)
 
     # prepare tensors once and reuse them
@@ -40,6 +40,9 @@ class DeepQNetwork:
     layers = self._createLayers(num_actions)
     self.model = Model(layers = layers)
     self.cost = GeneralizedCost(costfunc = SumSquared())
+    # Bug fix
+    for l in self.model.layers.layers:
+      l.parallelism = 'Disabled'
     self.model.initialize(self.input_shape[:-1], self.cost)
     if args.optimizer == 'rmsprop':
       self.optimizer = RMSProp(learning_rate = args.learning_rate, 
@@ -59,6 +62,9 @@ class DeepQNetwork:
     self.train_iterations = 0
     if self.target_steps:
       self.target_model = Model(layers = self._createLayers(num_actions))
+      # Bug fix
+      for l in self.target_model.layers.layers:
+        l.parallelism = 'Disabled'
       self.target_model.initialize(self.input_shape[:-1])
       self.save_weights_prefix = args.save_weights_prefix
     else:
@@ -111,10 +117,8 @@ class DeepQNetwork:
     assert prestates.shape[0] == actions.shape[0] == rewards.shape[0] == poststates.shape[0] == terminals.shape[0]
 
     if self.target_steps and self.train_iterations % self.target_steps == 0:
-      # HACK: serialize network to disk and read it back to clone
-      filename = self.save_weights_prefix + "_target.pkl"
-      save_obj(self.model.serialize(keep_states = False), filename)
-      self.target_model.load_weights(filename)
+      pdict = self.model.get_description(get_weights=True)
+      self.target_model.deserialize(pdict, load_states=False)
 
     # feed-forward pass for poststates to get Q-values
     self._setInput(poststates)
