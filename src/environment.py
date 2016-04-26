@@ -1,12 +1,40 @@
 import sys
 import os
-from ale_python_interface import ALEInterface
-import cv2
 import logging
 logger = logging.getLogger(__name__)
+try:
+  import cv2
+except ImportError:
+  logger.warning("python-opencv not found. Needed for ALEEnvironment")
+
 
 class Environment:
+  def __init__(self):
+    pass
+
+  def numActions(self):
+    # Returns number of actions
+    raise NotImplementedError
+
+  def restart(self):
+    # Restarts environment
+    raise NotImplementedError
+
+  def act(self, action):
+    # Performs action and returns reward
+    raise NotImplementedError
+
+  def getScreen(self):
+    # Gets current game screen
+    raise NotImplementedError
+
+  def isTerminal(self):
+    # Returns if game is done
+    raise NotImplementedError
+
+class ALEEnvironment(Environment):
   def __init__(self, rom_file, args):
+    from ale_python_interface import ALEInterface
     self.ale = ALEInterface()
     if args.display_screen:
       if sys.platform == 'darwin':
@@ -67,11 +95,12 @@ class Environment:
   def isTerminal(self):
     return self.ale.game_over()
 
-class GymEnvironment:
-  # For training with Open AI Gym Environment
-  def __init__(self, rom_file, args):
+class GymEnvironment(Environment):
+  # For use with Open AI Gym Environment
+  def __init__(self, env_id, args):
+    logger.info("Using Gym Environment")
     import gym
-    self.gym = gym.make(rom_file)
+    self.gym = gym.make(env_id)
     self.obs = None
     self.terminal = None
 

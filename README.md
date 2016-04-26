@@ -99,13 +99,13 @@ sudo apt-get install libav-tools
 
 To run training for Breakout:
 ```
-./train.sh roms/breakout.bin
+./train.sh roms/breakout.bin --environment ale
 ```
 If using OpenAI Gym:
 ```
-./train.sh "Breakout-v0" --train_gym True --screen_width 40 --screen_height 52
+./train.sh "Breakout-v0" --environment gym --screen_width 40 --screen_height 52
 ```
-Note that OpenAI Gym uses different screen dimensions and grayscale conversion which will affect training performance.
+Note that OpenAI Gym uses different screen dimensions and grayscale conversion which negatively affect training performance.
 
 There are plethora of options, just run `./train.sh --help` to see them. While training, the network weights are saved to `snapshots` folder after each epoch. Name of the file is `<game>_<epoch_nr>.pkl`. Training statistics are saved to `results/<game>.csv`, see below how to produce plots from it.
 

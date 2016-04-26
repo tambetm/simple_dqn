@@ -1,7 +1,7 @@
 import logging
 logging.basicConfig(format='%(asctime)s %(message)s')
 
-from environment import Environment, GymEnvironment
+from environment import ALEEnvironment, GymEnvironment
 from replay_memory import ReplayMemory
 from deepqnetwork import DeepQNetwork
 from agent import Agent
@@ -9,7 +9,6 @@ from statistics import Statistics
 import random
 import argparse
 import sys
-import os
 
 parser = argparse.ArgumentParser()
 
@@ -17,7 +16,8 @@ def str2bool(v):
   return v.lower() in ("yes", "true", "t", "1")
 
 envarg = parser.add_argument_group('Environment')
-envarg.add_argument("rom_file", help="ROM bin file or env id such as Breakout-v0 if training with Open AI Gym")
+envarg.add_argument("rom_file", help="ROM bin file if using ale environment or env id such as Breakout-v0 if using gym environemtn")
+envarg.add_argument("--environment", type=str, choices=["ale", "gym"], default="ale", help="Whether to train agent using ALE or OpenAI Gym")
 envarg.add_argument("--display_screen", type=str2bool, default=False, help="Display game screen during training and testing.")
 #envarg.add_argument("--sound", type=str2bool, default=False, help="Play (or record) sound.")
 envarg.add_argument("--frame_skip", type=int, default=4, help="How many times to repeat each chosen action.")
@@ -77,20 +77,18 @@ mainarg.add_argument("--save_weights_prefix", help="Save network to given file. 
 mainarg.add_argument("--csv_file", help="Write training progress to this file.")
 
 comarg = parser.add_argument_group('Common')
-comarg.add_argument("--train_gym", type=str2bool, default=False, help="Whether to train agent using OpenAI Gym")
 comarg.add_argument("--random_seed", type=int, help="Random seed for repeatable experiments.")
 comarg.add_argument("--log_level", choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"], default="INFO", help="Log level.")
 args = parser.parse_args()
 
 logger = logging.getLogger()
 logger.setLevel(args.log_level)
-logger.handlers.pop()
 
 if args.random_seed:
   random.seed(args.random_seed)
 
 # instantiate classes
-env = GymEnvironment(args.rom_file, args) if args.train_gym else Environment(args.rom_file, args)
+env = GymEnvironment(args.rom_file, args) if args.environment == 'gym' else ALEEnvironment(args.rom_file, args)
 mem = ReplayMemory(args.replay_size, args)
 net = DeepQNetwork(env.numActions(), args)
 agent = Agent(env, mem, net, args)

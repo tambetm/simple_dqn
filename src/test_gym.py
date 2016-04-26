@@ -4,12 +4,8 @@ import argparse
 import numpy as np
 
 from deepqnetwork import DeepQNetwork
-from memory_buffer import MemoryBuffer
 
 parser = argparse.ArgumentParser()
-
-def str2bool(v):
-  return v.lower() in ("yes", "true", "t", "1")
 
 envarg = parser.add_argument_group('Environment')
 envarg.add_argument("env_id", help="Which atari game to test such as Breakout-v0")
@@ -54,28 +50,45 @@ args = parser.parse_args()
 if args.random_seed:
   random.seed(args.random_seed)
 
+class GymAgent():
+    def __init__(self, env, net, memory, args):
+        self.env = env
+        self.net = net
+        self.memory = memory
+        self.history_length = args.history_length
+        self.exploration_rate_test = args.exploration_rate_test
+
+    def add(self, observation):
+        self.memory[0, :-1] = self.memory[0, 1:]
+        self.memory[0, -1] = np.array(observation)
+
+    def get_action(self, t, observation):
+        self.add(observation)
+        if t < self.history_length or random.random() < self.exploration_rate_test:
+            action = env.action_space.sample()
+        else:
+            qvalues = net.predict(memory)
+            action = np.argmax(qvalues[0])
+        return action
+
 env = gym.make(args.env_id)
 net = DeepQNetwork(env.action_space.n, args)
-memory = MemoryBuffer(args)
+memory = np.empty((args.batch_size, args.history_length, args.screen_height, args.screen_width))
 
 if args.load_weights:
   print "Loading weights from %s" % args.load_weights
   net.load_weights(args.load_weights)
 
+agent = GymAgent(env, net, memory, args)
+
 env.monitor.start(args.output_folder, force=True)
 avg_reward = 0
-num_episodes = 10
+num_episodes = 20
 for i_episode in xrange(num_episodes):
     observation = env.reset()
-    memory.reset()
     i_total_reward = 0
     for t in xrange(10000):
-        memory.add(observation)
-        if t < args.history_length or random.random() < args.exploration_rate_test:
-            action = env.action_space.sample()
-        else:
-            qvalues = net.predict(memory.getMiniBatch())
-            action = np.argmax(qvalues[0])
+        action = agent.get_action(t, observation)
         observation, reward, done, info = env.step(action)
         i_total_reward += reward
         if done:
