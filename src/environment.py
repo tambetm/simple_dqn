@@ -1,12 +1,19 @@
 import sys
 import os
-from ale_python_interface import ALEInterface
-import cv2
 import logging
 logger = logging.getLogger(__name__)
 
 class Environment:
+  def __init__(self, env_name, args): raise NotImplementedError
+  def numActions(self): raise NotImplementedError
+  def restart(self): raise NotImplementedError
+  def act(self, action): raise NotImplementedError
+  def getScreen(self): raise NotImplementedError
+  def isTerminal(self): raise NotImplementedError
+
+class ALEEnvironment(Environment):
   def __init__(self, rom_file, args):
+    from ale_python_interface import ALEInterface
     self.ale = ALEInterface()
     if args.display_screen:
       if sys.platform == 'darwin':
@@ -61,21 +68,24 @@ class Environment:
 
   def getScreen(self):
     screen = self.ale.getScreenGrayscale()
+    import cv2
     resized = cv2.resize(screen, self.dims)
     return resized
 
   def isTerminal(self):
     return self.ale.game_over()
 
-class GymEnvironment:
+class GymEnvironment(Environment):
   # For training with Open AI Gym Environment
-  def __init__(self, rom_file, args):
+  def __init__(self, env_id, args):
     import gym
-    self.gym = gym.make(rom_file)
+    self.gym = gym.make(env_id)
     self.obs = None
     self.terminal = None
 
   def numActions(self):
+    import gym
+    assert isinstance(self.gym.action_space, gym.spaces.Discrete)
     return self.gym.action_space.n
 
   def restart(self):

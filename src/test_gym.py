@@ -17,10 +17,7 @@ envarg.add_argument("--screen_width", type=int, default=40, help="Screen width a
 envarg.add_argument("--screen_height", type=int, default=52, help="Screen height after resize.")
 
 memarg = parser.add_argument_group('Replay memory')
-memarg.add_argument("--replay_size", type=int, default=10000, help="Maximum size of replay memory.")
 memarg.add_argument("--history_length", type=int, default=4, help="How many screen frames form a state.")
-memarg.add_argument("--min_reward", type=float, default=-1, help="Minimum reward.")
-memarg.add_argument("--max_reward", type=float, default=1, help="Maximum reward.")
 
 netarg = parser.add_argument_group('Deep Q-learning network')
 netarg.add_argument("--learning_rate", type=float, default=0.00025, help="Learning rate.")
@@ -55,26 +52,27 @@ if args.random_seed:
   random.seed(args.random_seed)
 
 env = gym.make(args.env_id)
+assert isinstance(env.action_space, gym.spaces.Discrete)
 net = DeepQNetwork(env.action_space.n, args)
-memory = MemoryBuffer(args)
+buf = MemoryBuffer(args)
 
 if args.load_weights:
   print "Loading weights from %s" % args.load_weights
   net.load_weights(args.load_weights)
 
-env.monitor.start(args.output_folder, force=True)
+env.monitor.start(args.output_folder, "simple_dqn", force=True)
 avg_reward = 0
-num_episodes = 10
+num_episodes = args.num_episodes
 for i_episode in xrange(num_episodes):
     observation = env.reset()
-    memory.reset()
+    buf.reset()
     i_total_reward = 0
     for t in xrange(10000):
-        memory.add(observation)
+        buf.add(observation)
         if t < args.history_length or random.random() < args.exploration_rate_test:
             action = env.action_space.sample()
         else:
-            qvalues = net.predict(memory.getMiniBatch())
+            qvalues = net.predict(buf.getStateMinibatch())
             action = np.argmax(qvalues[0])
         observation, reward, done, info = env.step(action)
         i_total_reward += reward

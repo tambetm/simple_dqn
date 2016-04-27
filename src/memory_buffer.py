@@ -6,26 +6,38 @@ class MemoryBuffer:
     self.history_length = args.history_length
     self.dims = (args.screen_height, args.screen_width)
     self.batch_size = args.batch_size
-    self.mini_batch = np.zeros((self.batch_size, self.history_length) + self.dims, dtype=np.uint8)
-    self.screens = [np.zeros((args.screen_height, args.screen_width), dtype=np.uint8) for _ in xrange(self.history_length)]
-    self.state_buffer = np.zeros((self.history_length, args.screen_height, args.screen_width), dtype=np.uint8)
-    self.current = 0
+    self.buffer = np.zeros((self.history_length,) + self.dims, dtype=np.uint8)
+    self.minibatch = np.zeros((self.batch_size, self.history_length,) + self.dims, dtype=np.uint8)
 
   def add(self, observation):
-    index = self.current % self.history_length
-    self.screens[index][:] = observation
-    self.current += 1
+    assert observation.shape == self.dims
+    self.buffer[:-1] = self.buffer[1:]
+    self.buffer[-1] = observation
 
   def getState(self):
-    assert self.current > self.history_length - 1, "replay memory is empty"
-    for i in xrange(self.history_length):
-      screen_index = (self.current + i) % self.history_length
-      self.state_buffer[i, :, :] = self.screens[screen_index]
-    return self.state_buffer
+    return self.buffer
 
-  def getMiniBatch(self):
-    self.mini_batch[0, :, :, :] = self.getState().copy()
-    return self.mini_batch
+  def getStateMinibatch(self):
+    self.minibatch[0] == self.buffer
+    return self.minibatch
 
   def reset(self):
-    self.current = 0
+    self.buffer *= 0
+
+if __name__ == '__main__':
+  import argparse
+  parser = argparse.ArgumentParser()
+  parser.add_argument("--screen_width", type=int, default=40, help="Screen width after resize.")
+  parser.add_argument("--screen_height", type=int, default=52, help="Screen height after resize.")
+  parser.add_argument("--history_length", type=int, default=4, help="How many screen frames form a state.")
+  parser.add_argument("--batch_size", type=int, default=32, help="Batch size for neural network.")
+  parser.add_argument("--loops", type=int, default=1000000, help="Number of loops in testing.")
+  args = parser.parse_args()
+
+  import numpy as np
+  mem = MemoryBuffer(args)
+  for i in xrange(args.loops):
+    mem.add(np.zeros((args.screen_height, args.screen_width)))
+    if i >= args.history_length:
+      state = mem.getState()
+      batch = mem.getMiniBatch()
