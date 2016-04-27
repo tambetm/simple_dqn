@@ -83,7 +83,7 @@ agent = GymAgent(env, net, memory, args)
 
 env.monitor.start(args.output_folder, force=True)
 avg_reward = 0
-num_episodes = 20
+num_episodes = 100
 for i_episode in xrange(num_episodes):
     observation = env.reset()
     i_total_reward = 0

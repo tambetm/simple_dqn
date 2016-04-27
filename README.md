@@ -60,6 +60,11 @@ pip install .
 #### OpenAI Gym (optional if using ALE)
 Install instructions [here](https://gym.openai.com/docs).
 
+You must also install the atari environments using
+```
+pip install -e .[atari]
+```
+
 ### Simple DQN
 
 Prerequisities:
@@ -103,7 +108,7 @@ To run training for Breakout:
 ```
 If using OpenAI Gym:
 ```
-./train.sh "Breakout-v0" --environment gym --screen_width 40 --screen_height 52
+./train.sh Breakout-v0 --environment gym --screen_width 40 --screen_height 52
 ```
 Note that OpenAI Gym uses different screen dimensions and grayscale conversion which negatively affect training performance.
 
@@ -135,7 +140,7 @@ To run only testing on a pre-trained model:
 
 To test using OpenAI Gym:
 ```
-python src/test_gym.py "Breakout-v0" <output_folder> --load_weights snapshots/breakout_77.pkl
+python src/test_gym.py Breakout-v0 <output_folder> --load_weights snapshots/breakout_77.pkl
 ```
 After which you can then upload your results to OpenAI Gym. Note that the OpenAI Gym environment differs from the default environment so testing using OpenAI Gym should use a model trained using OpenAI Gym.
 
@@ -143,7 +148,7 @@ After which you can then upload your results to OpenAI Gym. Note that the OpenAI
 
 To test a model using Nervana Cloud run:
 ```
-ncloud train src/main.py --args "--random_steps 0 --train_steps 0 --epochs 1 --load_weights snapshops/breakout_77.pkl" --custom_code_url https://github.com/NervanaSystems/simple_dqn
+ncloud train src/main.py --args "roms/breakout.bin --random_steps 0 --train_steps 0 --epochs 1 --load_weights snapshops/breakout_77.pkl" --custom_code_url https://github.com/NervanaSystems/simple_dqn
 ```
 
 ### Play one game with visualization
