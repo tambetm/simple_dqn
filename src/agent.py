@@ -1,7 +1,4 @@
-from replay_memory import ReplayMemory
 import random
-import time
-import sys
 import logging
 import numpy as np
 logger = logging.getLogger(__name__)

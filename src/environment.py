@@ -1,15 +1,32 @@
 import sys
 import os
 import logging
+import cv2
 logger = logging.getLogger(__name__)
 
 class Environment:
-  def __init__(self, env_name, args): raise NotImplementedError
-  def numActions(self): raise NotImplementedError
-  def restart(self): raise NotImplementedError
-  def act(self, action): raise NotImplementedError
-  def getScreen(self): raise NotImplementedError
-  def isTerminal(self): raise NotImplementedError
+  def __init__(self):
+    pass
+
+  def numActions(self):
+    # Returns number of actions
+    raise NotImplementedError
+
+  def restart(self):
+    # Restarts environment
+    raise NotImplementedError
+
+  def act(self, action):
+    # Performs action and returns reward
+    raise NotImplementedError
+
+  def getScreen(self):
+    # Gets current game screen
+    raise NotImplementedError
+
+  def isTerminal(self):
+    # Returns if game is done
+    raise NotImplementedError
 
 class ALEEnvironment(Environment):
   def __init__(self, rom_file, args):
@@ -76,12 +93,14 @@ class ALEEnvironment(Environment):
     return self.ale.game_over()
 
 class GymEnvironment(Environment):
-  # For training with Open AI Gym Environment
+  # For use with Open AI Gym Environment
   def __init__(self, env_id, args):
     import gym
     self.gym = gym.make(env_id)
     self.obs = None
     self.terminal = None
+    # OpenCV expects width as first and height as second s
+    self.dims = (args.screen_width, args.screen_height)
 
   def numActions(self):
     import gym
@@ -89,9 +108,8 @@ class GymEnvironment(Environment):
     return self.gym.action_space.n
 
   def restart(self):
-    self.gym.reset()
-    self.obs = None
-    self.terminal = None
+    self.obs = self.gym.reset()
+    self.terminal = False
 
   def act(self, action):
     self.obs, reward, self.terminal, _ = self.gym.step(action)
@@ -99,7 +117,7 @@ class GymEnvironment(Environment):
 
   def getScreen(self):
     assert self.obs is not None
-    return self.obs
+    return cv2.resize(cv2.cvtColor(self.obs, cv2.COLOR_RGB2GRAY), self.dims)
 
   def isTerminal(self):
     assert self.terminal is not None

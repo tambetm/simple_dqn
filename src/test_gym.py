@@ -2,19 +2,17 @@ import gym
 import random
 import argparse
 import numpy as np
-
+import cv2
+from environment import GymEnvironment
 from deepqnetwork import DeepQNetwork
 from memory_buffer import MemoryBuffer
 
 parser = argparse.ArgumentParser()
 
-def str2bool(v):
-  return v.lower() in ("yes", "true", "t", "1")
-
 envarg = parser.add_argument_group('Environment')
 envarg.add_argument("env_id", help="Which atari game to test such as Breakout-v0")
-envarg.add_argument("--screen_width", type=int, default=40, help="Screen width after resize.")
-envarg.add_argument("--screen_height", type=int, default=52, help="Screen height after resize.")
+envarg.add_argument("--screen_width", type=int, default=84, help="Screen width after resize.")
+envarg.add_argument("--screen_height", type=int, default=84, help="Screen height after resize.")
 
 memarg = parser.add_argument_group('Replay memory')
 memarg.add_argument("--history_length", type=int, default=4, help="How many screen frames form a state.")
@@ -51,34 +49,35 @@ args = parser.parse_args()
 if args.random_seed:
   random.seed(args.random_seed)
 
-env = gym.make(args.env_id)
-assert isinstance(env.action_space, gym.spaces.Discrete)
-net = DeepQNetwork(env.action_space.n, args)
+env = GymEnvironment(args.env_id, args)
+net = DeepQNetwork(env.numActions(), args)
 buf = MemoryBuffer(args)
 
 if args.load_weights:
   print "Loading weights from %s" % args.load_weights
   net.load_weights(args.load_weights)
 
-env.monitor.start(args.output_folder, "simple_dqn", force=True)
+env.gym.monitor.start(args.output_folder, force=True)
 avg_reward = 0
 num_episodes = args.num_episodes
 for i_episode in xrange(num_episodes):
-    observation = env.reset()
+    env.restart()
+    observation = env.getScreen()
     buf.reset()
     i_total_reward = 0
     for t in xrange(10000):
         buf.add(observation)
         if t < args.history_length or random.random() < args.exploration_rate_test:
-            action = env.action_space.sample()
+            action = random.randrange(env.numActions())
         else:
             qvalues = net.predict(buf.getStateMinibatch())
             action = np.argmax(qvalues[0])
-        observation, reward, done, info = env.step(action)
+        reward = env.act(action)
+        observation = env.getScreen()
         i_total_reward += reward
-        if done:
+        if env.isTerminal():
             avg_reward += i_total_reward
             print "Episode {} finished after {} timesteps with reward {}".format(i_episode+1, t+1, i_total_reward)
             break
 print "Avg reward {}".format(avg_reward / float(num_episodes))
-env.monitor.close()
+env.gym.monitor.close()
