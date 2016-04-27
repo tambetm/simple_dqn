@@ -4,7 +4,7 @@ Deep Q-learning agent for replicating DeepMind's results in paper ["Human-level 
  * It's Python :).
  * ALE [native Python interface](https://github.com/bbitmaster/ale_python_interface/wiki/Code-Tutorial) is used (optional if using OpenAI Gym).
  * Updated to support training and testing with OpenAI Gym.
- * [Fastest convolutions](https://github.com/soumith/convnet-benchmarks) from [Neon deep learning library](http://neon.nervanasys.com/docs/latest/index.html).
+ * [Fastest convolutions](https://github.com/NervanaSystems/neon) from [Neon deep learning library](http://neon.nervanasys.com/docs/latest/index.html).
  * Every screen is kept only once in replay memory, fast minibatch sampling with Numpy array slicing.
  * The number of array and datatype conversions is minimized.
 
@@ -15,7 +15,7 @@ See the example gameplay videos for Breakout and Pong:
 
 ## Installation
 
-Currently only instructions for Ubuntu are provided. For OS X refer to [ALE](https://github.com/mgbellemare/Arcade-Learning-Environment/blob/master/doc/manual/manual.pdf) and [Neon](http://neon.nervanasys.com/docs/latest/user_guide.html#installation) documentation.
+Currently only instructions for Ubuntu are provided. For OS X refer to [ALE](https://github.com/mgbellemare/Arcade-Learning-Environment/blob/master/doc/manual/manual.pdf) and [Neon](http://neon.nervanasys.com/docs/latest/installation.html) documentation.
 
 ### Neon
 
