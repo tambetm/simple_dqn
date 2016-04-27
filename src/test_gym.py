@@ -2,15 +2,15 @@ import gym
 import random
 import argparse
 import numpy as np
-
+import cv2
 from deepqnetwork import DeepQNetwork
 
 parser = argparse.ArgumentParser()
 
 envarg = parser.add_argument_group('Environment')
 envarg.add_argument("env_id", help="Which atari game to test such as Breakout-v0")
-envarg.add_argument("--screen_width", type=int, default=40, help="Screen width after resize.")
-envarg.add_argument("--screen_height", type=int, default=52, help="Screen height after resize.")
+envarg.add_argument("--screen_width", type=int, default=84, help="Screen width after resize.")
+envarg.add_argument("--screen_height", type=int, default=84, help="Screen height after resize.")
 
 memarg = parser.add_argument_group('Replay memory')
 memarg.add_argument("--replay_size", type=int, default=10000, help="Maximum size of replay memory.")
@@ -57,8 +57,10 @@ class GymAgent():
         self.memory = memory
         self.history_length = args.history_length
         self.exploration_rate_test = args.exploration_rate_test
+        self.dims = (args.screen_width, args.screen_height)
 
     def add(self, observation):
+        observation = cv2.resize(cv2.cvtColor(observation, cv2.COLOR_RGB2GRAY), self.dims)
         self.memory[0, :-1] = self.memory[0, 1:]
         self.memory[0, -1] = np.array(observation)
 

@@ -1,11 +1,8 @@
 import sys
 import os
 import logging
+import cv2
 logger = logging.getLogger(__name__)
-try:
-  import cv2
-except ImportError:
-  logger.warning("python-opencv not found. Needed for ALEEnvironment")
 
 
 class Environment:
@@ -103,6 +100,8 @@ class GymEnvironment(Environment):
     self.gym = gym.make(env_id)
     self.obs = None
     self.terminal = None
+    # OpenCV expects width as first and height as second s
+    self.dims = (args.screen_width, args.screen_height)
 
   def numActions(self):
     return self.gym.action_space.n
@@ -118,7 +117,7 @@ class GymEnvironment(Environment):
 
   def getScreen(self):
     assert self.obs is not None
-    return self.obs
+    return cv2.resize(cv2.cvtColor(self.obs, cv2.COLOR_RGB2GRAY), self.dims)
 
   def isTerminal(self):
     assert self.terminal is not None
