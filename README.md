@@ -61,10 +61,8 @@ pip install .
 #### OpenAI Gym (optional if using ALE)
 
 ```
-git clone git@github.com:openai/gym
-cd gym
-pip install -e .
-pip install -e .[atari]
+pip install gym
+pip install gym[atari]
 ```
 
 ### Simple DQN
