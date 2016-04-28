@@ -21,6 +21,7 @@ class DeepQNetwork:
     self.history_length = args.history_length
     self.screen_dim = (args.screen_height, args.screen_width)
     self.clip_error = args.clip_error
+    self.batch_norm = args.batch_norm
 
     # create Neon backend
     self.be = gen_backend(backend = args.backend,
@@ -77,13 +78,13 @@ class DeepQNetwork:
     init_norm = Gaussian(loc=0.0, scale=0.01)
     layers = []
     # The first hidden layer convolves 32 filters of 8x8 with stride 4 with the input image and applies a rectifier nonlinearity.
-    layers.append(Conv((8, 8, 32), strides=4, init=init_norm, activation=Rectlin()))
+    layers.append(Conv((8, 8, 32), strides=4, init=init_norm, activation=Rectlin(), batch_norm=self.batch_norm))
     # The second hidden layer convolves 64 filters of 4x4 with stride 2, again followed by a rectifier nonlinearity.
-    layers.append(Conv((4, 4, 64), strides=2, init=init_norm, activation=Rectlin()))
+    layers.append(Conv((4, 4, 64), strides=2, init=init_norm, activation=Rectlin(), batch_norm=self.batch_norm))
     # This is followed by a third convolutional layer that convolves 64 filters of 3x3 with stride 1 followed by a rectifier.
-    layers.append(Conv((3, 3, 64), strides=1, init=init_norm, activation=Rectlin()))
+    layers.append(Conv((3, 3, 64), strides=1, init=init_norm, activation=Rectlin(), batch_norm=self.batch_norm))
     # The final hidden layer is fully-connected and consists of 512 rectifier units.
-    layers.append(Affine(nout=512, init=init_norm, activation=Rectlin()))
+    layers.append(Affine(nout=512, init=init_norm, activation=Rectlin(), batch_norm=self.batch_norm))
     # The output layer is a fully-connected linear layer with a single output for each valid action.
     layers.append(Affine(nout=num_actions, init = init_norm))
     return layers

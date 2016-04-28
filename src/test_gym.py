@@ -7,6 +7,9 @@ from environment import GymEnvironment
 from deepqnetwork import DeepQNetwork
 from memory_buffer import MemoryBuffer
 
+def str2bool(v):
+  return v.lower() in ("yes", "true", "t", "1")
+
 parser = argparse.ArgumentParser()
 
 envarg = parser.add_argument_group('Environment')
@@ -25,6 +28,7 @@ netarg.add_argument('--optimizer', choices=['rmsprop', 'adam', 'adadelta'], defa
 netarg.add_argument("--decay_rate", type=float, default=0.95, help="Decay rate for RMSProp and Adadelta algorithms.")
 netarg.add_argument("--clip_error", type=float, default=1, help="Clip error term in update between this number and its negative.")
 netarg.add_argument("--target_steps", type=int, default=10000, help="Copy main network to target network after this many steps.")
+netarg.add_argument("--batch_norm", type=str2bool, default=False, help="Use batch normalization in all layers.")
 
 neonarg = parser.add_argument_group('Neon')
 neonarg.add_argument('--backend', choices=['cpu', 'gpu'], default='gpu', help='backend type')

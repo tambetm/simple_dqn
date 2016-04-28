@@ -10,10 +10,10 @@ import random
 import argparse
 import sys
 
-parser = argparse.ArgumentParser()
-
 def str2bool(v):
   return v.lower() in ("yes", "true", "t", "1")
+
+parser = argparse.ArgumentParser()
 
 envarg = parser.add_argument_group('Environment')
 envarg.add_argument("game", help="ROM bin file or env id such as Breakout-v0 if training with Open AI Gym.")
@@ -43,6 +43,7 @@ netarg.add_argument('--optimizer', choices=['rmsprop', 'adam', 'adadelta'], defa
 netarg.add_argument("--decay_rate", type=float, default=0.95, help="Decay rate for RMSProp and Adadelta algorithms.")
 netarg.add_argument("--clip_error", type=float, default=1, help="Clip error term in update between this number and its negative.")
 netarg.add_argument("--target_steps", type=int, default=10000, help="Copy main network to target network after this many steps.")
+netarg.add_argument("--batch_norm", type=str2bool, default=False, help="Use batch normalization in all layers.")
 
 #netarg.add_argument("--rescale_r", type=str2bool, help="Rescale rewards.")
 #missing: bufferSize=512,valid_size=500,min_reward=-1,max_reward=1
