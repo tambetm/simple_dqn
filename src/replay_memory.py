@@ -4,12 +4,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 class ReplayMemory:
-  def __init__(self, size, args):
+  def __init__(self, size, backend, args):
     self.size = size
+    self.be = backend
     # preallocate memory
     self.actions = np.empty(self.size, dtype = np.uint8)
     self.rewards = np.empty(self.size, dtype = np.integer)
-    self.screens = np.empty((self.size, args.screen_height, args.screen_width), dtype = np.uint8)
+    self.screens = self.be.empty((self.size, args.screen_height, args.screen_width), dtype = np.uint8)
     self.terminals = np.empty(self.size, dtype = np.bool)
     self.history_length = args.history_length
     self.dims = (args.screen_height, args.screen_width)
@@ -20,8 +21,11 @@ class ReplayMemory:
     self.current = 0
 
     # pre-allocate prestates and poststates for minibatch
-    self.prestates = np.empty((self.batch_size, self.history_length) + self.dims, dtype = np.uint8)
-    self.poststates = np.empty((self.batch_size, self.history_length) + self.dims, dtype = np.uint8)
+    self.prestates = self.be.empty((self.batch_size, self.history_length, ) + self.dims, dtype = np.uint8)
+    self.poststates = self.be.empty((self.batch_size, self.history_length, ) + self.dims, dtype = np.uint8)
+    # Save slices into arrays so we don't have to compute them each time
+    self.prestates_view = [self.prestates[i, ...] for i in xrange(self.batch_size)]
+    self.poststates_view = [self.poststates[i, ...] for i in xrange(self.batch_size)]
 
     logger.info("Replay memory size: %d" % self.size)
 
@@ -47,7 +51,7 @@ class ReplayMemory:
 
   
   def getState(self, index):
-    assert self.count > 0, "replay memory is empy, use at least --random_steps 1"
+    assert self.count > 0, "replay memory is empty, use at least --random_steps 1"
     # normalize index to expected range, allows negative indexes
     index = index % self.count
     # if is not in the beginning of matrix
@@ -83,10 +87,9 @@ class ReplayMemory:
           continue
         # otherwise use this index
         break
-      
-      # NB! having index first is fastest in C-order matrices
-      self.prestates[len(indexes), ...] = self.getState(index - 1)
-      self.poststates[len(indexes), ...] = self.getState(index)
+
+      self.prestates_view[len(indexes)] = self.getState(index - 1)
+      self.poststates_view[len(indexes)] = self.getState(index)
       indexes.append(index)
 
     # copy actions, rewards and terminals with direct slicing

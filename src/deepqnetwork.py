@@ -13,7 +13,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 class DeepQNetwork:
-  def __init__(self, num_actions, args):
+  def __init__(self, num_actions, backend, args):
     # remember parameters
     self.num_actions = num_actions
     self.batch_size = args.batch_size
@@ -23,16 +23,13 @@ class DeepQNetwork:
     self.clip_error = args.clip_error
 
     # create Neon backend
-    self.be = gen_backend(backend = args.backend,
-                 batch_size = args.batch_size,
-                 rng_seed = args.random_seed,
-                 device_id = args.device_id,
-                 datatype = np.dtype(args.datatype).type,
-                 stochastic_round = args.stochastic_round)
+    self.be = backend
 
     # prepare tensors once and reuse them
     self.input_shape = (self.history_length,) + self.screen_dim + (self.batch_size,)
     self.input = self.be.empty(self.input_shape)
+    # Copy to nchw format buffer and then use backend kernel to reshape to chwn format input buffer
+    self.input_uint8 = self.be.empty(self.input_shape, dtype=np.uint8)
     self.input.lshape = self.input_shape # HACK: needed for convolutional networks
     self.targets = self.be.empty((self.num_actions, self.batch_size))
 
@@ -90,11 +87,9 @@ class DeepQNetwork:
 
   def _setInput(self, states):
     # change order of axes to match what Neon expects
-    states = np.transpose(states, axes = (1, 2, 3, 0))
-    # copy() shouldn't be necessary here, but Neon doesn't work otherwise
-    self.input.set(states.copy())
-    # normalize network input between 0 and 1
-    self.be.divide(self.input, 255, self.input)
+    self.be.copy_transpose(states, self.input_uint8, axes=(1, 2, 3, 0))
+    # normalize network input between 0 and 1 and convert uint8 to float32
+    self.input[:] = self.input / 255
 
   def train(self, minibatch, epoch):
     # expand components of minibatch
@@ -143,10 +138,6 @@ class DeepQNetwork:
     assert deltas.shape == (self.num_actions, self.batch_size)
     #assert np.count_nonzero(deltas.asnumpyarray()) == 32
 
-    # calculate cost, just in case
-    cost = self.cost.get_cost(preq, self.targets)
-    assert cost.shape == (1,1)
-
     # clip errors
     if self.clip_error:
       self.be.clip(deltas, -self.clip_error, self.clip_error, out = deltas)
@@ -162,6 +153,9 @@ class DeepQNetwork:
 
     # calculate statistics
     if self.callback:
+      # calculate cost, just in case
+      cost = self.cost.get_cost(preq, self.targets)
+      assert cost.shape == (1, 1)
       self.callback.on_train(cost.asnumpyarray()[0,0])
 
   def predict(self, states):
