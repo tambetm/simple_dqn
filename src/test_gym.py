@@ -46,7 +46,7 @@ mainarg.add_argument("--save_weights_prefix", help="Save network to given file. 
 
 comarg = parser.add_argument_group('Common')
 comarg.add_argument("output_folder", help="Where to write results to.")
-comarg.add_argument("--num_episodes", type=int, default=10, help="Number of episodes to test.")
+comarg.add_argument("--num_episodes", type=int, default=100, help="Number of episodes to test.")
 comarg.add_argument("--random_seed", type=int, help="Random seed for repeatable experiments.")
 args = parser.parse_args()
 

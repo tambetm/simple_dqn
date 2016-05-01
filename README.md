@@ -141,9 +141,14 @@ To run only testing on a pre-trained model:
 
 To test using OpenAI Gym:
 ```
-python src/test_gym.py Breakout-v0 <output_folder> --load_weights snapshots/breakout_77.pkl
+./test_gym.sh snapshots/Breakout-v0_77.pkl
 ```
-After which you can then upload your results to OpenAI Gym. Note that the OpenAI Gym environment differs from the default environment so testing using OpenAI Gym should use a model trained using OpenAI Gym.
+
+This saves testing results in folder `results/Breakout-v0`. Now you can then upload your results to OpenAI Gym:
+```
+./upload_gym.sh results/Breakout-v0 --api_key <your_key>
+```
+Note that the OpenAI Gym environment differs from the default environment so testing using OpenAI Gym should use a model trained using OpenAI Gym.
 
 #### Testing with Nervana Cloud
 
