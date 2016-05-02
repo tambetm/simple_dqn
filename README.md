@@ -8,10 +8,11 @@ Deep Q-learning agent for replicating DeepMind's results in paper ["Human-level 
  * Every screen is kept only once in replay memory, fast minibatch sampling with Numpy array slicing.
  * The number of array and datatype conversions is minimized.
 
-See the example gameplay videos for Breakout and Pong:
+See the example gameplay videos for Breakout, Pong and Seaquest:
 
 [![Breakout](http://img.youtube.com/vi/KkIf0Ok5GCE/default.jpg)](https://youtu.be/KkIf0Ok5GCE)
 [![Pong](http://img.youtube.com/vi/0ZlgrQS3krg/default.jpg)](https://youtu.be/0ZlgrQS3krg)
+[![Seaquest](http://img.youtube.com/vi/b6g6A_n8mUk/default.jpg)](https://youtu.be/b6g6A_n8mUk)
 
 ## Installation
 
@@ -38,9 +39,9 @@ Neon installs itself into virtual environment in `.venv`. You need to activate t
 source .venv/bin/activate
 ```
 
-### Environment
+### Arcade Learning Environment
 
-#### Arcade Learning Environment (optional if using OpenAI Gym)
+You can skip this, if you only plan to use OpenAI Gym.
 
 Install prerequisites:
 ```
@@ -58,8 +59,11 @@ Install Python library (assuming you have activated Neon virtual environment):
 pip install .
 ```
 
-#### OpenAI Gym (optional if using ALE)
+### OpenAI Gym
 
+You can skip this, if you only plan to use Arcade Learning Environment directly.
+
+To install OpenAI Gym:
 ```
 pip install gym
 pip install gym[atari]
@@ -113,16 +117,6 @@ If using OpenAI Gym:
 ```
 
 There are plethora of options, just run `./train.sh --help` to see them. While training, the network weights are saved to `snapshots` folder after each epoch. Name of the file is `<game>_<epoch_nr>.pkl`. Training statistics are saved to `results/<game>.csv`, see below how to produce plots from it.
-
-#### Training with Nervana Cloud
-
-To train a model with Nervana Cloud, first install and configure [Nervana Cloud](http://doc.cloud.nervanasys.com/docs/latest/ncloud.html).
-
-Assuming the necessary dependencies are installed, run
-```
-ncloud train src/main.py --args "roms/breakout.bin --save_weights_prefix snapshopts/breakout --csv_file results/breakout.csv" --custom_code_url https://github.com/NervanaSystems/simple_dqn
-```
-This will download the repo and run the training script.
 
 ### Resuming training
 
@@ -198,6 +192,8 @@ What the filter visualization does:
 The result is written to file `results/<game>.html`. By default only 4 filters from each convolutional layer are visualized. To see more filters add `--visualization_filters <nr_filters>` to the command line.
 
 NB! Because it is not very clear how to visualize the state consisting of  4 frames, I made a simplification - I'm using only the last 3 frames and putting them to different color channels. So everything that is gray hasn't changed, blue is the most recent change, then green and then red. It is easier to understand if you look at the trace of a ball - it is marked by red-green-blue.
+
+### Nervana Cloud
 
 ### Profiling
 
