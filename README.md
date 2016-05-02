@@ -144,20 +144,20 @@ This saves testing results in folder `results/Breakout-v0`. Now you can then upl
 ```
 Note that the OpenAI Gym environment differs from the default environment so testing using OpenAI Gym should use a model trained using OpenAI Gym.
 
-#### Testing with Nervana Cloud
-
-To test a model using Nervana Cloud run:
-```
-ncloud train src/main.py --args "roms/breakout.bin --random_steps 0 --train_steps 0 --epochs 1 --load_weights snapshops/breakout_77.pkl" --custom_code_url https://github.com/NervanaSystems/simple_dqn
-```
-
 ### Play one game with visualization
 
 To play one game and show game screen while playing:
 ```
 ./play.sh snapshots/breakout_77.pkl
 ```
-You can do this even without GPU, by adding `--backend cpu` to command line. During gameplay you can use following keys: 'a' - slow down, 's' - speed up, 'm' - manual control mode, '[' - volume down, ']' - volume up. Visualization works even in text terminal!
+You can do this even without GPU, by adding `--backend cpu` to command line. During gameplay you can use following keys:
+* `a` - slow down,
+* `s` - speed up,
+* `m` - manual control mode,
+* `[` - volume down,
+* `]` - volume up.
+
+Visualization works even in text terminal!
 
 ### Record game video
 
@@ -194,6 +194,19 @@ The result is written to file `results/<game>.html`. By default only 4 filters f
 NB! Because it is not very clear how to visualize the state consisting of  4 frames, I made a simplification - I'm using only the last 3 frames and putting them to different color channels. So everything that is gray hasn't changed, blue is the most recent change, then green and then red. It is easier to understand if you look at the trace of a ball - it is marked by red-green-blue.
 
 ### Nervana Cloud
+
+To train a model with Nervana Cloud, first install and configure [Nervana Cloud](http://doc.cloud.nervanasys.com/docs/latest/ncloud.html).
+
+Assuming the necessary dependencies are installed, run
+```
+ncloud train src/main.py --args "roms/breakout.bin --save_weights_prefix snapshopts/breakout --csv_file results/breakout.csv" --custom_code_url https://github.com/NervanaSystems/simple_dqn
+```
+This will download the repo and run the training script.
+
+To test a model using Nervana Cloud run:
+```
+ncloud train src/main.py --args "roms/breakout.bin --random_steps 0 --train_steps 0 --epochs 1 --load_weights snapshops/breakout_77.pkl" --custom_code_url https://github.com/NervanaSystems/simple_dqn
+```
 
 ### Profiling
 
