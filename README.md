@@ -8,11 +8,12 @@ Deep Q-learning agent for replicating DeepMind's results in paper ["Human-level 
  * Every screen is kept only once in replay memory, fast minibatch sampling with Numpy array slicing.
  * The number of array and datatype conversions is minimized.
 
-See the example gameplay videos for Breakout, Pong and Seaquest:
+See the example gameplay videos for Breakout, Pong, Seaquest and Space Invaders:
 
 [![Breakout](http://img.youtube.com/vi/KkIf0Ok5GCE/default.jpg)](https://youtu.be/KkIf0Ok5GCE)
 [![Pong](http://img.youtube.com/vi/0ZlgrQS3krg/default.jpg)](https://youtu.be/0ZlgrQS3krg)
 [![Seaquest](http://img.youtube.com/vi/b6g6A_n8mUk/default.jpg)](https://youtu.be/b6g6A_n8mUk)
+[![Space Invaders](http://img.youtube.com/vi/Qvco7ufsX_0/default.jpg)](https://youtu.be/Qvco7ufsX_0)
 
 ## Installation
 
