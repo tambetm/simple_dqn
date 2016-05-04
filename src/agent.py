@@ -2,12 +2,14 @@ import random
 import logging
 import numpy as np
 logger = logging.getLogger(__name__)
+from state_buffer import StateBuffer
 
 class Agent:
   def __init__(self, environment, replay_memory, deep_q_network, args):
     self.env = environment
     self.mem = replay_memory
     self.net = deep_q_network
+    self.buf = StateBuffer(args)
     self.num_actions = self.env.numActions()
     self.random_starts = args.random_starts
     self.history_length = args.history_length
@@ -31,10 +33,10 @@ class Agent:
       screen = self.env.getScreen()
       terminal = self.env.isTerminal()
       assert not terminal, "terminal state occurred during random initialization"
-      # add dummy states to buffer to guarantee history_length screens
-      self.mem.add(0, reward, screen, terminal)
+      # add dummy states to buffer
+      self.buf.add(screen)
 
-  def _exploration_rate(self):
+  def _explorationRate(self):
     # calculate decaying exploration rate
     if self.total_train_steps < self.exploration_decay_steps:
       return self.exploration_rate_start - self.total_train_steps * (self.exploration_rate_start - self.exploration_rate_end) / self.exploration_decay_steps
@@ -48,8 +50,8 @@ class Agent:
       logger.debug("Random action = %d" % action)
     else:
       # otherwise choose action with highest Q-value
-      state = self.mem.getCurrentState()
-      # for convenience getCurrentState() returns minibatch
+      state = self.buf.getStateMinibatch()
+      # for convenience getStateMinibatch() returns minibatch
       # where first item is the current state
       qvalues = self.net.predict(state)
       assert len(qvalues[0]) == self.num_actions
@@ -66,8 +68,8 @@ class Agent:
     if reward <> 0:
       logger.debug("Reward: %d" % reward)
 
-    # add transition to buffer (otherwise we wouldn't have current state)
-    self.mem.add(action, reward, screen, terminal)
+    # add screen to buffer
+    self.buf.add(screen)
 
     # restart the game if over
     if terminal:
@@ -78,7 +80,7 @@ class Agent:
     if self.callback:
       self.callback.on_step(action, reward, terminal, screen, exploration_rate)
 
-    return terminal
+    return action, reward, screen, terminal
 
   def play_random(self, random_steps):
     # play given number of steps
@@ -88,14 +90,14 @@ class Agent:
 
   def train(self, train_steps, epoch = 0):
     # do not do restart here, continue from testing
-    # initially there should be enough random steps to produce current state
-    assert self.mem.count >= self.history_length, "Not enough history in replay memory, increase random steps."
+    #self._restartRandom()
     # play given number of steps
     for i in xrange(train_steps):
       # perform game step
-      self.step(self._exploration_rate())
+      action, reward, screen, terminal = self.step(self._explorationRate())
+      self.mem.add(action, reward, screen, terminal)
       # train after every train_frequency steps
-      if i % self.train_frequency == 0:
+      if self.mem.count > self.mem.batch_size and i % self.train_frequency == 0:
         # train for train_repeat times
         for j in xrange(self.train_repeat):
           # sample minibatch
@@ -118,5 +120,6 @@ class Agent:
     self._restartRandom()
     for i in xrange(num_games):
       # play until terminal state
-      while not self.step(self.exploration_rate_test):
-        pass
+      terminal = False
+      while not terminal:
+        action, reward, screen, terminal = self.step(self.exploration_rate_test)

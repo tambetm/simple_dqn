@@ -14,8 +14,6 @@ class ReplayMemory:
     self.history_length = args.history_length
     self.dims = (args.screen_height, args.screen_width)
     self.batch_size = args.batch_size
-    self.min_reward = args.min_reward
-    self.max_reward = args.max_reward
     self.count = 0
     self.current = 0
 
@@ -29,15 +27,6 @@ class ReplayMemory:
     assert screen.shape == self.dims
     # NB! screen is post-state, after action and reward
     self.actions[self.current] = action
-    # clip reward between -1 and 1
-    if self.min_reward and reward < self.min_reward:
-      #logger.debug("Smaller than min_reward: %d" % reward)
-      reward = max(reward, self.min_reward)
-      #logger.info("After clipping: %d" % reward)
-    if self.max_reward and reward > self.max_reward:
-      #logger.debug("Bigger than max_reward: %d" % reward)
-      reward = min(reward, self.max_reward)
-      #logger.info("After clipping: %d" % reward)
     self.rewards[self.current] = reward
     self.screens[self.current, ...] = screen
     self.terminals[self.current] = terminal

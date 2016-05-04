@@ -32,8 +32,6 @@ envarg.add_argument("--record_sound_filename", help="Record game sound in this f
 memarg = parser.add_argument_group('Replay memory')
 memarg.add_argument("--replay_size", type=int, default=1000000, help="Maximum size of replay memory.")
 memarg.add_argument("--history_length", type=int, default=4, help="How many screen frames form a state.")
-memarg.add_argument("--min_reward", type=float, default=-1, help="Minimum reward.")
-memarg.add_argument("--max_reward", type=float, default=1, help="Maximum reward.")
 
 netarg = parser.add_argument_group('Deep Q-learning network')
 netarg.add_argument("--learning_rate", type=float, default=0.00025, help="Learning rate.")
@@ -43,6 +41,8 @@ netarg.add_argument('--optimizer', choices=['rmsprop', 'adam', 'adadelta'], defa
 netarg.add_argument("--decay_rate", type=float, default=0.95, help="Decay rate for RMSProp and Adadelta algorithms.")
 netarg.add_argument("--clip_error", type=float, default=1, help="Clip error term in update between this number and its negative.")
 netarg.add_argument("--target_steps", type=int, default=10000, help="Copy main network to target network after this many steps.")
+netarg.add_argument("--min_reward", type=float, default=-1, help="Minimum reward.")
+netarg.add_argument("--max_reward", type=float, default=1, help="Maximum reward.")
 netarg.add_argument("--batch_norm", type=str2bool, default=False, help="Use batch normalization in all layers.")
 
 #netarg.add_argument("--rescale_r", type=str2bool, help="Rescale rewards.")
@@ -142,7 +142,7 @@ for epoch in xrange(args.epochs):
     stats.write(epoch + 1, "train")
 
     if args.save_weights_prefix:
-      filename = args.save_weights_prefix + "_%d.pkl" % (epoch + 1)
+      filename = args.save_weights_prefix + "_%d.prm" % (epoch + 1)
       logger.info("Saving weights to %s" % filename)
       net.save_weights(filename)
 

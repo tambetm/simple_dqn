@@ -1,7 +1,6 @@
 import numpy as np
 
-class MemoryBuffer:
-  # For testing with rl-gym api
+class StateBuffer:
   def __init__(self, args):
     self.history_length = args.history_length
     self.dims = (args.screen_height, args.screen_width)
@@ -33,9 +32,9 @@ if __name__ == '__main__':
   args = parser.parse_args()
 
   import numpy as np
-  mem = MemoryBuffer(args)
+  mem = StateBuffer(args)
   for i in xrange(args.loops):
     mem.add(np.zeros((args.screen_height, args.screen_width)))
     if i >= args.history_length:
       state = mem.getState()
-      batch = mem.getMiniBatch()
+      batch = mem.getStateMinibatch()
