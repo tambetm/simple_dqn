@@ -123,3 +123,5 @@ class Agent:
       terminal = False
       while not terminal:
         action, reward, screen, terminal = self.step(self.exploration_rate_test)
+        # add experiences to replay memory for visualization
+        self.mem.add(action, reward, screen, terminal)
