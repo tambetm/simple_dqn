@@ -123,9 +123,9 @@ There are plethora of options, just run `./train.sh --help` to see them. While t
 
 You can resume training by running 
 ```
-./train.sh roms/breakout.bin --load_weights snapshots/breakout_10.pkl
+./resume.sh snapshots/breakout_10.pkl
 ```
-Pay attention, that exploration rate starts from 1 and replay memory is empty. To start with lower exploration rate add `--exploration_rate_start 0.1 --exploration_decay_steps 0` to the command line.
+Pay attention that the replay memory is empty.
 
 ### Only testing
 

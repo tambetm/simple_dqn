@@ -72,6 +72,7 @@ mainarg.add_argument("--random_steps", type=int, default=50000, help="Populate r
 mainarg.add_argument("--train_steps", type=int, default=250000, help="How many training steps per epoch.")
 mainarg.add_argument("--test_steps", type=int, default=125000, help="How many testing steps after each epoch.")
 mainarg.add_argument("--epochs", type=int, default=200, help="How many epochs to run.")
+mainarg.add_argument("--start_epoch", type=int, default=0, help="Start from this epoch, affects exploration rate and names of saved snapshots.")
 mainarg.add_argument("--play_games", type=int, default=0, help="How many games to play, suppresses training and testing.")
 mainarg.add_argument("--load_weights", help="Load network from file.")
 mainarg.add_argument("--save_weights_prefix", help="Save network to given file. Epoch and extension will be appended.")
@@ -132,7 +133,7 @@ if args.random_steps:
   stats.write(0, "random")
 
 # loop over epochs
-for epoch in xrange(args.epochs):
+for epoch in xrange(args.start_epoch, args.epochs):
   logger.info("Epoch #%d" % (epoch + 1))
 
   if args.train_steps:
