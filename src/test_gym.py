@@ -5,6 +5,7 @@ import numpy as np
 import cv2
 from environment import GymEnvironment
 from deepqnetwork import DeepQNetwork
+from replay_memory import ReplayMemory
 from agent import Agent
 
 def str2bool(v):
@@ -19,6 +20,7 @@ envarg.add_argument("--screen_height", type=int, default=84, help="Screen height
 envarg.add_argument("--display", type=str2bool, default=False, help="Display screen during testing.")
 
 memarg = parser.add_argument_group('Replay memory')
+memarg.add_argument("--replay_size", type=int, default=1000000, help="Maximum size of replay memory.")
 memarg.add_argument("--history_length", type=int, default=4, help="How many screen frames form a state.")
 
 netarg = parser.add_argument_group('Deep Q-learning network')
@@ -49,6 +51,11 @@ antarg.add_argument("--train_repeat", type=int, default=1, help="Number of times
 antarg.add_argument("--random_starts", type=int, default=30, help="Perform max this number of dummy actions after game restart, to produce more random game dynamics.")
 
 mainarg = parser.add_argument_group('Main loop')
+mainarg.add_argument("--random_steps", type=int, default=50000, help="Populate replay memory with random steps before starting learning.")
+mainarg.add_argument("--train_steps", type=int, default=250000, help="How many training steps per epoch.")
+mainarg.add_argument("--test_steps", type=int, default=125000, help="How many testing steps after each epoch.")
+mainarg.add_argument("--epochs", type=int, default=200, help="How many epochs to run.")
+mainarg.add_argument("--start_epoch", type=int, default=0, help="Start from this epoch, affects exploration rate and names of saved snapshots.")
 mainarg.add_argument("--load_weights", help="Load network from file.")
 mainarg.add_argument("--save_weights_prefix", help="Save network to given file. Epoch and extension will be appended.")
 
@@ -63,7 +70,7 @@ if args.random_seed:
 
 env = GymEnvironment(args.env_id, args)
 net = DeepQNetwork(env.numActions(), args)
-mem = None
+mem = ReplayMemory(args.replay_size, args)
 agent = Agent(env, mem, net, args)
 
 if args.load_weights:
