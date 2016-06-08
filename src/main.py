@@ -6,7 +6,6 @@ from replay_memory import ReplayMemory
 from deepqnetwork import DeepQNetwork
 from agent import Agent
 from statistics import Statistics
-from neon.backends import gen_backend
 import random
 import argparse
 import sys
@@ -36,6 +35,7 @@ memarg.add_argument("--replay_size", type=int, default=1000000, help="Maximum si
 memarg.add_argument("--history_length", type=int, default=4, help="How many screen frames form a state.")
 memarg.add_argument("--min_reward", type=float, default=-1, help="Minimum reward.")
 memarg.add_argument("--max_reward", type=float, default=1, help="Maximum reward.")
+memarg.add_argument("--replay_memory_backend", choices=["cpu", "gpu"], default="cpu", help="Where to store replay memory.")
 
 netarg = parser.add_argument_group('Deep Q-learning network')
 netarg.add_argument("--learning_rate", type=float, default=0.00025, help="Learning rate.")
@@ -100,15 +100,8 @@ elif args.environment == 'gym':
 else:
   assert False, "Unknown environment" + args.environment
 
-backend = gen_backend(backend = args.backend,
-                 batch_size = args.batch_size,
-                 rng_seed = args.random_seed,
-                 device_id = args.device_id,
-                 datatype = np.dtype(args.datatype).type,
-                 stochastic_round = args.stochastic_round)
-
-mem = ReplayMemory(args.replay_size, backend, args)
-net = DeepQNetwork(env.numActions(), backend, args)
+mem = ReplayMemory(args.replay_size, args)
+net = DeepQNetwork(env.numActions(), args)
 agent = Agent(env, mem, net, args)
 stats = Statistics(agent, net, mem, env, args)
 

@@ -7,13 +7,14 @@ from neon.transforms import Rectlin
 from neon.models import Model
 from neon.transforms import SumSquared
 from neon.util.persist import save_obj
+import gpu_backend
 import numpy as np
 import os
 import logging
 logger = logging.getLogger(__name__)
 
 class DeepQNetwork:
-  def __init__(self, num_actions, backend, args):
+  def __init__(self, num_actions, args):
     # remember parameters
     self.num_actions = num_actions
     self.batch_size = args.batch_size
@@ -23,7 +24,7 @@ class DeepQNetwork:
     self.clip_error = args.clip_error
 
     # create Neon backend
-    self.be = backend
+    self.be = gpu_backend.initialize_backend(args)
 
     # prepare tensors once and reuse them
     self.input_shape = (self.history_length,) + self.screen_dim + (self.batch_size,)
