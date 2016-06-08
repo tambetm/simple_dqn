@@ -11,10 +11,10 @@ import argparse
 import sys
 import numpy as np
 
-parser = argparse.ArgumentParser()
-
 def str2bool(v):
   return v.lower() in ("yes", "true", "t", "1")
+
+parser = argparse.ArgumentParser()
 
 envarg = parser.add_argument_group('Environment')
 envarg.add_argument("game", help="ROM bin file or env id such as Breakout-v0 if training with Open AI Gym.")
@@ -33,8 +33,6 @@ envarg.add_argument("--record_sound_filename", help="Record game sound in this f
 memarg = parser.add_argument_group('Replay memory')
 memarg.add_argument("--replay_size", type=int, default=1000000, help="Maximum size of replay memory.")
 memarg.add_argument("--history_length", type=int, default=4, help="How many screen frames form a state.")
-memarg.add_argument("--min_reward", type=float, default=-1, help="Minimum reward.")
-memarg.add_argument("--max_reward", type=float, default=1, help="Maximum reward.")
 memarg.add_argument("--replay_memory_backend", choices=["cpu", "gpu"], default="cpu", help="Where to store replay memory.")
 
 netarg = parser.add_argument_group('Deep Q-learning network')
@@ -45,6 +43,9 @@ netarg.add_argument('--optimizer', choices=['rmsprop', 'adam', 'adadelta'], defa
 netarg.add_argument("--decay_rate", type=float, default=0.95, help="Decay rate for RMSProp and Adadelta algorithms.")
 netarg.add_argument("--clip_error", type=float, default=1, help="Clip error term in update between this number and its negative.")
 netarg.add_argument("--target_steps", type=int, default=10000, help="Copy main network to target network after this many steps.")
+netarg.add_argument("--min_reward", type=float, default=-1, help="Minimum reward.")
+netarg.add_argument("--max_reward", type=float, default=1, help="Maximum reward.")
+netarg.add_argument("--batch_norm", type=str2bool, default=False, help="Use batch normalization in all layers.")
 
 #netarg.add_argument("--rescale_r", type=str2bool, help="Rescale rewards.")
 #missing: bufferSize=512,valid_size=500,min_reward=-1,max_reward=1
@@ -73,6 +74,7 @@ mainarg.add_argument("--random_steps", type=int, default=50000, help="Populate r
 mainarg.add_argument("--train_steps", type=int, default=250000, help="How many training steps per epoch.")
 mainarg.add_argument("--test_steps", type=int, default=125000, help="How many testing steps after each epoch.")
 mainarg.add_argument("--epochs", type=int, default=200, help="How many epochs to run.")
+mainarg.add_argument("--start_epoch", type=int, default=0, help="Start from this epoch, affects exploration rate and names of saved snapshots.")
 mainarg.add_argument("--play_games", type=int, default=0, help="How many games to play, suppresses training and testing.")
 mainarg.add_argument("--load_weights", help="Load network from file.")
 mainarg.add_argument("--save_weights_prefix", help="Save network to given file. Epoch and extension will be appended.")
@@ -133,7 +135,7 @@ if args.random_steps:
   stats.write(0, "random")
 
 # loop over epochs
-for epoch in xrange(args.epochs):
+for epoch in xrange(args.start_epoch, args.epochs):
   logger.info("Epoch #%d" % (epoch + 1))
 
   if args.train_steps:
@@ -143,7 +145,7 @@ for epoch in xrange(args.epochs):
     stats.write(epoch + 1, "train")
 
     if args.save_weights_prefix:
-      filename = args.save_weights_prefix + "_%d.pkl" % (epoch + 1)
+      filename = args.save_weights_prefix + "_%d.prm" % (epoch + 1)
       logger.info("Saving weights to %s" % filename)
       net.save_weights(filename)
 

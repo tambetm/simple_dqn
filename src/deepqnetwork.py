@@ -22,6 +22,9 @@ class DeepQNetwork:
     self.history_length = args.history_length
     self.screen_dim = (args.screen_height, args.screen_width)
     self.clip_error = args.clip_error
+    self.min_reward = args.min_reward
+    self.max_reward = args.max_reward
+    self.batch_norm = args.batch_norm
 
     # create Neon backend
     self.be = gpu_backend.initialize_backend(args)
@@ -75,13 +78,13 @@ class DeepQNetwork:
     init_norm = Gaussian(loc=0.0, scale=0.01)
     layers = []
     # The first hidden layer convolves 32 filters of 8x8 with stride 4 with the input image and applies a rectifier nonlinearity.
-    layers.append(Conv((8, 8, 32), strides=4, init=init_norm, activation=Rectlin()))
+    layers.append(Conv((8, 8, 32), strides=4, init=init_norm, activation=Rectlin(), batch_norm=self.batch_norm))
     # The second hidden layer convolves 64 filters of 4x4 with stride 2, again followed by a rectifier nonlinearity.
-    layers.append(Conv((4, 4, 64), strides=2, init=init_norm, activation=Rectlin()))
+    layers.append(Conv((4, 4, 64), strides=2, init=init_norm, activation=Rectlin(), batch_norm=self.batch_norm))
     # This is followed by a third convolutional layer that convolves 64 filters of 3x3 with stride 1 followed by a rectifier.
-    layers.append(Conv((3, 3, 64), strides=1, init=init_norm, activation=Rectlin()))
+    layers.append(Conv((3, 3, 64), strides=1, init=init_norm, activation=Rectlin(), batch_norm=self.batch_norm))
     # The final hidden layer is fully-connected and consists of 512 rectifier units.
-    layers.append(Affine(nout=512, init=init_norm, activation=Rectlin()))
+    layers.append(Affine(nout=512, init=init_norm, activation=Rectlin(), batch_norm=self.batch_norm))
     # The output layer is a fully-connected linear layer with a single output for each valid action.
     layers.append(Affine(nout=num_actions, init = init_norm))
     return layers
@@ -104,8 +107,9 @@ class DeepQNetwork:
     assert prestates.shape[0] == actions.shape[0] == rewards.shape[0] == poststates.shape[0] == terminals.shape[0]
 
     if self.target_steps and self.train_iterations % self.target_steps == 0:
-      pdict = self.model.get_description(get_weights=True)
-      self.target_model.deserialize(pdict, load_states=False)
+      # have to serialize also states for batch normalization to work
+      pdict = self.model.get_description(get_weights=True, keep_states=True)
+      self.target_model.deserialize(pdict, load_states=True)
 
     # feed-forward pass for poststates to get Q-values
     self._setInput(poststates)
@@ -123,6 +127,9 @@ class DeepQNetwork:
 
     # make copy of prestate Q-values as targets
     targets = preq.asnumpyarray()
+
+    # clip rewards between -1 and 1
+    rewards = np.clip(rewards, self.min_reward, self.max_reward)
 
     # update Q-value targets for actions taken
     for i, action in enumerate(actions):
@@ -174,7 +181,7 @@ class DeepQNetwork:
     return qvalues.T.asnumpyarray()
 
   def load_weights(self, load_path):
-    self.model.load_weights(load_path)
+    self.model.load_params(load_path)
 
   def save_weights(self, save_path):
-    save_obj(self.model.serialize(keep_states = True), save_path)
+    self.model.save_params(save_path)
