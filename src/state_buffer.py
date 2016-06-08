@@ -1,16 +1,18 @@
 import numpy as np
+import gpu_backend
 
 class StateBuffer:
   def __init__(self, args):
+    self.be = gpu_backend.initialize_backend(args)
     self.history_length = args.history_length
     self.dims = (args.screen_height, args.screen_width)
     self.batch_size = args.batch_size
-    self.buffer = np.zeros((self.batch_size, self.history_length) + self.dims, dtype=np.uint8)
+    self.buffer = self.be.zeros((self.batch_size, self.history_length) + self.dims, dtype=np.uint8)
 
   def add(self, observation):
     assert observation.shape == self.dims
-    self.buffer[0, :-1] = self.buffer[0, 1:]
-    self.buffer[0, -1] = observation
+    self.buffer[0, :-1][:] = self.buffer[0, 1:]
+    self.buffer[0, -1][:] = observation
 
   def getState(self):
     return self.buffer[0]
@@ -19,7 +21,7 @@ class StateBuffer:
     return self.buffer
 
   def reset(self):
-    self.buffer *= 0
+    self.buffer[:] = 0
 
 if __name__ == '__main__':
   import argparse

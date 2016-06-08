@@ -8,6 +8,7 @@ from neon.models import Model
 from neon.transforms import SumSquared
 from neon.util.persist import save_obj
 import numpy as np
+import gpu_backend
 import os
 import logging
 logger = logging.getLogger(__name__)
@@ -26,16 +27,12 @@ class DeepQNetwork:
     self.batch_norm = args.batch_norm
 
     # create Neon backend
-    self.be = gen_backend(backend = args.backend,
-                 batch_size = args.batch_size,
-                 rng_seed = args.random_seed,
-                 device_id = args.device_id,
-                 datatype = np.dtype(args.datatype).type,
-                 stochastic_round = args.stochastic_round)
+    self.be = gpu_backend.initialize_backend(args)
 
     # prepare tensors once and reuse them
     self.input_shape = (self.history_length,) + self.screen_dim + (self.batch_size,)
     self.input = self.be.empty(self.input_shape)
+    self.input_uint8 = self.be.empty(self.input_shape, dtype=np.uint8)
     self.input.lshape = self.input_shape # HACK: needed for convolutional networks
     self.targets = self.be.empty((self.num_actions, self.batch_size))
 
@@ -93,11 +90,13 @@ class DeepQNetwork:
 
   def _setInput(self, states):
     # change order of axes to match what Neon expects
-    states = np.transpose(states, axes = (1, 2, 3, 0))
+    #states = states.get()
+    self.be.copy_transpose(states, self.input_uint8, axes=(1, 2, 3, 0))
     # copy() shouldn't be necessary here, but Neon doesn't work otherwise
-    self.input.set(states.copy())
+    #self.input.set(states.copy())
     # normalize network input between 0 and 1
-    self.be.divide(self.input, 255, self.input)
+    #self.be.divide(self.input, 255, self.input)
+    self.input[:] = self.input_uint8 / 255
 
   def train(self, minibatch, epoch):
     # expand components of minibatch
