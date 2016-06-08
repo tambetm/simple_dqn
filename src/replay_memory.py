@@ -1,4 +1,5 @@
 import numpy as np
+import gpu_backend
 import random
 import logging
 logger = logging.getLogger(__name__)
@@ -6,6 +7,7 @@ logger = logging.getLogger(__name__)
 class ReplayMemory:
   def __init__(self, size, args):
     self.size = size
+    self.be = gpu_backend.initialize_backend(args)
     # preallocate memory
     self.actions = np.empty(self.size, dtype = np.uint8)
     self.rewards = np.empty(self.size, dtype = np.integer)
@@ -18,8 +20,10 @@ class ReplayMemory:
     self.current = 0
 
     # pre-allocate prestates and poststates for minibatch
-    self.prestates = np.empty((self.batch_size, self.history_length) + self.dims, dtype = np.uint8)
-    self.poststates = np.empty((self.batch_size, self.history_length) + self.dims, dtype = np.uint8)
+    self.prestates = self.be.empty((self.batch_size, self.history_length,) + self.dims, dtype=np.uint8)
+    self.poststates = self.be.empty((self.batch_size, self.history_length,) + self.dims, dtype=np.uint8)
+    self.prestates_view = [self.prestates[i, ...] for i in xrange(self.batch_size)]
+    self.poststates_view = [self.poststates[i, ...] for i in xrange(self.batch_size)]
 
     logger.info("Replay memory size: %d" % self.size)
 
@@ -50,7 +54,7 @@ class ReplayMemory:
 
   def getCurrentState(self):
     # reuse first row of prestates in minibatch to minimize memory consumption
-    self.prestates[0, ...] = self.getState(self.current - 1)
+    self.prestates_view[0][:] = self.getState(self.current - 1)
     return self.prestates
 
   def getMinibatch(self):
@@ -74,8 +78,8 @@ class ReplayMemory:
         break
       
       # NB! having index first is fastest in C-order matrices
-      self.prestates[len(indexes), ...] = self.getState(index - 1)
-      self.poststates[len(indexes), ...] = self.getState(index)
+      self.prestates_view[len(indexes)][:] = self.getState(index - 1)
+      self.poststates_view[len(indexes)][:] = self.getState(index)
       indexes.append(index)
 
     # copy actions, rewards and terminals with direct slicing
