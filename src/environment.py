@@ -80,10 +80,14 @@ class ALEEnvironment(Environment):
     self.ale.reset_game()
 
   def act(self, action):
-    return self.ale.act(self.actions[action])
+    reward = self.ale.act(self.actions[action])
+    return reward
 
   def getScreen(self):
-    return cv2.resize(self.ale.getScreenGrayscale(), self.dims)
+    screen = self.ale.getScreenGrayscale()
+    import cv2
+    resized = cv2.resize(screen, self.dims)
+    return resized
 
   def isTerminal(self):
     return self.ale.game_over()
