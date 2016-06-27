@@ -33,7 +33,6 @@ class ReplayMemory:
     self.count = max(self.count, self.current + 1)
     self.current = (self.current + 1) % self.size
     #logger.debug("Memory count %d" % self.count)
-
   
   def getState(self, index):
     assert self.count > 0, "replay memory is empy, use at least --random_steps 1"
@@ -47,11 +46,6 @@ class ReplayMemory:
       # otherwise normalize indexes and use slower list based access
       indexes = [(index - i) % self.count for i in reversed(range(self.history_length))]
       return self.screens[indexes, ...]
-
-  def getCurrentState(self):
-    # reuse first row of prestates in minibatch to minimize memory consumption
-    self.prestates[0, ...] = self.getState(self.current - 1)
-    return self.prestates
 
   def getMinibatch(self):
     # memory must include poststate, prestate and history

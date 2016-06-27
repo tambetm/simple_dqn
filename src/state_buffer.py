@@ -1,6 +1,11 @@
 import numpy as np
 
 class StateBuffer:
+  """
+  While ReplayMemory could have been used for fetching the current state,
+  this also means that test time states make their way to training process.
+  Having separate StateBuffer ensures that test data doesn't leak into training.
+  """
   def __init__(self, args):
     self.history_length = args.history_length
     self.dims = (args.screen_height, args.screen_width)
