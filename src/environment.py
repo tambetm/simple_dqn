@@ -70,8 +70,8 @@ class ALEEnvironment(Environment):
       logger.info("Using full action set with size %d" % len(self.actions))
     logger.debug("Actions: " + str(self.actions))
 
-    # OpenCV expects width as first and height as second
-    self.dims = (args.screen_width, args.screen_height)
+    self.screen_width = args.screen_width
+    self.screen_height = args.screen_height
 
   def numActions(self):
     return len(self.actions)
@@ -85,8 +85,7 @@ class ALEEnvironment(Environment):
 
   def getScreen(self):
     screen = self.ale.getScreenGrayscale()
-    import cv2
-    resized = cv2.resize(screen, self.dims)
+    resized = cv2.resize(screen, (self.screen_width, self.screen_height))
     return resized
 
   def isTerminal(self):
@@ -99,8 +98,9 @@ class GymEnvironment(Environment):
     self.gym = gym.make(env_id)
     self.obs = None
     self.terminal = None
-    # OpenCV expects width as first and height as second s
-    self.dims = (args.screen_width, args.screen_height)
+
+    self.screen_width = args.screen_width
+    self.screen_height = args.screen_height
 
   def numActions(self):
     import gym
@@ -117,7 +117,7 @@ class GymEnvironment(Environment):
 
   def getScreen(self):
     assert self.obs is not None
-    return cv2.resize(cv2.cvtColor(self.obs, cv2.COLOR_RGB2GRAY), self.dims)
+    return cv2.resize(cv2.cvtColor(self.obs, cv2.COLOR_RGB2GRAY), (self.screen_width, self.screen_height))
 
   def isTerminal(self):
     assert self.terminal is not None

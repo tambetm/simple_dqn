@@ -169,7 +169,7 @@ class DeepQNetwork:
 
     # calculate statistics
     if self.callback:
-      self.callback.on_train(cost.asnumpyarray()[0,0])
+      self.callback.on_train(cost[0,0])
 
   def predict(self, states):
     # minibatch is full size, because Neon doesn't let change the minibatch size
