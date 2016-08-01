@@ -130,7 +130,7 @@ class DeepQNetwork:
     assert preq.shape == (self.num_actions, self.batch_size)
 
     # make copy of prestate Q-values as targets
-    targets = preq.asnumpyarray()
+    targets = preq.asnumpyarray().copy()
 
     # clip rewards between -1 and 1
     rewards = np.clip(rewards, self.min_reward, self.max_reward)
