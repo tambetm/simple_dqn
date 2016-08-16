@@ -86,7 +86,8 @@ class Agent:
     # play given number of steps
     for i in xrange(random_steps):
       # use exploration rate 1 = completely random
-      self.step(1)
+      action, reward, screen, terminal = self.step(1)
+      self.mem.add(action, reward, screen, terminal)
 
   def train(self, train_steps, epoch = 0):
     # do not do restart here, continue from testing
