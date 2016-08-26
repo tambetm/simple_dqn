@@ -28,6 +28,10 @@ class Environment:
     # Returns if game is done
     raise NotImplementedError
 
+  def setMode(self, mode):
+    # Set training/test mode. Not used in Gym environment
+    self.mode = mode
+
 class ALEEnvironment(Environment):
   def __init__(self, rom_file, args):
     from ale_python_interface import ALEInterface
@@ -73,14 +77,19 @@ class ALEEnvironment(Environment):
     self.screen_width = args.screen_width
     self.screen_height = args.screen_height
 
+    self.life_lost = False
+
   def numActions(self):
     return len(self.actions)
 
   def restart(self):
     self.ale.reset_game()
+    self.life_lost = False
 
   def act(self, action):
+    lives = self.ale.lives()
     reward = self.ale.act(self.actions[action])
+    self.life_lost = (not lives == self.ale.lives())
     return reward
 
   def getScreen(self):
@@ -89,6 +98,8 @@ class ALEEnvironment(Environment):
     return resized
 
   def isTerminal(self):
+    if self.mode == 'train':
+      return self.ale.game_over() or self.life_lost
     return self.ale.game_over()
 
 class GymEnvironment(Environment):

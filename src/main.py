@@ -111,6 +111,8 @@ if args.load_weights:
 
 if args.play_games:
   logger.info("Playing for %d game(s)" % args.play_games)
+  # Set env mode test so that loss of life is not considered as terminal
+  env.setMode('test')
   stats.reset()
   agent.play(args.play_games)
   stats.write(0, "play")
@@ -128,6 +130,8 @@ if args.play_games:
 if args.random_steps:
   # populate replay memory with random steps
   logger.info("Populating replay memory with %d random moves" % args.random_steps)
+  # Set env mode test so that loss of life is considered as terminal
+  env.setMode('train')
   stats.reset()
   agent.play_random(args.random_steps)
   stats.write(0, "random")
@@ -138,6 +142,8 @@ for epoch in xrange(args.start_epoch, args.epochs):
 
   if args.train_steps:
     logger.info(" Training for %d steps" % args.train_steps)
+    # Set env mode test so that loss of life is considered as terminal
+    env.setMode('train')
     stats.reset()
     agent.train(args.train_steps, epoch)
     stats.write(epoch + 1, "train")
@@ -149,6 +155,8 @@ for epoch in xrange(args.start_epoch, args.epochs):
 
   if args.test_steps:
     logger.info(" Testing for %d steps" % args.test_steps)
+    # Set env mode test so that loss of life is not considered as terminal
+    env.setMode('test')
     stats.reset()
     agent.test(args.test_steps, epoch)
     stats.write(epoch + 1, "test")
