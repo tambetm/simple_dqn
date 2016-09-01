@@ -1,6 +1,6 @@
 from neon.util.argparser import NeonArgparser
 from neon.backends import gen_backend
-from neon.initializers import Gaussian
+from neon.initializers import Xavier
 from neon.optimizers import RMSProp, Adam, Adadelta
 from neon.layers import Affine, Conv, GeneralizedCost
 from neon.transforms import Rectlin
@@ -77,18 +77,19 @@ class DeepQNetwork:
 
   def _createLayers(self, num_actions):
     # create network
-    init_norm = Gaussian(loc=0.0, scale=0.01)
+    init_xavier_conv = Xavier(local=True)
+    init_xavier_affine = Xavier(local=False)
     layers = []
     # The first hidden layer convolves 32 filters of 8x8 with stride 4 with the input image and applies a rectifier nonlinearity.
-    layers.append(Conv((8, 8, 32), strides=4, init=init_norm, activation=Rectlin(), batch_norm=self.batch_norm))
+    layers.append(Conv((8, 8, 32), strides=4, init=init_xavier_conv, activation=Rectlin(), batch_norm=self.batch_norm))
     # The second hidden layer convolves 64 filters of 4x4 with stride 2, again followed by a rectifier nonlinearity.
-    layers.append(Conv((4, 4, 64), strides=2, init=init_norm, activation=Rectlin(), batch_norm=self.batch_norm))
+    layers.append(Conv((4, 4, 64), strides=2, init=init_xavier_conv, activation=Rectlin(), batch_norm=self.batch_norm))
     # This is followed by a third convolutional layer that convolves 64 filters of 3x3 with stride 1 followed by a rectifier.
-    layers.append(Conv((3, 3, 64), strides=1, init=init_norm, activation=Rectlin(), batch_norm=self.batch_norm))
+    layers.append(Conv((3, 3, 64), strides=1, init=init_xavier_conv, activation=Rectlin(), batch_norm=self.batch_norm))
     # The final hidden layer is fully-connected and consists of 512 rectifier units.
-    layers.append(Affine(nout=512, init=init_norm, activation=Rectlin(), batch_norm=self.batch_norm))
+    layers.append(Affine(nout=512, init=init_xavier_affine, activation=Rectlin(), batch_norm=self.batch_norm))
     # The output layer is a fully-connected linear layer with a single output for each valid action.
-    layers.append(Affine(nout=num_actions, init = init_norm))
+    layers.append(Affine(nout=num_actions, init = init_xavier_affine))
     return layers
 
   def _setInput(self, states):
