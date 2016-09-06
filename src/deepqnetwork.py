@@ -61,6 +61,7 @@ class DeepQNetwork:
       assert false, "Unknown optimizer"
 
     # create target model
+    self.train_iterations = 0
     if args.target_steps:
       self.target_model = Model(layers = self._createLayers(num_actions))
       # Bug fix
@@ -162,6 +163,9 @@ class DeepQNetwork:
 
     # perform optimization
     self.optimizer.optimize(self.model.layers_to_optimize, epoch)
+
+    # increase number of weight updates (needed for stats callback)
+    self.train_iterations += 1
 
     # calculate statistics
     if self.callback:
