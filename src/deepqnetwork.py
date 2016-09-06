@@ -61,9 +61,7 @@ class DeepQNetwork:
       assert false, "Unknown optimizer"
 
     # create target model
-    self.target_steps = args.target_steps
-    self.train_iterations = 0
-    if self.target_steps:
+    if args.target_steps:
       self.target_model = Model(layers = self._createLayers(num_actions))
       # Bug fix
       for l in self.target_model.layers.layers:
@@ -116,9 +114,6 @@ class DeepQNetwork:
     assert prestates.shape == poststates.shape
     assert prestates.shape[0] == actions.shape[0] == rewards.shape[0] == poststates.shape[0] == terminals.shape[0]
 
-    if self.target_steps and self.train_iterations % self.target_steps == 0:
-      self.update_target_network()
-
     # feed-forward pass for poststates to get Q-values
     self._setInput(poststates)
     postq = self.target_model.fprop(self.input, inference = True)
@@ -167,9 +162,6 @@ class DeepQNetwork:
 
     # perform optimization
     self.optimizer.optimize(self.model.layers_to_optimize, epoch)
-
-    # increase number of weight updates (needed for target clone interval)
-    self.train_iterations += 1
 
     # calculate statistics
     if self.callback:
