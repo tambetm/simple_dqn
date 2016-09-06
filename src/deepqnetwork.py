@@ -100,6 +100,11 @@ class DeepQNetwork:
     # normalize network input between 0 and 1
     self.be.divide(self.input, 255, self.input)
 
+  def update_target_network(self):
+      # have to serialize also states for batch normalization to work
+      pdict = self.model.get_description(get_weights=True, keep_states=True)
+      self.target_model.deserialize(pdict, load_states=True)
+
   def train(self, minibatch, epoch):
     # expand components of minibatch
     prestates, actions, rewards, poststates, terminals = minibatch
@@ -112,9 +117,7 @@ class DeepQNetwork:
     assert prestates.shape[0] == actions.shape[0] == rewards.shape[0] == poststates.shape[0] == terminals.shape[0]
 
     if self.target_steps and self.train_iterations % self.target_steps == 0:
-      # have to serialize also states for batch normalization to work
-      pdict = self.model.get_description(get_weights=True, keep_states=True)
-      self.target_model.deserialize(pdict, load_states=True)
+      self.update_target_network()
 
     # feed-forward pass for poststates to get Q-values
     self._setInput(poststates)
