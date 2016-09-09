@@ -40,7 +40,6 @@ netarg.add_argument("--batch_size", type=int, default=32, help="Batch size for n
 netarg.add_argument('--optimizer', choices=['rmsprop', 'adam', 'adadelta'], default='rmsprop', help='Network optimization algorithm.')
 netarg.add_argument("--decay_rate", type=float, default=0.95, help="Decay rate for RMSProp and Adadelta algorithms.")
 netarg.add_argument("--clip_error", type=float, default=1, help="Clip error term in update between this number and its negative.")
-netarg.add_argument("--target_steps", type=int, default=10000, help="Copy main network to target network after this many steps.")
 netarg.add_argument("--min_reward", type=float, default=-1, help="Minimum reward.")
 netarg.add_argument("--max_reward", type=float, default=1, help="Maximum reward.")
 netarg.add_argument("--batch_norm", type=str2bool, default=False, help="Use batch normalization in all layers.")
@@ -61,6 +60,7 @@ antarg.add_argument("--exploration_decay_steps", type=float, default=1000000, he
 antarg.add_argument("--exploration_rate_test", type=float, default=0.05, help="Exploration rate used during testing.")
 antarg.add_argument("--train_frequency", type=int, default=4, help="Perform training after this many game steps.")
 antarg.add_argument("--train_repeat", type=int, default=1, help="Number of times to sample minibatch during training.")
+antarg.add_argument("--target_steps", type=int, default=10000, help="Copy main network to target network after this many game steps.")
 antarg.add_argument("--random_starts", type=int, default=30, help="Perform max this number of dummy actions after game restart, to produce more random game dynamics.")
 
 nvisarg = parser.add_argument_group('Visualization')
