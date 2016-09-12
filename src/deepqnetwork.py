@@ -61,9 +61,8 @@ class DeepQNetwork:
       assert false, "Unknown optimizer"
 
     # create target model
-    self.target_steps = args.target_steps
     self.train_iterations = 0
-    if self.target_steps:
+    if args.target_steps:
       self.target_model = Model(layers = self._createLayers(num_actions))
       # Bug fix
       for l in self.target_model.layers.layers:
@@ -100,6 +99,11 @@ class DeepQNetwork:
     # normalize network input between 0 and 1
     self.be.divide(self.input, 255, self.input)
 
+  def update_target_network(self):
+      # have to serialize also states for batch normalization to work
+      pdict = self.model.get_description(get_weights=True, keep_states=True)
+      self.target_model.deserialize(pdict, load_states=True)
+
   def train(self, minibatch, epoch):
     # expand components of minibatch
     prestates, actions, rewards, poststates, terminals = minibatch
@@ -110,11 +114,6 @@ class DeepQNetwork:
     assert len(terminals.shape) == 1
     assert prestates.shape == poststates.shape
     assert prestates.shape[0] == actions.shape[0] == rewards.shape[0] == poststates.shape[0] == terminals.shape[0]
-
-    if self.target_steps and self.train_iterations % self.target_steps == 0:
-      # have to serialize also states for batch normalization to work
-      pdict = self.model.get_description(get_weights=True, keep_states=True)
-      self.target_model.deserialize(pdict, load_states=True)
 
     # feed-forward pass for poststates to get Q-values
     self._setInput(poststates)
@@ -165,7 +164,7 @@ class DeepQNetwork:
     # perform optimization
     self.optimizer.optimize(self.model.layers_to_optimize, epoch)
 
-    # increase number of weight updates (needed for target clone interval)
+    # increase number of weight updates (needed for stats callback)
     self.train_iterations += 1
 
     # calculate statistics

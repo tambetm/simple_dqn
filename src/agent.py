@@ -22,6 +22,7 @@ class Agent:
 
     self.train_frequency = args.train_frequency
     self.train_repeat = args.train_repeat
+    self.target_steps = args.target_steps
 
     self.callback = None
 
@@ -97,6 +98,9 @@ class Agent:
       # perform game step
       action, reward, screen, terminal = self.step(self._explorationRate())
       self.mem.add(action, reward, screen, terminal)
+      # Update target network every target_steps steps
+      if self.target_steps and i % self.target_steps == 0:
+        self.net.update_target_network()
       # train after every train_frequency steps
       if self.mem.count > self.mem.batch_size and i % self.train_frequency == 0:
         # train for train_repeat times
