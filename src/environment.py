@@ -83,7 +83,16 @@ class ALEEnvironment(Environment):
     return len(self.actions)
 
   def restart(self):
-    self.ale.reset_game()
+    # In test mode, the game is simply initialized. In train mode, if the game
+    # is in terminal state due to a life loss but not yet game over, then only
+    # life loss flag is reset so that the next game starts from the current
+    # state. Otherwise, the game is simply initialized.
+    if (
+        self.mode == 'test' or
+        not self.life_lost or  # `reset` called in a middle of episode
+        self.ale.game_over()  # all lives are lost
+    ):
+      self.ale.reset_game()
     self.life_lost = False
 
   def act(self, action):
