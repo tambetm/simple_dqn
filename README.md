@@ -218,11 +218,9 @@ There are three additional scripts for profiling:
 
 ### Known differences
 
- * DeepMind considers loss of life as episode end, but only during training.
  * Simple DQN uses Neon's default RMSProp implementation, DeepMind uses different formulation from [Alex Graves' paper](http://arxiv.org/pdf/1308.0850v5.pdf) (see page 23, eq 40).
  * Simple DQN uses averaged frame among skipped frame (which is ALE's built-in functionality), instead of max values from successive two frames as in the DeepMind paper.
- * DeepMind uses a fan_in parameter initializer while Simple DQN uses Gaussian. Xavier initializer in Neon is similar to fan_in and people report better results with it.
- * After 10000 steps the main network is copied to target network. Simple DQN counts training steps, but DeepMind counts environment steps. Simple DQN equivalent would be 2500 steps and people report better results with it.
+ * Simple DQN uses Neon's Xavier initializer, DeepMind uses a fan_in parameter initializer.
 
 ## Credits
 
