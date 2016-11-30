@@ -107,8 +107,6 @@ class ALEEnvironment(Environment):
     return resized
 
   def isTerminal(self):
-    if self.mode == 'train':
-      return self.ale.game_over() or self.life_lost
     return self.ale.game_over()
 
 class GymEnvironment(Environment):
