@@ -33,7 +33,6 @@ class Agent:
       reward = self.env.act(0)
       screen = self.env.getScreen()
       terminal = self.env.isTerminal()
-      assert not terminal, "terminal state occurred during random initialization"
       # add dummy states to buffer
       self.buf.add(screen)
 
