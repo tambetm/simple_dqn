@@ -31,9 +31,10 @@ class Agent:
     # perform random number of dummy actions to produce more stochastic games
     for i in xrange(random.randint(self.history_length, self.random_starts) + 1):
       reward = self.env.act(0)
-      screen = self.env.getScreen()
       terminal = self.env.isTerminal()
-      assert not terminal, "terminal state occurred during random initialization"
+      if terminal:
+          self.env.restart()
+      screen = self.env.getScreen()
       # add dummy states to buffer
       self.buf.add(screen)
 
