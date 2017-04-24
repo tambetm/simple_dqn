@@ -85,6 +85,8 @@ class Agent:
     return action, reward, screen, terminal
 
   def play_random(self, random_steps):
+    #call env.restart first so that env.reset is called before step.
+    self.env.restart()
     # play given number of steps
     for i in xrange(random_steps):
       # use exploration rate 1 = completely random
