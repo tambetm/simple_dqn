@@ -121,6 +121,7 @@ class GymEnvironment(Environment):
 
     self.screen_width = args.screen_width
     self.screen_height = args.screen_height
+    self.gym.reset()
 
   def numActions(self):
     import gym
