@@ -25,6 +25,8 @@ Install prerequisites:
 ```
 sudo apt-get install libhdf5-dev libyaml-dev libopencv-dev pkg-config
 sudo apt-get install python python-dev python-pip python-virtualenv
+sudo apt-get install libcurl4-openssl-dev
+sudo apt-get install libsox-fmt-all libsox-dev sox
 ```
 Check out and compile the code:
 ```
