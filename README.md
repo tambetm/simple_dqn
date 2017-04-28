@@ -83,7 +83,7 @@ Neon virtual environment already contains those libraries, but they are listed h
 Also you need OpenCV, which is pain to install to virtual environment. I ended up with this hack:
 ```
 sudo apt-get install python-opencv
-ln -s /usr/lib/python2.7/dist-packages/cv2.so NEON_HOME/.venv/lib/python2.7/site-packages/
+ln -s /usr/lib/python2.7/dist-packages/cv2.so $NEON_HOME/.venv/lib/python2.7/site-packages/
 ```
 `NEON_HOME` here means the folder where you installed (cloned) Neon.
 
