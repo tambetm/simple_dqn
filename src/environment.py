@@ -107,8 +107,6 @@ class ALEEnvironment(Environment):
     return resized
 
   def isTerminal(self):
-    if self.mode == 'train':
-      return self.ale.game_over() or self.life_lost
     return self.ale.game_over()
 
 class GymEnvironment(Environment):
@@ -140,5 +138,4 @@ class GymEnvironment(Environment):
     return cv2.resize(cv2.cvtColor(self.obs, cv2.COLOR_RGB2GRAY), (self.screen_width, self.screen_height))
 
   def isTerminal(self):
-    assert self.terminal is not None
     return self.terminal
