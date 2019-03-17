@@ -1,5 +1,7 @@
 # Simple DQN
 
+**Unfortunately this repo is outdated and there are much better codebases out there. I would suggest to take a look at [this](https://github.com/keon/deep-q-learning) to learn the basics or [this](https://github.com/hill-a/stable-baselines) for full-blown DQN implementation for Atari.**
+
 Deep Q-learning agent for replicating DeepMind's results in paper ["Human-level control through deep reinforcement learning"](http://www.nature.com/nature/journal/v518/n7540/full/nature14236.html). It is designed to be simple, fast and easy to extend. In particular:
  * It's Python :).
  * Uses ALE [native Python interface](https://github.com/bbitmaster/ale_python_interface/wiki/Code-Tutorial).
